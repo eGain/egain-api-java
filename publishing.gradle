@@ -22,10 +22,10 @@ afterEvaluate {
                     ]
                     name = config.name
                     description = config.description
-                    url = 'https://github.com/owner/repo'
+                    url = 'https://github.com/eGain/egain-api-java'
                     scm {
-                        url = 'github.com/owner/repo'
-                        connection = 'scm:git:ssh://git@github.com/owner/repo.git'
+                        url = 'github.com/eGain/egain-api-java'
+                        connection = 'scm:git:ssh://git@github.com/eGain/egain-api-java.git'
                     }
                     licenses {
                         license {
@@ -35,14 +35,14 @@ afterEvaluate {
                     }
                     developers {
                         developer {
-                            name = 'My Company'
-                            organization = 'My Company'
-                            email = 'info@mycompany.com'
+                            name = 'eGain Corporation'
+                            organization = 'eGain Corporation'
+                            email = 'support@egain.com'
                         }
                     }
                     organization {
-                        name = 'My Company'
-                        url = 'www.mycompany.com'
+                        name = 'eGain Corporation'
+                        url = 'www.egain.com'
                     }
                 }
             }

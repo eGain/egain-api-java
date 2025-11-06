@@ -37,7 +37,7 @@ group = "${groupId}"
 jar {
     dependsOn 'generatePomFileForMavenPublication'
 
-    into("META-INF/maven/com.egain/sdk") {
+    into("META-INF/maven/com.egain.sdk/egain-api") {
         from(layout.buildDirectory.file("pom.xml")) {
             // Only include if it exists to avoid build ordering issues
             duplicatesStrategy = DuplicatesStrategy.INCLUDE
@@ -88,8 +88,8 @@ ext {
 
 subprojects {
     if (name in [
-            'sdk-spring-boot-autoconfigure',
-            'sdk-spring-boot-starter'
+            'egain-api-spring-boot-autoconfigure',
+            'egain-api-spring-boot-starter'
     ]) {
         // Ensure subprojects use the same group and version as root project
         group = rootProject.group
@@ -127,8 +127,8 @@ ext {
         groupId: group,
         artifactId: artifactId,
         version: version,
-        name: "My Company Java SDK",
-        description: "SDK enabling Java developers to easily integrate with the My Company API.",
+        name: "eGain Corporation Java SDK",
+        description: "SDK enabling Java developers to easily integrate with the eGain Corporation API.",
         publicationName: "maven"
     ]
 }

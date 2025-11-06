@@ -1,13 +1,13 @@
-description = 'sdk Spring Boot Auto Configuration'
+description = 'egain-api Spring Boot Auto Configuration'
 
 // Publishing configuration overrides
 ext {
     publishingConfig = [
         groupId: rootProject.group,
-        artifactId: 'sdk-spring-boot-autoconfigure',
+        artifactId: 'egain-api-spring-boot-autoconfigure',
         version: rootProject.version,
-        name: 'My Company Java SDK - Spring Boot Auto Configuration',
-        description: 'Spring Boot auto-configuration for the My Company Java SDK.',
+        name: 'eGain Corporation Java SDK - Spring Boot Auto Configuration',
+        description: 'Spring Boot auto-configuration for the eGain Corporation Java SDK.',
     ]
 }
 
@@ -25,8 +25,8 @@ test {
 
 jar {
     dependsOn 'generatePomFileForMavenPublication'
-    archiveBaseName = 'sdk-spring-boot-autoconfigure'
-    into("META-INF/maven/com.egain/sdk-spring-boot-autoconfigure") {
+    archiveBaseName = 'egain-api-spring-boot-autoconfigure'
+    into("META-INF/maven/com.egain.sdk/egain-api-spring-boot-autoconfigure") {
         from(layout.buildDirectory.file("pom.xml")) {
             // Only include if it exists to avoid build ordering issues
             duplicatesStrategy = DuplicatesStrategy.INCLUDE

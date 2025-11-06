@@ -25,19 +25,19 @@ import java.util.function.Consumer;
 
 
 /**
- * Spring Boot Auto Configuration for sdk SDK
- * This configuration class automatically configures the sdk SDK
+ * Spring Boot Auto Configuration for egain-api SDK
+ * This configuration class automatically configures the egain-api SDK
  * when Spring Boot detects it on the classpath.
  */
 @AutoConfiguration
 @ConditionalOnClass(Egain.class)
-@EnableConfigurationProperties(SDKAutoConfigProperties.class)
-public class SDKAutoConfig {
+@EnableConfigurationProperties(EgainApiAutoConfigProperties.class)
+public class EgainApiAutoConfig {
 
     /**
      * Constructor.
      */
-    public SDKAutoConfig() {
+    public EgainApiAutoConfig() {
     }
 
     /**
@@ -48,12 +48,12 @@ public class SDKAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "sdk.retry-config", name = "strategy")
-    public RetryConfig retryConfig(SDKAutoConfigProperties properties) {
-        SDKAutoConfigProperties.RetryConfig retryProps = properties.getRetryConfig();
+    @ConditionalOnProperty(prefix = "egainapi.retry-config", name = "strategy")
+    public RetryConfig retryConfig(EgainApiAutoConfigProperties properties) {
+        EgainApiAutoConfigProperties.RetryConfig retryProps = properties.getRetryConfig();
         
         if (RetryConfig.Strategy.BACKOFF.equals(retryProps.getStrategy())) {
-            SDKAutoConfigProperties.RetryConfig.Backoff backoff = retryProps.getBackoff();
+            EgainApiAutoConfigProperties.RetryConfig.Backoff backoff = retryProps.getBackoff();
             return RetryConfig.builder()
                 .backoff(
                     BackoffStrategy.builder()
@@ -95,8 +95,8 @@ public class SDKAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    public HTTPClient httpClient(SDKAutoConfigProperties properties, Consumer<String> httpLogger) {
-        SDKAutoConfigProperties.HttpClient httpClientProps = properties.getHttpClient();
+    public HTTPClient httpClient(EgainApiAutoConfigProperties properties, Consumer<String> httpLogger) {
+        EgainApiAutoConfigProperties.HttpClient httpClientProps = properties.getHttpClient();
 
         // Configure the static logger
         SpeakeasyHTTPClient.setLogger(httpLogger);
@@ -121,8 +121,8 @@ public class SDKAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnPropertyPrefix(prefix = "sdk.security")
-    public SecuritySource securitySource(SDKAutoConfigProperties properties) {SDKAutoConfigProperties.Security securityProps = properties.getSecurity();
+    @ConditionalOnPropertyPrefix(prefix = "egainapi.security")
+    public SecuritySource securitySource(EgainApiAutoConfigProperties properties) {EgainApiAutoConfigProperties.Security securityProps = properties.getSecurity();
         com.egain.sdk.models.components.Security.Builder securityBuilder = com.egain.sdk.models.components.Security.builder();
         boolean hasAnySecurityConfiguration = false;
         // Build accessToken security from direct properties (primitive value)
@@ -153,7 +153,7 @@ public class SDKAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public SDKConfiguration sdkConfiguration(
-            SDKAutoConfigProperties properties,
+            EgainApiAutoConfigProperties properties,
             HTTPClient httpClient,
             com.egain.sdk.utils.Hooks hooks,
             com.egain.sdk.utils.AsyncHooks asyncHooks,

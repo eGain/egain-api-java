@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:46e072f71da1a03b88ea5831fd480e72cd0d95a8cdf7c381a928f95c230e6f03
         sourceBlobDigest: sha256:f3d4c45104e67ace8773e29c3329ce82d33cb4324139d3dc257135b6bd084123
         codeSamplesNamespace: knowledge-portal-manager-ap-is-java-code-samples
-        codeSamplesRevisionDigest: sha256:13c21a45ae5dbc98f5e12e25482f35e615f3292082856ede24d56eff09d02cb5
+        codeSamplesRevisionDigest: sha256:87dcd8b741a322cc123ad03cd4086ed53a3e915affb411f95b5d46896ea626f5
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

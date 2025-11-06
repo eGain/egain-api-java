@@ -12,15 +12,15 @@ import java.util.Set;
 
 
 /**
- * Spring Boot Configuration Properties for sdk SDK
+ * Spring Boot Configuration Properties for egain-api SDK
  */
-@ConfigurationProperties(prefix = "sdk")
-public class SDKAutoConfigProperties {
+@ConfigurationProperties(prefix = "egainapi")
+public class EgainApiAutoConfigProperties {
 
     /**
      * Constructor.
      */
-    public SDKAutoConfigProperties() {
+    public EgainApiAutoConfigProperties() {
     }
 
     /**

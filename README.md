@@ -88,15 +88,15 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.egain:sdk:0.1.2'
+implementation 'com.egain.sdk:egain-api:0.1.3'
 ```
 
 Maven:
 ```xml
 <dependency>
-    <groupId>com.egain</groupId>
-    <artifactId>sdk</artifactId>
-    <version>0.1.2</version>
+    <groupId>com.egain.sdk</groupId>
+    <artifactId>egain-api</artifactId>
+    <version>0.1.3</version>
 </dependency>
 ```
 

@@ -5,8 +5,8 @@ management:
   docVersion: 4.0.0
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.1.2
-  configChecksum: 7cea9d967db09536a0d2cb073246efee
+  releaseVersion: 0.1.3
+  configChecksum: 0940a04765d5c0afc097d5349f2c0046
 features:
   java:
     additionalDependencies: 0.1.0
@@ -490,13 +490,13 @@ generatedFiles:
   - gradlew.bat
   - publishing.gradle
   - settings.gradle
-  - spring/sdk-spring-boot-autoconfigure/build.gradle
-  - spring/sdk-spring-boot-autoconfigure/src/main/java/com/egain/sdk/ConditionalOnPropertyPrefix.java
-  - spring/sdk-spring-boot-autoconfigure/src/main/java/com/egain/sdk/OnPropertyPrefixCondition.java
-  - spring/sdk-spring-boot-autoconfigure/src/main/java/com/egain/sdk/SDKAutoConfig.java
-  - spring/sdk-spring-boot-autoconfigure/src/main/java/com/egain/sdk/SDKAutoConfigProperties.java
-  - spring/sdk-spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
-  - spring/sdk-spring-boot-starter/build.gradle
+  - spring/egain-api-spring-boot-autoconfigure/build.gradle
+  - spring/egain-api-spring-boot-autoconfigure/src/main/java/com/egain/sdk/ConditionalOnPropertyPrefix.java
+  - spring/egain-api-spring-boot-autoconfigure/src/main/java/com/egain/sdk/EgainApiAutoConfig.java
+  - spring/egain-api-spring-boot-autoconfigure/src/main/java/com/egain/sdk/EgainApiAutoConfigProperties.java
+  - spring/egain-api-spring-boot-autoconfigure/src/main/java/com/egain/sdk/OnPropertyPrefixCondition.java
+  - spring/egain-api-spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+  - spring/egain-api-spring-boot-starter/build.gradle
   - src/main/java/com/egain/sdk/Aiservices.java
   - src/main/java/com/egain/sdk/Answers.java
   - src/main/java/com/egain/sdk/Article.java
