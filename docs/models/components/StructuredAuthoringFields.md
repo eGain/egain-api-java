@@ -1,0 +1,11 @@
+# StructuredAuthoringFields
+
+
+## Fields
+
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `confidenceLevel`                                                                   | [Optional\<L10NString>](../../models/components/L10NString.md)                      | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `issue`                                                                             | *Optional\<String>*                                                                 | :heavy_minus_sign:                                                                  | Describes the problem, symptom, or question the article addresses.                  |
+| `environment`                                                                       | *Optional\<String>*                                                                 | :heavy_minus_sign:                                                                  | Specifies the relevant product(s), category, or business process tied to the issue. |
+| `cause`                                                                             | *Optional\<String>*                                                                 | :heavy_minus_sign:                                                                  | Identifies the underlying cause of the issue.                                       |

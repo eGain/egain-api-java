@@ -1,0 +1,9 @@
+# AnswersRequestChannel
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `type`                                                                                              | [Optional\<AnswersRequestType>](../../models/components/AnswersRequestType.md)                      | :heavy_minus_sign:                                                                                  | The channel where the query originated, e.g., directly from the portal or via a custom integration. |
+| `name`                                                                                              | *Optional\<String>*                                                                                 | :heavy_minus_sign:                                                                                  | A descriptive name for the channel (e.g., "web", "mobile app", "agent console").                    |

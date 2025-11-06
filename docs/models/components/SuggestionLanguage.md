@@ -1,0 +1,11 @@
+# SuggestionLanguage
+
+The knowledge base language in which the Suggestion was created.
+
+
+## Fields
+
+| Field                                                                                                                           | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `code`                                                                                                                          | [SuggestionCode](../../models/components/SuggestionCode.md)                                                                     | :heavy_check_mark:                                                                                                              | The language that describes the details of the resource. Resources available in different languages may differ from each other. |
+| `label`                                                                                                                         | [Optional\<Label>](../../models/components/Label.md)                                                                            | :heavy_minus_sign:                                                                                                              | The name of the language.                                                                                                       |

@@ -1,0 +1,9 @@
+# AnswersResponseChannel
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `type`                                                                                              | [AnswersResponseType](../../models/components/AnswersResponseType.md)                               | :heavy_check_mark:                                                                                  | The channel where the query originated, e.g., directly from the portal or via a custom integration. |
+| `name`                                                                                              | *Optional\<String>*                                                                                 | :heavy_minus_sign:                                                                                  | The channel name.                                                                                   |

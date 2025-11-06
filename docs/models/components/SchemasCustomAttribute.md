@@ -1,0 +1,10 @@
+# SchemasCustomAttribute
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `name`                                                                                         | *Optional\<String>*                                                                            | :heavy_minus_sign:                                                                             | The custom attribute's name.                                                                   |
+| `value`                                                                                        | *Optional\<String>*                                                                            | :heavy_minus_sign:                                                                             | The custom attribute's value.                                                                  |
+| `type`                                                                                         | [Optional\<SchemasCustomAttributeType>](../../models/components/SchemasCustomAttributeType.md) | :heavy_minus_sign:                                                                             | The custom attribute's type.                                                                   |

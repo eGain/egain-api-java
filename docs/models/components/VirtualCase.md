@@ -1,0 +1,13 @@
+# VirtualCase
+
+
+## Fields
+
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    | Example                                                        |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `id`                                                           | *Optional\<String>*                                            | :heavy_minus_sign:                                             | ID of the case                                                 |                                                                |
+| `detailField`                                                  | List\<[DetailField](../../models/components/DetailField.md)>   | :heavy_minus_sign:                                             | detail fields                                                  |                                                                |
+| `displayField`                                                 | List\<[DisplayField](../../models/components/DisplayField.md)> | :heavy_minus_sign:                                             | display fields                                                 |                                                                |
+| `dynamicClusterId`                                             | *Optional\<String>*                                            | :heavy_minus_sign:                                             | Cluster id                                                     | 1000001035                                                     |
+| `title`                                                        | *Optional\<String>*                                            | :heavy_minus_sign:                                             | name of the case                                               |                                                                |
+| `virtualCaseId`                                                | *Optional\<String>*                                            | :heavy_minus_sign:                                             | virtual case id                                                |                                                                |

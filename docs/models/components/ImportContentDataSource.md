@@ -1,0 +1,11 @@
+# ImportContentDataSource
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `type`                                                                                     | [ImportContentType](../../models/components/ImportContentType.md)                          | :heavy_check_mark:                                                                         | Type of data source                                                                        |
+| `path`                                                                                     | *String*                                                                                   | :heavy_check_mark:                                                                         | Path of the data source                                                                    |
+| `region`                                                                                   | *Optional\<String>*                                                                        | :heavy_minus_sign:                                                                         | Region of the data source                                                                  |
+| `credentials`                                                                              | [Optional\<ImportContentCredentials>](../../models/components/ImportContentCredentials.md) | :heavy_minus_sign:                                                                         | N/A                                                                                        |

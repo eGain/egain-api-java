@@ -1,0 +1,39 @@
+speakeasyVersion: 1.650.0
+sources:
+    Knowledge Portal Manager APIs:
+        sourceNamespace: knowledge-portal-manager-ap-is
+        sourceRevisionDigest: sha256:46e072f71da1a03b88ea5831fd480e72cd0d95a8cdf7c381a928f95c230e6f03
+        sourceBlobDigest: sha256:f3d4c45104e67ace8773e29c3329ce82d33cb4324139d3dc257135b6bd084123
+        tags:
+            - latest
+            - 4.0.0
+targets:
+    egain:
+        source: Knowledge Portal Manager APIs
+        sourceNamespace: knowledge-portal-manager-ap-is
+        sourceRevisionDigest: sha256:46e072f71da1a03b88ea5831fd480e72cd0d95a8cdf7c381a928f95c230e6f03
+        sourceBlobDigest: sha256:f3d4c45104e67ace8773e29c3329ce82d33cb4324139d3dc257135b6bd084123
+        codeSamplesNamespace: knowledge-portal-manager-ap-is-java-code-samples
+        codeSamplesRevisionDigest: sha256:13c21a45ae5dbc98f5e12e25482f35e615f3292082856ede24d56eff09d02cb5
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Knowledge Portal Manager APIs:
+            inputs:
+                - location: ../speakeasy/aiservices/v4/api-with-overlay.yaml
+                - location: ../speakeasy/contentmgr/v4/api-with-overlay.yaml
+                - location: ../speakeasy/portalmgr/v4/api-with-overlay.yaml
+            output: .speakeasy/out.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/egain-corporation/portalmgr/knowledge-portal-manager-ap-is
+    targets:
+        egain:
+            target: java
+            source: Knowledge Portal Manager APIs
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/egain-corporation/portalmgr/knowledge-portal-manager-ap-is-java-code-samples
+                labelOverride:
+                    fixedValue: Java (SDK)
+                blocking: false

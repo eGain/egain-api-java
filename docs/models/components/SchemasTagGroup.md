@@ -1,0 +1,11 @@
+# SchemasTagGroup
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          | Example                                                              |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `id`                                                                 | *Optional\<String>*                                                  | :heavy_minus_sign:                                                   | The unique identifier for the tag group.                             | PROD-14566                                                           |
+| `name`                                                               | *Optional\<String>*                                                  | :heavy_minus_sign:                                                   | Name of the tag group.                                               |                                                                      |
+| `tagGroup`                                                           | List\<[SchemasTagGroup](../../models/components/SchemasTagGroup.md)> | :heavy_minus_sign:                                                   | N/A                                                                  |                                                                      |
+| `tag`                                                                | List\<[SchemasTag](../../models/components/SchemasTag.md)>           | :heavy_minus_sign:                                                   | N/A                                                                  |                                                                      |

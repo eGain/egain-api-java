@@ -1,0 +1,11 @@
+# DynamicSearch
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        | Example                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `dynamicCluster`                                                   | List\<[DynamicCluster](../../models/components/DynamicCluster.md)> | :heavy_minus_sign:                                                 | clusters in search                                                 |                                                                    |
+| `parentClusterId`                                                  | *Optional\<String>*                                                | :heavy_minus_sign:                                                 | Parent cluster                                                     | 1000001035                                                         |
+| `type`                                                             | *Optional\<String>*                                                | :heavy_minus_sign:                                                 | type of search                                                     |                                                                    |
+| `virtualCase`                                                      | List\<[VirtualCase](../../models/components/VirtualCase.md)>       | :heavy_minus_sign:                                                 | cases in search                                                    |                                                                    |
