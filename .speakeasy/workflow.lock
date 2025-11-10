@@ -1,4 +1,4 @@
-speakeasyVersion: 1.650.0
+speakeasyVersion: 1.653.0
 sources:
     Knowledge Portal Manager APIs:
         sourceNamespace: knowledge-portal-manager-ap-is
@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:46e072f71da1a03b88ea5831fd480e72cd0d95a8cdf7c381a928f95c230e6f03
         sourceBlobDigest: sha256:f3d4c45104e67ace8773e29c3329ce82d33cb4324139d3dc257135b6bd084123
         codeSamplesNamespace: knowledge-portal-manager-ap-is-java-code-samples
-        codeSamplesRevisionDigest: sha256:87dcd8b741a322cc123ad03cd4086ed53a3e915affb411f95b5d46896ea626f5
+        codeSamplesRevisionDigest: sha256:bdf90298fd65a0596742122ab6f678821a330e399a836578b644db6a27d9f432
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -31,6 +31,12 @@ workflow:
         egain:
             target: java
             source: Knowledge Portal Manager APIs
+            publish:
+                java:
+                    ossrhUsername: $ossrh_username
+                    ossrhPassword: $ossrh_password
+                    gpgSecretKey: $java_gpg_secret_key
+                    gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/egain-corporation/portalmgr/knowledge-portal-manager-ap-is-java-code-samples

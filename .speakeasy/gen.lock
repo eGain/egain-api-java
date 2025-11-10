@@ -3,10 +3,11 @@ id: edea9aea-f337-4c9f-ac66-3f35737bcaa9
 management:
   docChecksum: b6cbd2fc3d9c80d5933ba026bed6f41c
   docVersion: 4.0.0
-  speakeasyVersion: 1.650.0
-  generationVersion: 2.743.2
-  releaseVersion: 0.1.3
-  configChecksum: 0940a04765d5c0afc097d5349f2c0046
+  speakeasyVersion: 1.653.0
+  generationVersion: 2.748.0
+  releaseVersion: 0.1.4
+  configChecksum: 2567d00995d44086974c81748406c247
+  published: true
 features:
   java:
     additionalDependencies: 0.1.0
@@ -1316,6 +1317,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/utils/EventStreamMessage.java
   - src/main/java/com/egain/sdk/utils/Exceptions.java
   - src/main/java/com/egain/sdk/utils/FormMetadata.java
+  - src/main/java/com/egain/sdk/utils/GenericTypeIdResolver.java
   - src/main/java/com/egain/sdk/utils/Globals.java
   - src/main/java/com/egain/sdk/utils/HTTPClient.java
   - src/main/java/com/egain/sdk/utils/HTTPRequest.java
@@ -1358,6 +1360,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/utils/StreamingParser.java
   - src/main/java/com/egain/sdk/utils/TypedObject.java
   - src/main/java/com/egain/sdk/utils/Types.java
+  - src/main/java/com/egain/sdk/utils/UnknownType.java
   - src/main/java/com/egain/sdk/utils/Utf8UrlEncoder.java
   - src/main/java/com/egain/sdk/utils/Utils.java
   - src/main/java/com/egain/sdk/utils/reactive/EventStream.java
