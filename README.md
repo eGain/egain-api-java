@@ -44,7 +44,7 @@ The following Resources have predefined limits for specific access attributes fo
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [openapi](#openapi)
+* [egain-api-java](#egain-api-java)
   * [SDK Installation](#sdk-installation)
   * [SDK Example Usage](#sdk-example-usage)
   * [Asynchronous Support](#asynchronous-support)
