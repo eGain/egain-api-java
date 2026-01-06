@@ -1,6 +1,6 @@
-# openapi
+# egain-api-java
 
-Developer-friendly & type-safe Java SDK specifically catered to leverage *openapi* API.
+Developer-friendly & type-safe Java SDK specifically catered to leverage eGain Java API.
 
 
 <br />
