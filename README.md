@@ -3,9 +3,7 @@
 Developer-friendly & type-safe Java SDK specifically catered to leverage *openapi* API.
 
 
-<br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/egain-corporation/portalmgr). Delete this section before > publishing to a package manager.
+<br />
 
 <!-- Start Summary [summary] -->
 ## Summary
