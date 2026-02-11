@@ -46,7 +46,7 @@ public class RetrieveChunks {
      */
     public static final String[] RETRIEVE_CHUNKS_SERVERS = {
         /**
-         * aiservices
+         * Production Server
          */
         "https://api.aidev.egain.cloud/core/aiservices/v4",
     };

@@ -33,7 +33,10 @@ public class AnswersResponseAnswer {
     private AnswersResponseAnswerType answerType;
 
     /**
-     * Confidence score (0.0-1.0) reflecting how well the answer matches the query.
+     * Query-specific relevance score (0.0-1.0) indicating how well the result matches the user query. For
+     * Certified answers, the score represents a direct relevance comparison between the query and the
+     * returned snippet. For Generative answers, the score is assigned by the model after generation, based
+     * on how well the response is supported by the provided knowledge.
      */
     @JsonProperty("relevanceScore")
     private float relevanceScore;
@@ -75,7 +78,10 @@ public class AnswersResponseAnswer {
     }
 
     /**
-     * Confidence score (0.0-1.0) reflecting how well the answer matches the query.
+     * Query-specific relevance score (0.0-1.0) indicating how well the result matches the user query. For
+     * Certified answers, the score represents a direct relevance comparison between the query and the
+     * returned snippet. For Generative answers, the score is assigned by the model after generation, based
+     * on how well the response is supported by the provided knowledge.
      */
     public float relevanceScore() {
         return this.relevanceScore;
@@ -114,7 +120,10 @@ public class AnswersResponseAnswer {
 
 
     /**
-     * Confidence score (0.0-1.0) reflecting how well the answer matches the query.
+     * Query-specific relevance score (0.0-1.0) indicating how well the result matches the user query. For
+     * Certified answers, the score represents a direct relevance comparison between the query and the
+     * returned snippet. For Generative answers, the score is assigned by the model after generation, based
+     * on how well the response is supported by the provided knowledge.
      */
     public AnswersResponseAnswer withRelevanceScore(float relevanceScore) {
         this.relevanceScore = relevanceScore;
@@ -194,7 +203,10 @@ public class AnswersResponseAnswer {
         }
 
         /**
-         * Confidence score (0.0-1.0) reflecting how well the answer matches the query.
+         * Query-specific relevance score (0.0-1.0) indicating how well the result matches the user query. For
+         * Certified answers, the score represents a direct relevance comparison between the query and the
+         * returned snippet. For Generative answers, the score is assigned by the model after generation, based
+         * on how well the response is supported by the provided knowledge.
          */
         public Builder relevanceScore(float relevanceScore) {
             this.relevanceScore = relevanceScore;

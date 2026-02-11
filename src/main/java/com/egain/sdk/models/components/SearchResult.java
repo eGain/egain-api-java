@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Float;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
@@ -61,21 +62,40 @@ public class SearchResult {
     @JsonProperty("snippet")
     private String snippet;
 
+    /**
+     * Contextual Summary generated as part of metadata for the chunk content.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("contextualSummary")
+    private String contextualSummary;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("snippetType")
     private SnippetType snippetType;
 
     /**
-     * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * This score is only available when a re-ranker is enabled and represents a direct relevance
+     * comparison between the query and the returned snippet.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("relevanceScore")
-    private float relevanceScore;
+    private Float relevanceScore;
+
+    /**
+     * Relative ranking score (0.0-1.0) normalized across all returned results, based on a combination of
+     * BM25 and semantic similarity scores. This score indicates how a result ranks compared to others in
+     * the same response, not its absolute relevance to the query. As a result, a high score does not
+     * necessarily imply strong query relevance.
+     */
+    @JsonProperty("normalizedScore")
+    private float normalizedScore;
 
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("topicBreadcrumb")
-    private List<TopicBreadcrumb> topicBreadcrumb;
+    private List<AITopicBreadcrumb> topicBreadcrumb;
 
     @JsonCreator
     public SearchResult(
@@ -85,9 +105,11 @@ public class SearchResult {
             @JsonProperty("docType") @Nonnull SearchResultDocType docType,
             @JsonProperty("source") @Nonnull SearchResultSource source,
             @JsonProperty("snippet") @Nonnull String snippet,
+            @JsonProperty("contextualSummary") @Nullable String contextualSummary,
             @JsonProperty("snippetType") @Nullable SnippetType snippetType,
-            @JsonProperty("relevanceScore") float relevanceScore,
-            @JsonProperty("topicBreadcrumb") @Nullable List<TopicBreadcrumb> topicBreadcrumb) {
+            @JsonProperty("relevanceScore") @Nullable Float relevanceScore,
+            @JsonProperty("normalizedScore") float normalizedScore,
+            @JsonProperty("topicBreadcrumb") @Nullable List<AITopicBreadcrumb> topicBreadcrumb) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.name = Optional.ofNullable(name)
@@ -99,8 +121,10 @@ public class SearchResult {
             .orElseThrow(() -> new IllegalArgumentException("source cannot be null"));
         this.snippet = Optional.ofNullable(snippet)
             .orElseThrow(() -> new IllegalArgumentException("snippet cannot be null"));
+        this.contextualSummary = contextualSummary;
         this.snippetType = snippetType;
         this.relevanceScore = relevanceScore;
+        this.normalizedScore = normalizedScore;
         this.topicBreadcrumb = topicBreadcrumb;
     }
     
@@ -110,10 +134,11 @@ public class SearchResult {
             @Nonnull SearchResultDocType docType,
             @Nonnull SearchResultSource source,
             @Nonnull String snippet,
-            float relevanceScore) {
+            float normalizedScore) {
         this(id, name, null,
             docType, source, snippet,
-            null, relevanceScore, null);
+            null, null, null,
+            normalizedScore, null);
     }
 
     /**
@@ -160,18 +185,37 @@ public class SearchResult {
         return this.snippet;
     }
 
+    /**
+     * Contextual Summary generated as part of metadata for the chunk content.
+     */
+    public Optional<String> contextualSummary() {
+        return Optional.ofNullable(this.contextualSummary);
+    }
+
     public Optional<SnippetType> snippetType() {
         return Optional.ofNullable(this.snippetType);
     }
 
     /**
-     * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * This score is only available when a re-ranker is enabled and represents a direct relevance
+     * comparison between the query and the returned snippet.
      */
-    public float relevanceScore() {
-        return this.relevanceScore;
+    public Optional<Float> relevanceScore() {
+        return Optional.ofNullable(this.relevanceScore);
     }
 
-    public Optional<List<TopicBreadcrumb>> topicBreadcrumb() {
+    /**
+     * Relative ranking score (0.0-1.0) normalized across all returned results, based on a combination of
+     * BM25 and semantic similarity scores. This score indicates how a result ranks compared to others in
+     * the same response, not its absolute relevance to the query. As a result, a high score does not
+     * necessarily imply strong query relevance.
+     */
+    public float normalizedScore() {
+        return this.normalizedScore;
+    }
+
+    public Optional<List<AITopicBreadcrumb>> topicBreadcrumb() {
         return Optional.ofNullable(this.topicBreadcrumb);
     }
 
@@ -236,6 +280,15 @@ public class SearchResult {
     }
 
 
+    /**
+     * Contextual Summary generated as part of metadata for the chunk content.
+     */
+    public SearchResult withContextualSummary(@Nullable String contextualSummary) {
+        this.contextualSummary = contextualSummary;
+        return this;
+    }
+
+
     public SearchResult withSnippetType(@Nullable SnippetType snippetType) {
         this.snippetType = snippetType;
         return this;
@@ -243,15 +296,29 @@ public class SearchResult {
 
 
     /**
-     * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * This score is only available when a re-ranker is enabled and represents a direct relevance
+     * comparison between the query and the returned snippet.
      */
-    public SearchResult withRelevanceScore(float relevanceScore) {
+    public SearchResult withRelevanceScore(@Nullable Float relevanceScore) {
         this.relevanceScore = relevanceScore;
         return this;
     }
 
 
-    public SearchResult withTopicBreadcrumb(@Nullable List<TopicBreadcrumb> topicBreadcrumb) {
+    /**
+     * Relative ranking score (0.0-1.0) normalized across all returned results, based on a combination of
+     * BM25 and semantic similarity scores. This score indicates how a result ranks compared to others in
+     * the same response, not its absolute relevance to the query. As a result, a high score does not
+     * necessarily imply strong query relevance.
+     */
+    public SearchResult withNormalizedScore(float normalizedScore) {
+        this.normalizedScore = normalizedScore;
+        return this;
+    }
+
+
+    public SearchResult withTopicBreadcrumb(@Nullable List<AITopicBreadcrumb> topicBreadcrumb) {
         this.topicBreadcrumb = topicBreadcrumb;
         return this;
     }
@@ -273,8 +340,10 @@ public class SearchResult {
             Utils.enhancedDeepEquals(this.docType, other.docType) &&
             Utils.enhancedDeepEquals(this.source, other.source) &&
             Utils.enhancedDeepEquals(this.snippet, other.snippet) &&
+            Utils.enhancedDeepEquals(this.contextualSummary, other.contextualSummary) &&
             Utils.enhancedDeepEquals(this.snippetType, other.snippetType) &&
             Utils.enhancedDeepEquals(this.relevanceScore, other.relevanceScore) &&
+            Utils.enhancedDeepEquals(this.normalizedScore, other.normalizedScore) &&
             Utils.enhancedDeepEquals(this.topicBreadcrumb, other.topicBreadcrumb);
     }
     
@@ -283,7 +352,8 @@ public class SearchResult {
         return Utils.enhancedHash(
             id, name, docName,
             docType, source, snippet,
-            snippetType, relevanceScore, topicBreadcrumb);
+            contextualSummary, snippetType, relevanceScore,
+            normalizedScore, topicBreadcrumb);
     }
     
     @Override
@@ -295,8 +365,10 @@ public class SearchResult {
                 "docType", docType,
                 "source", source,
                 "snippet", snippet,
+                "contextualSummary", contextualSummary,
                 "snippetType", snippetType,
                 "relevanceScore", relevanceScore,
+                "normalizedScore", normalizedScore,
                 "topicBreadcrumb", topicBreadcrumb);
     }
 
@@ -315,11 +387,15 @@ public class SearchResult {
 
         private String snippet;
 
+        private String contextualSummary;
+
         private SnippetType snippetType;
 
-        private float relevanceScore;
+        private Float relevanceScore;
 
-        private List<TopicBreadcrumb> topicBreadcrumb;
+        private float normalizedScore;
+
+        private List<AITopicBreadcrumb> topicBreadcrumb;
 
         private Builder() {
           // force use of static builder() method
@@ -375,20 +451,41 @@ public class SearchResult {
             return this;
         }
 
+        /**
+         * Contextual Summary generated as part of metadata for the chunk content.
+         */
+        public Builder contextualSummary(@Nullable String contextualSummary) {
+            this.contextualSummary = contextualSummary;
+            return this;
+        }
+
         public Builder snippetType(@Nullable SnippetType snippetType) {
             this.snippetType = snippetType;
             return this;
         }
 
         /**
-         * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
+         * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+         * This score is only available when a re-ranker is enabled and represents a direct relevance
+         * comparison between the query and the returned snippet.
          */
-        public Builder relevanceScore(float relevanceScore) {
+        public Builder relevanceScore(@Nullable Float relevanceScore) {
             this.relevanceScore = relevanceScore;
             return this;
         }
 
-        public Builder topicBreadcrumb(@Nullable List<TopicBreadcrumb> topicBreadcrumb) {
+        /**
+         * Relative ranking score (0.0-1.0) normalized across all returned results, based on a combination of
+         * BM25 and semantic similarity scores. This score indicates how a result ranks compared to others in
+         * the same response, not its absolute relevance to the query. As a result, a high score does not
+         * necessarily imply strong query relevance.
+         */
+        public Builder normalizedScore(float normalizedScore) {
+            this.normalizedScore = normalizedScore;
+            return this;
+        }
+
+        public Builder topicBreadcrumb(@Nullable List<AITopicBreadcrumb> topicBreadcrumb) {
             this.topicBreadcrumb = topicBreadcrumb;
             return this;
         }
@@ -397,7 +494,8 @@ public class SearchResult {
             return new SearchResult(
                 id, name, docName,
                 docType, source, snippet,
-                snippetType, relevanceScore, topicBreadcrumb);
+                contextualSummary, snippetType, relevanceScore,
+                normalizedScore, topicBreadcrumb);
         }
 
     }

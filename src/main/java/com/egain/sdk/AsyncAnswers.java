@@ -37,7 +37,7 @@ public class AsyncAnswers {
 
 
     /**
-     * Get the best answer for a user query
+     * Generate an Answer
      * 
      * <p>The **Answers API** allows enterprises to deliver fast, accurate, and contextual responses powered
      * by their organizational knowledge. It supports two complementary approaches:
@@ -46,7 +46,7 @@ public class AsyncAnswers {
      * 
      * <p>Every response includes supporting search results, references, and confidence scores—ensuring
      * transparency, trust, and traceability. The API is built for secure, scalable integration across
-     * enterprise environments. <br>**This endpoint is only available for Self Service environments.**
+     * enterprise environments.
      * 
      * @return The async call builder
      */
@@ -55,7 +55,7 @@ public class AsyncAnswers {
     }
 
     /**
-     * Get the best answer for a user query
+     * Generate an Answer
      * 
      * <p>The **Answers API** allows enterprises to deliver fast, accurate, and contextual responses powered
      * by their organizational knowledge. It supports two complementary approaches:
@@ -64,7 +64,7 @@ public class AsyncAnswers {
      * 
      * <p>Every response includes supporting search results, references, and confidence scores—ensuring
      * transparency, trust, and traceability. The API is built for secure, scalable integration across
-     * enterprise environments. <br>**This endpoint is only available for Self Service environments.**
+     * enterprise environments.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return {@code CompletableFuture<GetBestAnswerResponse>} - The async response
@@ -74,7 +74,7 @@ public class AsyncAnswers {
     }
 
     /**
-     * Get the best answer for a user query
+     * Generate an Answer
      * 
      * <p>The **Answers API** allows enterprises to deliver fast, accurate, and contextual responses powered
      * by their organizational knowledge. It supports two complementary approaches:
@@ -83,7 +83,7 @@ public class AsyncAnswers {
      * 
      * <p>Every response includes supporting search results, references, and confidence scores—ensuring
      * transparency, trust, and traceability. The API is built for secure, scalable integration across
-     * enterprise environments. <br>**This endpoint is only available for Self Service environments.**
+     * enterprise environments.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param serverURL Overrides the server URL.

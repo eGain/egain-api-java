@@ -11,6 +11,7 @@ import com.egain.sdk.SDKConfiguration;
 import com.egain.sdk.SecuritySource;
 import com.egain.sdk.models.components.ImportStatus;
 import com.egain.sdk.models.errors.APIException;
+import com.egain.sdk.models.errors.SchemasWSErrorCommon;
 import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.GetImportStatusRequest;
 import com.egain.sdk.models.operations.GetImportStatusResponse;
@@ -44,9 +45,9 @@ public class GetImportStatus {
      */
     public static final String[] GET_IMPORT_STATUS_SERVERS = {
         /**
-         * Production Server - Try it Out does not function
+         * Production Server
          */
-        "http://nop",
+        "https://api.aidev.egain.cloud//knowledge/contentmgr/v4",
     };
 
     static abstract class Base {
@@ -183,9 +184,16 @@ public class GetImportStatus {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "406")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw WSErrorCommon.from(response);
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "406")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    throw SchemasWSErrorCommon.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
@@ -272,9 +280,17 @@ public class GetImportStatus {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "406")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     return WSErrorCommon.fromAsync(response)
+                            .thenCompose(CompletableFuture::failedFuture);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "406")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return SchemasWSErrorCommon.fromAsync(response)
                             .thenCompose(CompletableFuture::failedFuture);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);

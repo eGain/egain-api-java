@@ -38,14 +38,14 @@ public class ImportContentDataSource {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("credentials")
-    private ImportContentCredentials credentials;
+    private DataSourceCredentials credentials;
 
     @JsonCreator
     public ImportContentDataSource(
             @JsonProperty("type") @Nonnull ImportContentType type,
             @JsonProperty("path") @Nonnull String path,
             @JsonProperty("region") @Nullable String region,
-            @JsonProperty("credentials") @Nullable ImportContentCredentials credentials) {
+            @JsonProperty("credentials") @Nullable DataSourceCredentials credentials) {
         this.type = Optional.ofNullable(type)
             .orElseThrow(() -> new IllegalArgumentException("type cannot be null"));
         this.path = Optional.ofNullable(path)
@@ -82,7 +82,7 @@ public class ImportContentDataSource {
         return Optional.ofNullable(this.region);
     }
 
-    public Optional<ImportContentCredentials> credentials() {
+    public Optional<DataSourceCredentials> credentials() {
         return Optional.ofNullable(this.credentials);
     }
 
@@ -118,7 +118,7 @@ public class ImportContentDataSource {
     }
 
 
-    public ImportContentDataSource withCredentials(@Nullable ImportContentCredentials credentials) {
+    public ImportContentDataSource withCredentials(@Nullable DataSourceCredentials credentials) {
         this.credentials = credentials;
         return this;
     }
@@ -165,7 +165,7 @@ public class ImportContentDataSource {
 
         private String region;
 
-        private ImportContentCredentials credentials;
+        private DataSourceCredentials credentials;
 
         private Builder() {
           // force use of static builder() method
@@ -195,7 +195,7 @@ public class ImportContentDataSource {
             return this;
         }
 
-        public Builder credentials(@Nullable ImportContentCredentials credentials) {
+        public Builder credentials(@Nullable DataSourceCredentials credentials) {
             this.credentials = credentials;
             return this;
         }

@@ -61,7 +61,7 @@ public class GetMyPortalsRequest {
     private SortIdNameDepartment sort;
 
     /**
-     * Common query parameter $order.
+     * Common query parameter $order.<br>_Default value_: asc
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=$order")
     private Order order;
@@ -160,7 +160,7 @@ public class GetMyPortalsRequest {
     }
 
     /**
-     * Common query parameter $order.
+     * Common query parameter $order.<br>_Default value_: asc
      */
     public Optional<Order> order() {
         return Optional.ofNullable(this.order);
@@ -245,7 +245,7 @@ public class GetMyPortalsRequest {
 
 
     /**
-     * Common query parameter $order.
+     * Common query parameter $order.<br>_Default value_: asc
      */
     public GetMyPortalsRequest withOrder(@Nullable Order order) {
         this.order = order;
@@ -393,7 +393,7 @@ public class GetMyPortalsRequest {
         }
 
         /**
-         * Common query parameter $order.
+         * Common query parameter $order.<br>_Default value_: asc
          */
         public Builder order(@Nullable Order order) {
             this.order = order;

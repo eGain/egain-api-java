@@ -35,7 +35,7 @@ public class Answers {
     }
 
     /**
-     * Get the best answer for a user query
+     * Generate an Answer
      * 
      * <p>The **Answers API** allows enterprises to deliver fast, accurate, and contextual responses powered
      * by their organizational knowledge. It supports two complementary approaches:
@@ -44,7 +44,7 @@ public class Answers {
      * 
      * <p>Every response includes supporting search results, references, and confidence scores—ensuring
      * transparency, trust, and traceability. The API is built for secure, scalable integration across
-     * enterprise environments. <br>**This endpoint is only available for Self Service environments.**
+     * enterprise environments.
      * 
      * @return The call builder
      */
@@ -53,7 +53,7 @@ public class Answers {
     }
 
     /**
-     * Get the best answer for a user query
+     * Generate an Answer
      * 
      * <p>The **Answers API** allows enterprises to deliver fast, accurate, and contextual responses powered
      * by their organizational knowledge. It supports two complementary approaches:
@@ -62,7 +62,7 @@ public class Answers {
      * 
      * <p>Every response includes supporting search results, references, and confidence scores—ensuring
      * transparency, trust, and traceability. The API is built for secure, scalable integration across
-     * enterprise environments. <br>**This endpoint is only available for Self Service environments.**
+     * enterprise environments.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -73,7 +73,7 @@ public class Answers {
     }
 
     /**
-     * Get the best answer for a user query
+     * Generate an Answer
      * 
      * <p>The **Answers API** allows enterprises to deliver fast, accurate, and contextual responses powered
      * by their organizational knowledge. It supports two complementary approaches:
@@ -82,7 +82,7 @@ public class Answers {
      * 
      * <p>Every response includes supporting search results, references, and confidence scores—ensuring
      * transparency, trust, and traceability. The API is built for secure, scalable integration across
-     * enterprise environments. <br>**This endpoint is only available for Self Service environments.**
+     * enterprise environments.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param serverURL Overrides the server URL.

@@ -56,7 +56,7 @@ public class ReferenceResponse {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("topicBreadcrumb")
-    private List<TopicBreadcrumb> topicBreadcrumb;
+    private List<AITopicBreadcrumb> topicBreadcrumb;
 
     @JsonCreator
     public ReferenceResponse(
@@ -65,7 +65,7 @@ public class ReferenceResponse {
             @JsonProperty("docName") @Nullable String docName,
             @JsonProperty("docType") @Nonnull ReferenceResponseDocType docType,
             @JsonProperty("source") @Nonnull ReferenceResponseSource source,
-            @JsonProperty("topicBreadcrumb") @Nullable List<TopicBreadcrumb> topicBreadcrumb) {
+            @JsonProperty("topicBreadcrumb") @Nullable List<AITopicBreadcrumb> topicBreadcrumb) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.name = Optional.ofNullable(name)
@@ -123,7 +123,7 @@ public class ReferenceResponse {
         return this.source;
     }
 
-    public Optional<List<TopicBreadcrumb>> topicBreadcrumb() {
+    public Optional<List<AITopicBreadcrumb>> topicBreadcrumb() {
         return Optional.ofNullable(this.topicBreadcrumb);
     }
 
@@ -178,7 +178,7 @@ public class ReferenceResponse {
     }
 
 
-    public ReferenceResponse withTopicBreadcrumb(@Nullable List<TopicBreadcrumb> topicBreadcrumb) {
+    public ReferenceResponse withTopicBreadcrumb(@Nullable List<AITopicBreadcrumb> topicBreadcrumb) {
         this.topicBreadcrumb = topicBreadcrumb;
         return this;
     }
@@ -233,7 +233,7 @@ public class ReferenceResponse {
 
         private ReferenceResponseSource source;
 
-        private List<TopicBreadcrumb> topicBreadcrumb;
+        private List<AITopicBreadcrumb> topicBreadcrumb;
 
         private Builder() {
           // force use of static builder() method
@@ -280,7 +280,7 @@ public class ReferenceResponse {
             return this;
         }
 
-        public Builder topicBreadcrumb(@Nullable List<TopicBreadcrumb> topicBreadcrumb) {
+        public Builder topicBreadcrumb(@Nullable List<AITopicBreadcrumb> topicBreadcrumb) {
             this.topicBreadcrumb = topicBreadcrumb;
             return this;
         }

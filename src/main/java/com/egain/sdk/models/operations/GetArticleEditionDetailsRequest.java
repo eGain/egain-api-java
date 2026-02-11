@@ -30,7 +30,8 @@ public class GetArticleEditionDetailsRequest {
     private String articleID;
 
     /**
-     * Publish View Id of the article on which operation is performed.
+     * The ID of a Publish View Id.<br><br>A Publish View Id ID is composed of a 2-4 letter prefix,
+     * followed by a dash and 4-15 digits.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=publishViewId")
     private String publishViewId;
@@ -75,7 +76,8 @@ public class GetArticleEditionDetailsRequest {
     }
 
     /**
-     * Publish View Id of the article on which operation is performed.
+     * The ID of a Publish View Id.<br><br>A Publish View Id ID is composed of a 2-4 letter prefix,
+     * followed by a dash and 4-15 digits.
      */
     public String publishViewId() {
         return this.publishViewId;
@@ -115,7 +117,8 @@ public class GetArticleEditionDetailsRequest {
 
 
     /**
-     * Publish View Id of the article on which operation is performed.
+     * The ID of a Publish View Id.<br><br>A Publish View Id ID is composed of a 2-4 letter prefix,
+     * followed by a dash and 4-15 digits.
      */
     public GetArticleEditionDetailsRequest withPublishViewId(@Nonnull String publishViewId) {
         this.publishViewId = Utils.checkNotNull(publishViewId, "publishViewId");
@@ -199,7 +202,8 @@ public class GetArticleEditionDetailsRequest {
         }
 
         /**
-         * Publish View Id of the article on which operation is performed.
+         * The ID of a Publish View Id.<br><br>A Publish View Id ID is composed of a 2-4 letter prefix,
+         * followed by a dash and 4-15 digits.
          */
         public Builder publishViewId(@Nonnull String publishViewId) {
             this.publishViewId = Utils.checkNotNull(publishViewId, "publishViewId");

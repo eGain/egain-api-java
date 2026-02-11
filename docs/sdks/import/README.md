@@ -5,10 +5,10 @@
 
 ### Available Operations
 
-* [createImportJob](#createimportjob) - Import content from external sources by creating an import job
-* [getImportStatus](#getimportstatus) - Get the current status of an import or validation job
-* [createImportValidationJob](#createimportvalidationjob) - Validate content structure and format before import by creating an import validation job
-* [cancelImport](#cancelimport) - Cancel an import or validation job
+* [createImportJob](#createimportjob) - Create Import Job
+* [getImportStatus](#getimportstatus) - Get Job Status
+* [createImportValidationJob](#createimportvalidationjob) - Create Validation Job
+* [cancelImport](#cancelimport) - Cancel Job
 
 ## createImportJob
 
@@ -26,6 +26,8 @@ This API initiates a bulk content import operation from Data Sources. It creates
 3. **Status Monitoring**: Use the job ID to monitor progress via the Status API
 4. **Completion**: Job completes when all content is processed or errors occur
 
+**Note:** After a successful import, please allow for a brief delay before the content is fully available for use. The system's search service synchronizes all new and updated content every 30 minutes.
+
 ## Supported Operations
 - **Import**: Add new content to the knowledge base
 - **Update**: Modify existing content
@@ -35,14 +37,9 @@ This API initiates a bulk content import operation from Data Sources. It creates
 - Shared file path
 
 ## Best Practices
-- **Scheduling**: Use scheduleTime for off-peak imports to minimize system impact
+- **Scheduling**: Use scheduleTime for off-peak imports to minimize system impact.  Please note that jobs can only be scheduled for a maximum of 7 days from the current date and time.
 - **Monitoring**: Regularly check job status and logs for any issues
 - **Error Handling**: Review failed items and retry with corrections
-
-## Permissions
-| Actor | Permission |
-| ------- | --------|
-| User |<ul><li>User must be a department user.</li><li>Content can only be imported in user's home department.</li><li>User must have 'Author' role.</li><li>Content can only be imported if the user has all the required languages assigned.</li></ul>|
 
 
 ### Example Usage
@@ -72,7 +69,9 @@ public class Application {
                     .type(ImportContentType.AWSS3_BUCKET)
                     .path("s3://mybucket/myfolder/")
                     .region("us-east-1")
-                    .credentials(ImportContentCredentials.builder()
+                    .credentials(DataSourceCredentials.builder()
+                        .accessKey("AKIAIOSFODNN7EXAMPLE")
+                        .secretKey("wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
                         .build())
                     .build())
                 .operation(Operation.IMPORT)
@@ -105,8 +104,8 @@ public class Application {
 
 | Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| models/errors/WSErrorCommon        | 400, 401, 403, 406                 | application/json                   |
-| models/errors/SchemasWSErrorCommon | 412                                | application/json                   |
+| models/errors/WSErrorCommon        | 400, 401, 403                      | application/json                   |
+| models/errors/SchemasWSErrorCommon | 406, 412                           | application/json                   |
 | models/errors/WSErrorCommon        | 500                                | application/json                   |
 | models/errors/APIException         | 4XX, 5XX                           | \*/\*                              |
 
@@ -138,12 +137,6 @@ Log files contain detailed information about:
 - Error details with context
 
 
-## Permissions
-| Actor | Permission |
-| ------- | --------|
-| User |<ul><li>User must be a department user.</li><li>User must have 'Author' role.</li><li>The job must have been created by the logged in user, or the logged in user must have 'View' permissions on the user who created the job.</li></ul>|
-
-
 ### Example Usage
 
 <!-- UsageSnippet language="java" operationID="getImportStatus" method="get" path="/import/content/{job_id}/status" -->
@@ -151,13 +144,14 @@ Log files contain detailed information about:
 package hello.world;
 
 import com.egain.sdk.Egain;
+import com.egain.sdk.models.errors.SchemasWSErrorCommon;
 import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.GetImportStatusResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws WSErrorCommon, Exception {
+    public static void main(String[] args) throws WSErrorCommon, SchemasWSErrorCommon, Exception {
 
         Egain sdk = Egain.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
@@ -187,11 +181,12 @@ public class Application {
 
 ### Errors
 
-| Error Type                  | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/WSErrorCommon | 400, 401, 403, 404, 406     | application/json            |
-| models/errors/WSErrorCommon | 500                         | application/json            |
-| models/errors/APIException  | 4XX, 5XX                    | \*/\*                       |
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| models/errors/WSErrorCommon        | 400, 401, 403, 404                 | application/json                   |
+| models/errors/SchemasWSErrorCommon | 406                                | application/json                   |
+| models/errors/WSErrorCommon        | 500                                | application/json                   |
+| models/errors/APIException         | 4XX, 5XX                           | \*/\*                              |
 
 ## createImportValidationJob
 
@@ -232,11 +227,6 @@ This API enables users to validate content structure, format, and compliance bef
 - **Test Small Batches**: Validate with small content samples first
 - **Iterate**: Use validation feedback to improve content quality
 
-## Permissions 
-| Actor | Permission |
-| ------- | --------|
-| User |<ul><li>User must be a department user.</li><li>User must have 'Author' role.</li><li>Content can only be imported if the user has all the required languages assigned.</li></ul>|
-
 
 ### Example Usage
 
@@ -264,7 +254,9 @@ public class Application {
                     .type(ValidateImportContentType.AWSS3_BUCKET)
                     .path("s3://mybucket/myfolder/")
                     .region("us-east-1")
-                    .credentials(ValidateImportContentCredentials.builder()
+                    .credentials(DataSourceCredentials.builder()
+                        .accessKey("AKIAIOSFODNN7EXAMPLE")
+                        .secretKey("wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
                         .build())
                     .build())
                 .build();
@@ -293,8 +285,8 @@ public class Application {
 
 | Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| models/errors/WSErrorCommon        | 400, 401, 403, 406                 | application/json                   |
-| models/errors/SchemasWSErrorCommon | 412                                | application/json                   |
+| models/errors/WSErrorCommon        | 400, 401, 403                      | application/json                   |
+| models/errors/SchemasWSErrorCommon | 406, 412                           | application/json                   |
 | models/errors/WSErrorCommon        | 500                                | application/json                   |
 | models/errors/APIException         | 4XX, 5XX                           | \*/\*                              |
 
@@ -337,11 +329,6 @@ This API allows users to cancel import or validation operations that are current
 - **Plan Cancellations**: Schedule cancellations during low-usage periods
 - **Resource Planning**: Consider resource impact before cancelling large jobs
 
-## Permissions 
-| Actor | Permission |
-| ------- | --------|
-| User |<li>User must be a department user.</li><li>Content can only be validated for user's home department.</li><li>User must have 'Author' role.</li><li>The job must have been created by the logged in user, or the logged in user must have 'Edit' permissions on the user who created the job.</li></ul>|
-
 
 ### Example Usage
 
@@ -350,13 +337,14 @@ This API allows users to cancel import or validation operations that are current
 package hello.world;
 
 import com.egain.sdk.Egain;
+import com.egain.sdk.models.errors.SchemasWSErrorCommon;
 import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.CancelImportResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws WSErrorCommon, Exception {
+    public static void main(String[] args) throws WSErrorCommon, SchemasWSErrorCommon, Exception {
 
         Egain sdk = Egain.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
@@ -384,8 +372,9 @@ public class Application {
 
 ### Errors
 
-| Error Type                  | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/WSErrorCommon | 401, 403, 404, 406          | application/json            |
-| models/errors/WSErrorCommon | 500                         | application/json            |
-| models/errors/APIException  | 4XX, 5XX                    | \*/\*                       |
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| models/errors/WSErrorCommon        | 401, 403, 404                      | application/json                   |
+| models/errors/SchemasWSErrorCommon | 406                                | application/json                   |
+| models/errors/WSErrorCommon        | 500                                | application/json                   |
+| models/errors/APIException         | 4XX, 5XX                           | \*/\*                              |

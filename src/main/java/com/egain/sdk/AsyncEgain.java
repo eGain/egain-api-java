@@ -43,6 +43,10 @@ public class AsyncEgain {
     private static final Headers _headers = Headers.EMPTY;
 
     private final AsyncAiservices aiservices;
+    /**
+     * APIs for AssistGPT
+     */
+    private final AsyncPrompt prompt;
 
     private final AsyncContent content;
 
@@ -50,6 +54,12 @@ public class AsyncEgain {
 
     public AsyncAiservices aiservices() {
         return aiservices;
+    }
+    /**
+     * APIs for AssistGPT
+     */
+    public AsyncPrompt prompt() {
+        return prompt;
     }
 
     public AsyncContent content() {
@@ -67,6 +77,7 @@ public class AsyncEgain {
         this.syncSDK = syncSDK;
         this.sdkConfiguration = sdkConfiguration;
         this.aiservices = new AsyncAiservices(syncSDK.aiservices(), sdkConfiguration);
+        this.prompt = new AsyncPrompt(syncSDK.prompt(), sdkConfiguration);
         this.content = new AsyncContent(syncSDK.content(), sdkConfiguration);
         this.portal = new AsyncPortal(syncSDK.portal(), sdkConfiguration);
     }

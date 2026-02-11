@@ -119,6 +119,7 @@ public class Article {
      * 
      * <p>## Overview
      * * The Get Article by ID API allows a user to retrieve an Article using its ID.
+     * * It requires a Portal ID, which a user can retrieve by calling the Get All Portals API.
      * * Additional Article attributes and contextual views can be specified in the query parameters.
      * 
      * <p>* This API returns structured authoring attributes of Issue, Environment, Cause and Confidence Level
@@ -157,6 +158,7 @@ public class Article {
      * 
      * <p>## Overview
      * * The Get Article by ID API allows a user to retrieve an Article using its ID.
+     * * It requires a Portal ID, which a user can retrieve by calling the Get All Portals API.
      * * Additional Article attributes and contextual views can be specified in the query parameters.
      * 
      * <p>* This API returns structured authoring attributes of Issue, Environment, Cause and Confidence Level
@@ -235,7 +237,7 @@ public class Article {
      * Get Article Edition Details
      * 
      * <p>## Overview
-     * * This API allows a user to retrieve an article with all its editions.
+     * * This API retrieves the details of an article edition.
      * 
      * @return The call builder
      */
@@ -247,11 +249,11 @@ public class Article {
      * Get Article Edition Details
      * 
      * <p>## Overview
-     * * This API allows a user to retrieve an article with all its editions.
+     * * This API retrieves the details of an article edition.
      * 
      * @param acceptLanguage 
      * @param articleID The ID of the Article. Both numeric and alternate ID formats are supported.<br><br>Valid numerical IDs are 15-19 digits long.
-     * @param publishViewId Publish View Id of the article on which operation is performed.
+     * @param publishViewId The ID of a Publish View Id.<br><br>A Publish View Id ID is composed of a 2-4 letter prefix, followed by a dash and 4-15 digits.
      * @param language 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

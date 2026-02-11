@@ -123,7 +123,9 @@ public class ArticleWithEditions {
     @JsonProperty("ownedBy")
     private OwnedBy ownedBy;
 
-
+    /**
+     * The date on which the Article was created. The timezone of the date will be in UTC.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("createdDate")
     private String createdDate;
@@ -178,7 +180,7 @@ public class ArticleWithEditions {
     private Boolean isSubscribed;
 
     /**
-     * The date on which the Article was last modified.
+     * The date on which the Article was last modified. The timezone of the date will be in UTC.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("modifiedDate")
@@ -443,6 +445,9 @@ public class ArticleWithEditions {
         return Optional.ofNullable(this.ownedBy);
     }
 
+    /**
+     * The date on which the Article was created. The timezone of the date will be in UTC.
+     */
     public Optional<String> createdDate() {
         return Optional.ofNullable(this.createdDate);
     }
@@ -497,7 +502,7 @@ public class ArticleWithEditions {
     }
 
     /**
-     * The date on which the Article was last modified.
+     * The date on which the Article was last modified. The timezone of the date will be in UTC.
      */
     public Optional<String> modifiedDate() {
         return Optional.ofNullable(this.modifiedDate);
@@ -704,6 +709,9 @@ public class ArticleWithEditions {
     }
 
 
+    /**
+     * The date on which the Article was created. The timezone of the date will be in UTC.
+     */
     public ArticleWithEditions withCreatedDate(@Nullable String createdDate) {
         this.createdDate = createdDate;
         return this;
@@ -774,7 +782,7 @@ public class ArticleWithEditions {
 
 
     /**
-     * The date on which the Article was last modified.
+     * The date on which the Article was last modified. The timezone of the date will be in UTC.
      */
     public ArticleWithEditions withModifiedDate(@Nullable String modifiedDate) {
         this.modifiedDate = modifiedDate;
@@ -1160,6 +1168,9 @@ public class ArticleWithEditions {
             return this;
         }
 
+        /**
+         * The date on which the Article was created. The timezone of the date will be in UTC.
+         */
         public Builder createdDate(@Nullable String createdDate) {
             this.createdDate = createdDate;
             return this;
@@ -1222,7 +1233,7 @@ public class ArticleWithEditions {
         }
 
         /**
-         * The date on which the Article was last modified.
+         * The date on which the Article was last modified. The timezone of the date will be in UTC.
          */
         public Builder modifiedDate(@Nullable String modifiedDate) {
             this.modifiedDate = modifiedDate;

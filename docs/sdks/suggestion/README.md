@@ -169,7 +169,7 @@ public class Application {
 package hello.world;
 
 import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.AcceptLanguage;
+import com.egain.sdk.models.components.*;
 import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.*;
 import java.lang.Exception;
@@ -186,6 +186,8 @@ public class Application {
                 .acceptLanguage(AcceptLanguage.EN_US)
                 .portalID("PROD-1000")
                 .filterStatus(FilterStatus.SUGGESTED)
+                .sort(SortIdName.ID)
+                .order(Order.ASC)
                 .build();
 
         SearchSuggestionResponse res = sdk.portal().suggestion().searchSuggestion()

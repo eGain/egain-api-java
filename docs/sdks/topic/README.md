@@ -239,6 +239,7 @@ public class Application {
         GetalltopicsRequest req = GetalltopicsRequest.builder()
                 .acceptLanguage(AcceptLanguage.EN_US)
                 .portalID("PROD-1000")
+                .searchProfileId("959500000204621")
                 .level(-1L)
                 .language(LanguageQueryParameter.EN_US)
                 .topicAdditionalAttributes(List.of(

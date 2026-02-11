@@ -5,8 +5,11 @@ package com.egain.sdk.models.components;
 
 import com.egain.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
@@ -19,11 +22,23 @@ public class AISearchResponse {
     @JsonProperty("searchResults")
     private SearchResults searchResults;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("paginationInfo")
+    private AISPaginationInfo paginationInfo;
+
     @JsonCreator
     public AISearchResponse(
-            @JsonProperty("searchResults") @Nonnull SearchResults searchResults) {
+            @JsonProperty("searchResults") @Nonnull SearchResults searchResults,
+            @JsonProperty("paginationInfo") @Nullable AISPaginationInfo paginationInfo) {
         this.searchResults = Optional.ofNullable(searchResults)
             .orElseThrow(() -> new IllegalArgumentException("searchResults cannot be null"));
+        this.paginationInfo = paginationInfo;
+    }
+    
+    public AISearchResponse(
+            @Nonnull SearchResults searchResults) {
+        this(searchResults, null);
     }
 
     /**
@@ -31,6 +46,10 @@ public class AISearchResponse {
      */
     public SearchResults searchResults() {
         return this.searchResults;
+    }
+
+    public Optional<AISPaginationInfo> paginationInfo() {
+        return Optional.ofNullable(this.paginationInfo);
     }
 
     public static Builder builder() {
@@ -47,6 +66,12 @@ public class AISearchResponse {
     }
 
 
+    public AISearchResponse withPaginationInfo(@Nullable AISPaginationInfo paginationInfo) {
+        this.paginationInfo = paginationInfo;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -57,25 +82,29 @@ public class AISearchResponse {
         }
         AISearchResponse other = (AISearchResponse) o;
         return 
-            Utils.enhancedDeepEquals(this.searchResults, other.searchResults);
+            Utils.enhancedDeepEquals(this.searchResults, other.searchResults) &&
+            Utils.enhancedDeepEquals(this.paginationInfo, other.paginationInfo);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            searchResults);
+            searchResults, paginationInfo);
     }
     
     @Override
     public String toString() {
         return Utils.toString(AISearchResponse.class,
-                "searchResults", searchResults);
+                "searchResults", searchResults,
+                "paginationInfo", paginationInfo);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private SearchResults searchResults;
+
+        private AISPaginationInfo paginationInfo;
 
         private Builder() {
           // force use of static builder() method
@@ -89,9 +118,14 @@ public class AISearchResponse {
             return this;
         }
 
+        public Builder paginationInfo(@Nullable AISPaginationInfo paginationInfo) {
+            this.paginationInfo = paginationInfo;
+            return this;
+        }
+
         public AISearchResponse build() {
             return new AISearchResponse(
-                searchResults);
+                searchResults, paginationInfo);
         }
 
     }

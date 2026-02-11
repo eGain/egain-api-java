@@ -26,10 +26,22 @@ public enum CreateSuggestionCode {
     DA_DK("da-DK"),
     SV_SE("sv-SE"),
     RURU("ru-RU"),
-    FR_CA("fr-CA"),
     ZH_CN("zh-CN"),
     JA_JP("ja-JP"),
-    KO_KR("ko-KR");
+    KO_KR("ko-KR"),
+    DE_AT("de-AT"),
+    THTH("th-TH"),
+    VI_VN("vi-VN"),
+    IDID("id-ID"),
+    MS_MY("ms-MY"),
+    FIL_PH("fil-PH"),
+    FR_CA("fr-CA"),
+    HI_IN("hi-IN"),
+    UK_UA("uk-UA"),
+    BGBG("bg-BG"),
+    SKSK("sk-SK"),
+    SL_SI("sl-SI"),
+    SR_RS("sr-RS");
 
     @JsonValue
     private final String value;

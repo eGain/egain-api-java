@@ -48,9 +48,9 @@ public class CreateImportValidationJob {
      */
     public static final String[] CREATE_IMPORT_VALIDATION_JOB_SERVERS = {
         /**
-         * Production Server - Try it Out does not function
+         * Production Server
          */
-        "http://nop",
+        "https://api.aidev.egain.cloud//knowledge/contentmgr/v4",
     };
 
     static abstract class Base {
@@ -196,14 +196,14 @@ public class CreateImportValidationJob {
                 // no content
                 return res;
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "406")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw WSErrorCommon.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "412")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "406", "412")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw SchemasWSErrorCommon.from(response);
                 } else {
@@ -289,7 +289,7 @@ public class CreateImportValidationJob {
                 // no content
                 return CompletableFuture.completedFuture(res);
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "406")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     return WSErrorCommon.fromAsync(response)
                             .thenCompose(CompletableFuture::failedFuture);
@@ -297,7 +297,7 @@ public class CreateImportValidationJob {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "412")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "406", "412")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     return SchemasWSErrorCommon.fromAsync(response)
                             .thenCompose(CompletableFuture::failedFuture);

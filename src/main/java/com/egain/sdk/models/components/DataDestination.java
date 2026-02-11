@@ -23,7 +23,7 @@ public class DataDestination {
     private DestinationType destinationType;
 
     /**
-     * Path of the data destination
+     * Path of the data destination. For S3 bucket, it can be root or a folder.
      */
     @JsonProperty("path")
     private String path;
@@ -38,14 +38,14 @@ public class DataDestination {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("credentials")
-    private KnowledgeExportCredentials credentials;
+    private Credentials credentials;
 
     @JsonCreator
     public DataDestination(
             @JsonProperty("destinationType") @Nonnull DestinationType destinationType,
             @JsonProperty("path") @Nonnull String path,
             @JsonProperty("region") @Nullable String region,
-            @JsonProperty("credentials") @Nullable KnowledgeExportCredentials credentials) {
+            @JsonProperty("credentials") @Nullable Credentials credentials) {
         this.destinationType = Optional.ofNullable(destinationType)
             .orElseThrow(() -> new IllegalArgumentException("destinationType cannot be null"));
         this.path = Optional.ofNullable(path)
@@ -69,7 +69,7 @@ public class DataDestination {
     }
 
     /**
-     * Path of the data destination
+     * Path of the data destination. For S3 bucket, it can be root or a folder.
      */
     public String path() {
         return this.path;
@@ -82,7 +82,7 @@ public class DataDestination {
         return Optional.ofNullable(this.region);
     }
 
-    public Optional<KnowledgeExportCredentials> credentials() {
+    public Optional<Credentials> credentials() {
         return Optional.ofNullable(this.credentials);
     }
 
@@ -101,7 +101,7 @@ public class DataDestination {
 
 
     /**
-     * Path of the data destination
+     * Path of the data destination. For S3 bucket, it can be root or a folder.
      */
     public DataDestination withPath(@Nonnull String path) {
         this.path = Utils.checkNotNull(path, "path");
@@ -118,7 +118,7 @@ public class DataDestination {
     }
 
 
-    public DataDestination withCredentials(@Nullable KnowledgeExportCredentials credentials) {
+    public DataDestination withCredentials(@Nullable Credentials credentials) {
         this.credentials = credentials;
         return this;
     }
@@ -165,7 +165,7 @@ public class DataDestination {
 
         private String region;
 
-        private KnowledgeExportCredentials credentials;
+        private Credentials credentials;
 
         private Builder() {
           // force use of static builder() method
@@ -180,7 +180,7 @@ public class DataDestination {
         }
 
         /**
-         * Path of the data destination
+         * Path of the data destination. For S3 bucket, it can be root or a folder.
          */
         public Builder path(@Nonnull String path) {
             this.path = Utils.checkNotNull(path, "path");
@@ -195,7 +195,7 @@ public class DataDestination {
             return this;
         }
 
-        public Builder credentials(@Nullable KnowledgeExportCredentials credentials) {
+        public Builder credentials(@Nullable Credentials credentials) {
             this.credentials = credentials;
             return this;
         }

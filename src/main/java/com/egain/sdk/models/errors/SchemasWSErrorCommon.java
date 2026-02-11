@@ -133,7 +133,7 @@ public class SchemasWSErrorCommon extends EgainException {
     /**
      * Data
      * 
-     * <p>Preconditions failed
+     * <p>Not acceptable
      */
     public static class Data {
         /**

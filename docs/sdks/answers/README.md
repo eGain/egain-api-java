@@ -5,7 +5,7 @@
 
 ### Available Operations
 
-* [getBestAnswer](#getbestanswer) - Get the best answer for a user query
+* [getBestAnswer](#getbestanswer) - Generate an Answer
 
 ## getBestAnswer
 
@@ -13,7 +13,7 @@ The **Answers API** allows enterprises to deliver fast, accurate, and contextual
   - **Certified Answers**: Direct snippets retrieved from enterprise-authored content.
   - **Generative Answers**: Natural language responses synthesized by a large language model (LLM).
 
-Every response includes supporting search results, references, and confidence scores—ensuring transparency, trust, and traceability. The API is built for secure, scalable integration across enterprise environments. <br>**This endpoint is only available for Self Service environments.**
+Every response includes supporting search results, references, and confidence scores—ensuring transparency, trust, and traceability. The API is built for secure, scalable integration across enterprise environments.
 
 
 ### Example Usage
@@ -23,7 +23,7 @@ Every response includes supporting search results, references, and confidence sc
 package hello.world;
 
 import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.LanguageCodeParameter;
+import com.egain.sdk.models.components.*;
 import com.egain.sdk.models.operations.GetBestAnswerRequest;
 import com.egain.sdk.models.operations.GetBestAnswerResponse;
 import java.lang.Exception;
@@ -39,16 +39,24 @@ public class Application {
             .build();
 
         GetBestAnswerRequest req = GetBestAnswerRequest.builder()
-                .q("fair lending")
+                .q("What is a loan?")
                 .portalID("PROD-1000")
-                .language(LanguageCodeParameter.EN_US)
-                .filterUserProfileID("PROD-3210")
+                .language(RequiredLanguageCode.EN_US)
+                .filterUserProfileID("PROD-1030")
                 .filterTags(Map.ofEntries(
                     Map.entry("PROD-1234", List.of(
                         "PROD-2000",
                         "PROD-2003")),
                     Map.entry("PROD-2005", List.of(
                         "PROD-2007"))))
+                .body(AnswersRequest.builder()
+                    .channel(AnswersRequestChannel.builder()
+                        .name("Eight Bank Website")
+                        .build())
+                    .eventId("6154589f-b43f-4471-b2c7-92c6c888a664")
+                    .clientSessionId("6154589f-b43f-4471-b2c7-92c6c888a643")
+                    .sessionId("6154589f-b43f-4471-b2c7-92c6c888a689")
+                    .build())
                 .build();
 
         GetBestAnswerResponse res = sdk.aiservices().answers().getBestAnswer()

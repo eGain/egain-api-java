@@ -22,7 +22,6 @@ public class AsyncPortal {
     private final AsyncSuggestion suggestion;
     private final AsyncUsermilestones usermilestones;
     private final AsyncFederatedsearchevent federatedsearchevent;
-    private final AsyncEscalation escalation;
     private final AsyncConnectorssearchevents connectorssearchevents;
     private final AsyncAttachment attachment;
     private final AsyncExport export;
@@ -43,7 +42,6 @@ public class AsyncPortal {
         this.suggestion = new AsyncSuggestion(syncSDK.suggestion(), this.sdkConfiguration);
         this.usermilestones = new AsyncUsermilestones(syncSDK.usermilestones(), this.sdkConfiguration);
         this.federatedsearchevent = new AsyncFederatedsearchevent(syncSDK.federatedsearchevent(), this.sdkConfiguration);
-        this.escalation = new AsyncEscalation(syncSDK.escalation(), this.sdkConfiguration);
         this.connectorssearchevents = new AsyncConnectorssearchevents(syncSDK.connectorssearchevents(), this.sdkConfiguration);
         this.attachment = new AsyncAttachment(syncSDK.attachment(), this.sdkConfiguration);
         this.export = new AsyncExport(syncSDK.export(), this.sdkConfiguration);
@@ -100,10 +98,6 @@ public class AsyncPortal {
 
     public final AsyncFederatedsearchevent federatedsearchevent() {
         return federatedsearchevent;
-    }
-
-    public final AsyncEscalation escalation() {
-        return escalation;
     }
 
     public final AsyncConnectorssearchevents connectorssearchevents() {

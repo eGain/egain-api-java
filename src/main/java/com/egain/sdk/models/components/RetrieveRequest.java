@@ -28,8 +28,15 @@ public class RetrieveRequest {
     private String eventId;
 
     /**
-     * ID that ties multiple API calls to the same user session. Will be used as part of to tie events back
-     * to a session.
+     * Session ID passed by the client for this specific API call or event.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("clientSessionId")
+    private String clientSessionId;
+
+    /**
+     * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
+     * tie events back to a session.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sessionId")
@@ -39,14 +46,17 @@ public class RetrieveRequest {
     public RetrieveRequest(
             @JsonProperty("channel") @Nullable RetrieveRequestChannel channel,
             @JsonProperty("eventId") @Nullable String eventId,
+            @JsonProperty("clientSessionId") @Nullable String clientSessionId,
             @JsonProperty("sessionId") @Nullable String sessionId) {
         this.channel = channel;
         this.eventId = eventId;
+        this.clientSessionId = clientSessionId;
         this.sessionId = sessionId;
     }
     
     public RetrieveRequest() {
-        this(null, null, null);
+        this(null, null, null,
+            null);
     }
 
     public Optional<RetrieveRequestChannel> channel() {
@@ -61,8 +71,15 @@ public class RetrieveRequest {
     }
 
     /**
-     * ID that ties multiple API calls to the same user session. Will be used as part of to tie events back
-     * to a session.
+     * Session ID passed by the client for this specific API call or event.
+     */
+    public Optional<String> clientSessionId() {
+        return Optional.ofNullable(this.clientSessionId);
+    }
+
+    /**
+     * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
+     * tie events back to a session.
      */
     public Optional<String> sessionId() {
         return Optional.ofNullable(this.sessionId);
@@ -89,8 +106,17 @@ public class RetrieveRequest {
 
 
     /**
-     * ID that ties multiple API calls to the same user session. Will be used as part of to tie events back
-     * to a session.
+     * Session ID passed by the client for this specific API call or event.
+     */
+    public RetrieveRequest withClientSessionId(@Nullable String clientSessionId) {
+        this.clientSessionId = clientSessionId;
+        return this;
+    }
+
+
+    /**
+     * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
+     * tie events back to a session.
      */
     public RetrieveRequest withSessionId(@Nullable String sessionId) {
         this.sessionId = sessionId;
@@ -110,13 +136,15 @@ public class RetrieveRequest {
         return 
             Utils.enhancedDeepEquals(this.channel, other.channel) &&
             Utils.enhancedDeepEquals(this.eventId, other.eventId) &&
+            Utils.enhancedDeepEquals(this.clientSessionId, other.clientSessionId) &&
             Utils.enhancedDeepEquals(this.sessionId, other.sessionId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            channel, eventId, sessionId);
+            channel, eventId, clientSessionId,
+            sessionId);
     }
     
     @Override
@@ -124,6 +152,7 @@ public class RetrieveRequest {
         return Utils.toString(RetrieveRequest.class,
                 "channel", channel,
                 "eventId", eventId,
+                "clientSessionId", clientSessionId,
                 "sessionId", sessionId);
     }
 
@@ -133,6 +162,8 @@ public class RetrieveRequest {
         private RetrieveRequestChannel channel;
 
         private String eventId;
+
+        private String clientSessionId;
 
         private String sessionId;
 
@@ -154,8 +185,16 @@ public class RetrieveRequest {
         }
 
         /**
-         * ID that ties multiple API calls to the same user session. Will be used as part of to tie events back
-         * to a session.
+         * Session ID passed by the client for this specific API call or event.
+         */
+        public Builder clientSessionId(@Nullable String clientSessionId) {
+            this.clientSessionId = clientSessionId;
+            return this;
+        }
+
+        /**
+         * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
+         * tie events back to a session.
          */
         public Builder sessionId(@Nullable String sessionId) {
             this.sessionId = sessionId;
@@ -164,7 +203,8 @@ public class RetrieveRequest {
 
         public RetrieveRequest build() {
             return new RetrieveRequest(
-                channel, eventId, sessionId);
+                channel, eventId, clientSessionId,
+                sessionId);
         }
 
     }

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Float;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
@@ -58,8 +59,15 @@ public class AdditionalSnippets {
     /**
      * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("relevanceScore")
-    private float relevanceScore;
+    private Float relevanceScore;
+
+    /**
+     * Score (0.0-1.0) normalized across all results, where the top result is 1.0 and the lowest is 0.0.
+     */
+    @JsonProperty("normalizedScore")
+    private float normalizedScore;
 
     @JsonCreator
     public AdditionalSnippets(
@@ -69,7 +77,8 @@ public class AdditionalSnippets {
             @JsonProperty("docName") @Nullable String docName,
             @JsonProperty("snippet") @Nonnull String snippet,
             @JsonProperty("keywordSnippet") @Nullable String keywordSnippet,
-            @JsonProperty("relevanceScore") float relevanceScore) {
+            @JsonProperty("relevanceScore") @Nullable Float relevanceScore,
+            @JsonProperty("normalizedScore") float normalizedScore) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.name = Optional.ofNullable(name)
@@ -81,6 +90,7 @@ public class AdditionalSnippets {
             .orElseThrow(() -> new IllegalArgumentException("snippet cannot be null"));
         this.keywordSnippet = keywordSnippet;
         this.relevanceScore = relevanceScore;
+        this.normalizedScore = normalizedScore;
     }
     
     public AdditionalSnippets(
@@ -88,10 +98,10 @@ public class AdditionalSnippets {
             @Nonnull String name,
             @Nonnull AdditionalSnippetsDocType docType,
             @Nonnull String snippet,
-            float relevanceScore) {
+            float normalizedScore) {
         this(id, name, docType,
             null, snippet, null,
-            relevanceScore);
+            null, normalizedScore);
     }
 
     /**
@@ -140,8 +150,15 @@ public class AdditionalSnippets {
     /**
      * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
      */
-    public float relevanceScore() {
-        return this.relevanceScore;
+    public Optional<Float> relevanceScore() {
+        return Optional.ofNullable(this.relevanceScore);
+    }
+
+    /**
+     * Score (0.0-1.0) normalized across all results, where the top result is 1.0 and the lowest is 0.0.
+     */
+    public float normalizedScore() {
+        return this.normalizedScore;
     }
 
     public static Builder builder() {
@@ -207,8 +224,17 @@ public class AdditionalSnippets {
     /**
      * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
      */
-    public AdditionalSnippets withRelevanceScore(float relevanceScore) {
+    public AdditionalSnippets withRelevanceScore(@Nullable Float relevanceScore) {
         this.relevanceScore = relevanceScore;
+        return this;
+    }
+
+
+    /**
+     * Score (0.0-1.0) normalized across all results, where the top result is 1.0 and the lowest is 0.0.
+     */
+    public AdditionalSnippets withNormalizedScore(float normalizedScore) {
+        this.normalizedScore = normalizedScore;
         return this;
     }
 
@@ -229,7 +255,8 @@ public class AdditionalSnippets {
             Utils.enhancedDeepEquals(this.docName, other.docName) &&
             Utils.enhancedDeepEquals(this.snippet, other.snippet) &&
             Utils.enhancedDeepEquals(this.keywordSnippet, other.keywordSnippet) &&
-            Utils.enhancedDeepEquals(this.relevanceScore, other.relevanceScore);
+            Utils.enhancedDeepEquals(this.relevanceScore, other.relevanceScore) &&
+            Utils.enhancedDeepEquals(this.normalizedScore, other.normalizedScore);
     }
     
     @Override
@@ -237,7 +264,7 @@ public class AdditionalSnippets {
         return Utils.enhancedHash(
             id, name, docType,
             docName, snippet, keywordSnippet,
-            relevanceScore);
+            relevanceScore, normalizedScore);
     }
     
     @Override
@@ -249,7 +276,8 @@ public class AdditionalSnippets {
                 "docName", docName,
                 "snippet", snippet,
                 "keywordSnippet", keywordSnippet,
-                "relevanceScore", relevanceScore);
+                "relevanceScore", relevanceScore,
+                "normalizedScore", normalizedScore);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -267,7 +295,9 @@ public class AdditionalSnippets {
 
         private String keywordSnippet;
 
-        private float relevanceScore;
+        private Float relevanceScore;
+
+        private float normalizedScore;
 
         private Builder() {
           // force use of static builder() method
@@ -325,8 +355,16 @@ public class AdditionalSnippets {
         /**
          * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
          */
-        public Builder relevanceScore(float relevanceScore) {
+        public Builder relevanceScore(@Nullable Float relevanceScore) {
             this.relevanceScore = relevanceScore;
+            return this;
+        }
+
+        /**
+         * Score (0.0-1.0) normalized across all results, where the top result is 1.0 and the lowest is 0.0.
+         */
+        public Builder normalizedScore(float normalizedScore) {
+            this.normalizedScore = normalizedScore;
             return this;
         }
 
@@ -334,7 +372,7 @@ public class AdditionalSnippets {
             return new AdditionalSnippets(
                 id, name, docType,
                 docName, snippet, keywordSnippet,
-                relevanceScore);
+                relevanceScore, normalizedScore);
         }
 
     }

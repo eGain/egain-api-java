@@ -38,14 +38,14 @@ public class ValidateImportContentDataSource {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("credentials")
-    private ValidateImportContentCredentials credentials;
+    private DataSourceCredentials credentials;
 
     @JsonCreator
     public ValidateImportContentDataSource(
             @JsonProperty("type") @Nonnull ValidateImportContentType type,
             @JsonProperty("path") @Nonnull String path,
             @JsonProperty("region") @Nullable String region,
-            @JsonProperty("credentials") @Nullable ValidateImportContentCredentials credentials) {
+            @JsonProperty("credentials") @Nullable DataSourceCredentials credentials) {
         this.type = Optional.ofNullable(type)
             .orElseThrow(() -> new IllegalArgumentException("type cannot be null"));
         this.path = Optional.ofNullable(path)
@@ -82,7 +82,7 @@ public class ValidateImportContentDataSource {
         return Optional.ofNullable(this.region);
     }
 
-    public Optional<ValidateImportContentCredentials> credentials() {
+    public Optional<DataSourceCredentials> credentials() {
         return Optional.ofNullable(this.credentials);
     }
 
@@ -118,7 +118,7 @@ public class ValidateImportContentDataSource {
     }
 
 
-    public ValidateImportContentDataSource withCredentials(@Nullable ValidateImportContentCredentials credentials) {
+    public ValidateImportContentDataSource withCredentials(@Nullable DataSourceCredentials credentials) {
         this.credentials = credentials;
         return this;
     }
@@ -165,7 +165,7 @@ public class ValidateImportContentDataSource {
 
         private String region;
 
-        private ValidateImportContentCredentials credentials;
+        private DataSourceCredentials credentials;
 
         private Builder() {
           // force use of static builder() method
@@ -195,7 +195,7 @@ public class ValidateImportContentDataSource {
             return this;
         }
 
-        public Builder credentials(@Nullable ValidateImportContentCredentials credentials) {
+        public Builder credentials(@Nullable DataSourceCredentials credentials) {
             this.credentials = credentials;
             return this;
         }

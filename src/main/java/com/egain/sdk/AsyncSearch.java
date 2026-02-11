@@ -35,15 +35,13 @@ public class AsyncSearch {
 
 
     /**
-     * Get the best search results for a user query
+     * Hybrid Search
      * 
      * <p>The Search API is a hybrid search service that combines semantic understanding with keyword
      * precision to deliver fast, contextual, and relevant results from your enterprise knowledge base. It
      * enables secure, role-aware access to articles, FAQs, and documentation across customer, agent, and
      * employee interfaces. Each query returns a ranked list of results with snippets, metadata, and
      * relevance scores.
-     * 
-     * <p><br>**This endpoint is only available for Self Service environments.**
      * 
      * @return The async call builder
      */
@@ -52,15 +50,13 @@ public class AsyncSearch {
     }
 
     /**
-     * Get the best search results for a user query
+     * Hybrid Search
      * 
      * <p>The Search API is a hybrid search service that combines semantic understanding with keyword
      * precision to deliver fast, contextual, and relevant results from your enterprise knowledge base. It
      * enables secure, role-aware access to articles, FAQs, and documentation across customer, agent, and
      * employee interfaces. Each query returns a ranked list of results with snippets, metadata, and
      * relevance scores.
-     * 
-     * <p><br>**This endpoint is only available for Self Service environments.**
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return {@code CompletableFuture<AiSearchResponse>} - The async response

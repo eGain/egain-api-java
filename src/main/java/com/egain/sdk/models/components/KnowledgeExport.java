@@ -41,10 +41,12 @@ public class KnowledgeExport {
 
     /**
      * Types of Knowledge Hub resources to export. Multiple values can be specified using a comma-separated
-     * list. Details of a single portal are exported.
+     * list: {articles, topics, portals, all}.
+     * Details of a single portal are exported.
      * Articles whose state is Published are returned.
-     * | Portal Attribute Name | Description
-     * | ------------------------------- | -----------
+     * 
+     * <p>Portal Attribute Name | Description
+     * ------------------------------- | -----------
      * | id | The ID of the Portal in Readable format.
      * | alternateId | The system-generated ID of the Portal in long format.
      * | name  | The name of the Portal.
@@ -90,6 +92,7 @@ public class KnowledgeExport {
      * | averageRating | Average rating of the Article.
      * | timesRated | Number or times the Article was rated.
      * | availabilityDate | The date the Article is set to be available.
+     * | modifiedDate | The date that the Article was last modified on.
      * | articleMacro | The macro of the Article.
      * | content | path to the Article content in .html format.
      * | customAttributes | One or more comma-separated names for Article custom attributes defined by the
@@ -157,10 +160,12 @@ public class KnowledgeExport {
 
     /**
      * Types of Knowledge Hub resources to export. Multiple values can be specified using a comma-separated
-     * list. Details of a single portal are exported.
+     * list: {articles, topics, portals, all}.
+     * Details of a single portal are exported.
      * Articles whose state is Published are returned.
-     * | Portal Attribute Name | Description
-     * | ------------------------------- | -----------
+     * 
+     * <p>Portal Attribute Name | Description
+     * ------------------------------- | -----------
      * | id | The ID of the Portal in Readable format.
      * | alternateId | The system-generated ID of the Portal in long format.
      * | name  | The name of the Portal.
@@ -206,6 +211,7 @@ public class KnowledgeExport {
      * | averageRating | Average rating of the Article.
      * | timesRated | Number or times the Article was rated.
      * | availabilityDate | The date the Article is set to be available.
+     * | modifiedDate | The date that the Article was last modified on.
      * | articleMacro | The macro of the Article.
      * | content | path to the Article content in .html format.
      * | customAttributes | One or more comma-separated names for Article custom attributes defined by the
@@ -257,10 +263,12 @@ public class KnowledgeExport {
 
     /**
      * Types of Knowledge Hub resources to export. Multiple values can be specified using a comma-separated
-     * list. Details of a single portal are exported.
+     * list: {articles, topics, portals, all}.
+     * Details of a single portal are exported.
      * Articles whose state is Published are returned.
-     * | Portal Attribute Name | Description
-     * | ------------------------------- | -----------
+     * 
+     * <p>Portal Attribute Name | Description
+     * ------------------------------- | -----------
      * | id | The ID of the Portal in Readable format.
      * | alternateId | The system-generated ID of the Portal in long format.
      * | name  | The name of the Portal.
@@ -306,6 +314,7 @@ public class KnowledgeExport {
      * | averageRating | Average rating of the Article.
      * | timesRated | Number or times the Article was rated.
      * | availabilityDate | The date the Article is set to be available.
+     * | modifiedDate | The date that the Article was last modified on.
      * | articleMacro | The macro of the Article.
      * | content | path to the Article content in .html format.
      * | customAttributes | One or more comma-separated names for Article custom attributes defined by the
@@ -404,10 +413,12 @@ public class KnowledgeExport {
 
         /**
          * Types of Knowledge Hub resources to export. Multiple values can be specified using a comma-separated
-         * list. Details of a single portal are exported.
+         * list: {articles, topics, portals, all}.
+         * Details of a single portal are exported.
          * Articles whose state is Published are returned.
-         * | Portal Attribute Name | Description
-         * | ------------------------------- | -----------
+         * 
+         * <p>Portal Attribute Name | Description
+         * ------------------------------- | -----------
          * | id | The ID of the Portal in Readable format.
          * | alternateId | The system-generated ID of the Portal in long format.
          * | name  | The name of the Portal.
@@ -453,6 +464,7 @@ public class KnowledgeExport {
          * | averageRating | Average rating of the Article.
          * | timesRated | Number or times the Article was rated.
          * | availabilityDate | The date the Article is set to be available.
+         * | modifiedDate | The date that the Article was last modified on.
          * | articleMacro | The macro of the Article.
          * | content | path to the Article content in .html format.
          * | customAttributes | One or more comma-separated names for Article custom attributes defined by the

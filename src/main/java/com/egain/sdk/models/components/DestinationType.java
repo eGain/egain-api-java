@@ -14,8 +14,7 @@ import java.util.Optional;
  * <p>Type of data destination
  */
 public enum DestinationType {
-    AWSS3_BUCKET("AWS S3 bucket"),
-    SHARED_FILE_PATH("Shared file path");
+    AWSS3_BUCKET("AWS S3 bucket");
 
     @JsonValue
     private final String value;

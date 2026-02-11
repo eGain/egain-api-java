@@ -5,7 +5,9 @@ package com.egain.sdk;
 
 import static com.egain.sdk.operations.Operations.AsyncRequestOperation;
 
+import com.egain.sdk.models.components.AcceptLanguage;
 import com.egain.sdk.models.components.KnowledgeExport;
+import com.egain.sdk.models.operations.ExportContentRequest;
 import com.egain.sdk.models.operations.ExportStatusRequest;
 import com.egain.sdk.models.operations.async.ExportContentRequestBuilder;
 import com.egain.sdk.models.operations.async.ExportContentResponse;
@@ -44,13 +46,16 @@ public class AsyncExport {
      * 
      * <p>## Overview
      * The Content Export API initiates a bulk export of the Knowledge Hub to a client-provided Amazon S3
-     * bucket or SFTP server path.
+     * bucket.
      * It returns a URL with a Job ID to enable tracking the status of this asynchronous operation.
      * Each export job can send multiple JSON files, depending on the total number of items to process.
      * More than one bulk export can take place, as needed, one per portal.
      * 
      * <p>## Permission
      * * Only a client application can invoke this API.
+     * 
+     * <p>## License
+     * * This API requires a site license (SKU: EG-CL-RTKA-PT).
      * 
      * @return The async call builder
      */
@@ -63,7 +68,7 @@ public class AsyncExport {
      * 
      * <p>## Overview
      * The Content Export API initiates a bulk export of the Knowledge Hub to a client-provided Amazon S3
-     * bucket or SFTP server path.
+     * bucket.
      * It returns a URL with a Job ID to enable tracking the status of this asynchronous operation.
      * Each export job can send multiple JSON files, depending on the total number of items to process.
      * More than one bulk export can take place, as needed, one per portal.
@@ -71,11 +76,16 @@ public class AsyncExport {
      * <p>## Permission
      * * Only a client application can invoke this API.
      * 
-     * @param request The request object containing all the parameters for the API call.
+     * <p>## License
+     * * This API requires a site license (SKU: EG-CL-RTKA-PT).
+     * 
+     * @param acceptLanguage 
+     * @param body 
      * @return {@code CompletableFuture<ExportContentResponse>} - The async response
      */
-    public CompletableFuture<ExportContentResponse> exportContent(@Nonnull KnowledgeExport request) {
-        AsyncRequestOperation<KnowledgeExport, ExportContentResponse> operation
+    public CompletableFuture<ExportContentResponse> exportContent(@Nonnull AcceptLanguage acceptLanguage, @Nonnull KnowledgeExport body) {
+        ExportContentRequest request = new ExportContentRequest(acceptLanguage, body);
+        AsyncRequestOperation<ExportContentRequest, ExportContentResponse> operation
               = new ExportContent.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
@@ -104,6 +114,9 @@ public class AsyncExport {
      * <p>## Permission
      * * Only a client application can invoke this API.
      * 
+     * <p>## License
+     * * This API requires a site license (SKU: EG-CL-RTKA-PT).
+     * 
      * @return The async call builder
      */
     public ExportStatusRequestBuilder exportStatus() {
@@ -131,6 +144,9 @@ public class AsyncExport {
      * 
      * <p>## Permission
      * * Only a client application can invoke this API.
+     * 
+     * <p>## License
+     * * This API requires a site license (SKU: EG-CL-RTKA-PT).
      * 
      * @param jobID **Example Usage:**
      *         ```bash

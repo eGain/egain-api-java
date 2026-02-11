@@ -37,6 +37,12 @@ public class GetalltopicsRequest {
     private String portalID;
 
     /**
+     * Search Profile ID
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=searchProfileId")
+    private String searchProfileId;
+
+    /**
      * Depth of the topic hierarchy to be returned in the response.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=level")
@@ -99,6 +105,7 @@ public class GetalltopicsRequest {
     public GetalltopicsRequest(
             @Nonnull AcceptLanguage acceptLanguage,
             @Nonnull String portalID,
+            @Nullable String searchProfileId,
             @Nullable Long level,
             @Nullable LanguageQueryParameter language,
             @Nullable List<TopicAdditionalAttributes> topicAdditionalAttributes,
@@ -109,6 +116,7 @@ public class GetalltopicsRequest {
             .orElseThrow(() -> new IllegalArgumentException("acceptLanguage cannot be null"));
         this.portalID = Optional.ofNullable(portalID)
             .orElseThrow(() -> new IllegalArgumentException("portalID cannot be null"));
+        this.searchProfileId = searchProfileId;
         this.level = level;
         this.language = language;
         this.topicAdditionalAttributes = topicAdditionalAttributes;
@@ -124,7 +132,7 @@ public class GetalltopicsRequest {
             @Nonnull String portalID) {
         this(acceptLanguage, portalID, null,
             null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -141,6 +149,13 @@ public class GetalltopicsRequest {
      */
     public String portalID() {
         return this.portalID;
+    }
+
+    /**
+     * Search Profile ID
+     */
+    public Optional<String> searchProfileId() {
+        return Optional.ofNullable(this.searchProfileId);
     }
 
     /**
@@ -233,6 +248,15 @@ public class GetalltopicsRequest {
 
 
     /**
+     * Search Profile ID
+     */
+    public GetalltopicsRequest withSearchProfileId(@Nullable String searchProfileId) {
+        this.searchProfileId = searchProfileId;
+        return this;
+    }
+
+
+    /**
      * Depth of the topic hierarchy to be returned in the response.
      */
     public GetalltopicsRequest withLevel(@Nullable Long level) {
@@ -320,6 +344,7 @@ public class GetalltopicsRequest {
         return 
             Utils.enhancedDeepEquals(this.acceptLanguage, other.acceptLanguage) &&
             Utils.enhancedDeepEquals(this.portalID, other.portalID) &&
+            Utils.enhancedDeepEquals(this.searchProfileId, other.searchProfileId) &&
             Utils.enhancedDeepEquals(this.level, other.level) &&
             Utils.enhancedDeepEquals(this.language, other.language) &&
             Utils.enhancedDeepEquals(this.topicAdditionalAttributes, other.topicAdditionalAttributes) &&
@@ -331,9 +356,9 @@ public class GetalltopicsRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            acceptLanguage, portalID, level,
-            language, topicAdditionalAttributes, customAdditionalAttributes,
-            pagenum, pagesize);
+            acceptLanguage, portalID, searchProfileId,
+            level, language, topicAdditionalAttributes,
+            customAdditionalAttributes, pagenum, pagesize);
     }
     
     @Override
@@ -341,6 +366,7 @@ public class GetalltopicsRequest {
         return Utils.toString(GetalltopicsRequest.class,
                 "acceptLanguage", acceptLanguage,
                 "portalID", portalID,
+                "searchProfileId", searchProfileId,
                 "level", level,
                 "language", language,
                 "topicAdditionalAttributes", topicAdditionalAttributes,
@@ -355,6 +381,8 @@ public class GetalltopicsRequest {
         private AcceptLanguage acceptLanguage;
 
         private String portalID;
+
+        private String searchProfileId;
 
         private Long level;
 
@@ -387,6 +415,14 @@ public class GetalltopicsRequest {
          */
         public Builder portalID(@Nonnull String portalID) {
             this.portalID = Utils.checkNotNull(portalID, "portalID");
+            return this;
+        }
+
+        /**
+         * Search Profile ID
+         */
+        public Builder searchProfileId(@Nullable String searchProfileId) {
+            this.searchProfileId = searchProfileId;
             return this;
         }
 
@@ -462,9 +498,9 @@ public class GetalltopicsRequest {
 
         public GetalltopicsRequest build() {
             return new GetalltopicsRequest(
-                acceptLanguage, portalID, level,
-                language, topicAdditionalAttributes, customAdditionalAttributes,
-                pagenum, pagesize);
+                acceptLanguage, portalID, searchProfileId,
+                level, language, topicAdditionalAttributes,
+                customAdditionalAttributes, pagenum, pagesize);
         }
 
 

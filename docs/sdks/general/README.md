@@ -92,8 +92,7 @@ public class Application {
 package hello.world;
 
 import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.AcceptLanguage;
-import com.egain.sdk.models.components.MandatoryLanguageQueryParameter;
+import com.egain.sdk.models.components.*;
 import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.GetMyPortalsRequest;
 import com.egain.sdk.models.operations.GetMyPortalsResponse;
@@ -113,6 +112,7 @@ public class Application {
                 .department("service")
                 .filterText("master")
                 .shortUrlTemplate("silver")
+                .order(Order.ASC)
                 .build();
 
         GetMyPortalsResponse res = sdk.portal().general().getMyPortals()

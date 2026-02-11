@@ -10,14 +10,20 @@ public class Aiservices {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
     private final AsyncAiservices asyncSDK;
+    private final AiservicesPrompt prompt;
     private final Retrieve retrieve;
     private final Answers answers;
 
     Aiservices(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.prompt = new AiservicesPrompt(this.sdkConfiguration);
         this.retrieve = new Retrieve(this.sdkConfiguration);
         this.answers = new Answers(this.sdkConfiguration);
         this.asyncSDK = new AsyncAiservices(this, sdkConfiguration);
+    }
+
+    public final AiservicesPrompt prompt() {
+        return prompt;
     }
 
     public final Retrieve retrieve() {

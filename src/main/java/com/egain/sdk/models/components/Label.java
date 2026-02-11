@@ -26,7 +26,18 @@ public enum Label {
     RUSSIAN("Russian"),
     CHINESE("Chinese"),
     JAPANESE("Japanese"),
-    KOREAN("Korean");
+    KOREAN("Korean"),
+    THAI("Thai"),
+    VIETNAMESE("Vietnamese"),
+    INDONESIAN("Indonesian"),
+    MALAY("Malay"),
+    FILIPINO("Filipino"),
+    HINDI("Hindi"),
+    UKRAINIAN("Ukrainian"),
+    BULGARIAN("Bulgarian"),
+    SLOVAK("Slovak"),
+    SLOVENE("Slovene"),
+    SERBIAN("Serbian");
 
     @JsonValue
     private final String value;

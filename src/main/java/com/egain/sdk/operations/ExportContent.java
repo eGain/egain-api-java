@@ -9,9 +9,9 @@ import static com.egain.sdk.operations.Operations.AsyncRequestOperation;
 
 import com.egain.sdk.SDKConfiguration;
 import com.egain.sdk.SecuritySource;
-import com.egain.sdk.models.components.KnowledgeExport;
 import com.egain.sdk.models.errors.APIException;
 import com.egain.sdk.models.errors.WSErrorCommon;
+import com.egain.sdk.models.operations.ExportContentRequest;
 import com.egain.sdk.models.operations.ExportContentResponse;
 import com.egain.sdk.utils.Blob;
 import com.egain.sdk.utils.HTTPClient;
@@ -96,7 +96,7 @@ public class ExportContent {
                     typeReference);
             SerializedBody serializedRequestBody = Utils.serializeRequestBody(
                     convertedRequest,
-                    "request",
+                    "body",
                     "json",
                     false);
             if (serializedRequestBody == null) {
@@ -106,6 +106,7 @@ public class ExportContent {
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
+            req.addHeaders(Utils.getHeadersFromMetadata(request, null));
             Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
 
             return req.build();
@@ -113,13 +114,13 @@ public class ExportContent {
     }
 
     public static class Sync extends Base
-            implements RequestOperation<KnowledgeExport, ExportContentResponse> {
+            implements RequestOperation<ExportContentRequest, ExportContentResponse> {
         public Sync(@Nonnull SDKConfiguration sdkConfiguration, Headers _headers) {
             super(sdkConfiguration, _headers);
         }
 
-        private HttpRequest onBuildRequest(KnowledgeExport request) throws Exception {
-            HttpRequest req = buildRequest(request, new TypeReference<KnowledgeExport>() {});
+        private HttpRequest onBuildRequest(ExportContentRequest request) throws Exception {
+            HttpRequest req = buildRequest(request, new TypeReference<ExportContentRequest>() {});
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -135,7 +136,7 @@ public class ExportContent {
         }
 
         @Override
-        public HttpResponse<InputStream> doRequest(KnowledgeExport request) {
+        public HttpResponse<InputStream> doRequest(ExportContentRequest request) {
             HttpRequest r = unchecked(() -> onBuildRequest(request)).get();
             HttpResponse<InputStream> httpRes;
             try {
@@ -199,14 +200,14 @@ public class ExportContent {
         }
     }
     public static class Async extends Base
-            implements AsyncRequestOperation<KnowledgeExport, com.egain.sdk.models.operations.async.ExportContentResponse> {
+            implements AsyncRequestOperation<ExportContentRequest, com.egain.sdk.models.operations.async.ExportContentResponse> {
 
         public Async(@Nonnull SDKConfiguration sdkConfiguration, Headers _headers) {
             super(sdkConfiguration, _headers);
         }
 
-        private CompletableFuture<HttpRequest> onBuildRequest(KnowledgeExport request) throws Exception {
-            HttpRequest req = buildRequest(request, new TypeReference<KnowledgeExport>() {});
+        private CompletableFuture<HttpRequest> onBuildRequest(ExportContentRequest request) throws Exception {
+            HttpRequest req = buildRequest(request, new TypeReference<ExportContentRequest>() {});
             return this.sdkConfiguration.asyncHooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -219,7 +220,7 @@ public class ExportContent {
         }
 
         @Override
-        public CompletableFuture<HttpResponse<Blob>> doRequest(KnowledgeExport request) {
+        public CompletableFuture<HttpResponse<Blob>> doRequest(ExportContentRequest request) {
             return unchecked(() -> onBuildRequest(request)).get().thenCompose(client::sendAsync)
                     .handle((resp, err) -> {
                         if (err != null) {

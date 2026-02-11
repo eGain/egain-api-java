@@ -6,7 +6,9 @@ package com.egain.sdk.models.operations.async;
 import static com.egain.sdk.operations.Operations.AsyncRequestOperation;
 
 import com.egain.sdk.SDKConfiguration;
+import com.egain.sdk.models.components.AcceptLanguage;
 import com.egain.sdk.models.components.KnowledgeExport;
+import com.egain.sdk.models.operations.ExportContentRequest;
 import com.egain.sdk.operations.ExportContent;
 import com.egain.sdk.utils.Headers;
 import com.egain.sdk.utils.Utils;
@@ -16,18 +18,31 @@ import java.util.concurrent.CompletableFuture;
 public class ExportContentRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers();
-    private KnowledgeExport request;
+    private final ExportContentRequest.Builder pojoBuilder;
+    private ExportContentRequest request;
+    private boolean _setterCalled;
 
     public ExportContentRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.pojoBuilder = ExportContentRequest.builder();
     }
 
-    public ExportContentRequestBuilder request(@Nonnull KnowledgeExport request) {
-        this.request = Utils.checkNotNull(request, "request");
+    public ExportContentRequestBuilder acceptLanguage(@Nonnull AcceptLanguage acceptLanguage) {
+        this.pojoBuilder.acceptLanguage(acceptLanguage);
+        this._setterCalled = true;
         return this;
     }
 
-    private KnowledgeExport _buildRequest() {
+    public ExportContentRequestBuilder body(@Nonnull KnowledgeExport body) {
+        this.pojoBuilder.body(body);
+        this._setterCalled = true;
+        return this;
+    }
+
+    private ExportContentRequest _buildRequest() {
+        if (this._setterCalled) {
+            this.request = this.pojoBuilder.build();
+        }
         return this.request;
     }
     
@@ -44,7 +59,7 @@ public class ExportContentRequestBuilder {
     * @return The response from the server.
     */
     public CompletableFuture<ExportContentResponse> call() {
-        AsyncRequestOperation<KnowledgeExport, ExportContentResponse> operation
+        AsyncRequestOperation<ExportContentRequest, ExportContentResponse> operation
               = new ExportContent.Async(sdkConfiguration, _headers);
         return operation.doRequest(this._buildRequest())
             .thenCompose(operation::handleResponse);

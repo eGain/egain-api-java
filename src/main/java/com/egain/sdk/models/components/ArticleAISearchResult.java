@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Float;
 import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
@@ -90,7 +91,7 @@ public class ArticleAISearchResult {
     private Long additionalSnippetCount;
 
     /**
-     * Contextual Summary generated as part of metadata for embedding.
+     * Contextual Summary generated as part of metadata for the chunk content.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("contextualSummary")
@@ -131,10 +132,22 @@ public class ArticleAISearchResult {
     private ArticleTypeAttributes articleTypeAttributes;
 
     /**
-     * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * This score is only available when a re-ranker is enabled and represents a direct relevance
+     * comparison between the query and the returned snippet.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("relevanceScore")
-    private float relevanceScore;
+    private Float relevanceScore;
+
+    /**
+     * Relative ranking score (0.0-1.0) normalized across all returned results, based on a combination of
+     * BM25 and semantic similarity scores. This score indicates how a result ranks compared to others in
+     * the same response, not its absolute relevance to the query. As a result, a high score does not
+     * necessarily imply strong query relevance.
+     */
+    @JsonProperty("normalizedScore")
+    private float normalizedScore;
 
     @JsonCreator
     public ArticleAISearchResult(
@@ -154,7 +167,8 @@ public class ArticleAISearchResult {
             @JsonProperty("topicBreadcrumb") @Nonnull List<AITopicBreadcrumb> topicBreadcrumb,
             @JsonProperty("tagCategories") @Nullable List<SchemasTags> tagCategories,
             @JsonProperty("articleTypeAttributes") @Nullable ArticleTypeAttributes articleTypeAttributes,
-            @JsonProperty("relevanceScore") float relevanceScore) {
+            @JsonProperty("relevanceScore") @Nullable Float relevanceScore,
+            @JsonProperty("normalizedScore") float normalizedScore) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.name = Optional.ofNullable(name)
@@ -178,6 +192,7 @@ public class ArticleAISearchResult {
         this.tagCategories = tagCategories;
         this.articleTypeAttributes = articleTypeAttributes;
         this.relevanceScore = relevanceScore;
+        this.normalizedScore = normalizedScore;
     }
     
     public ArticleAISearchResult(
@@ -187,13 +202,13 @@ public class ArticleAISearchResult {
             @Nonnull ArticleAISearchResultSource source,
             @Nonnull String snippet,
             @Nonnull List<AITopicBreadcrumb> topicBreadcrumb,
-            float relevanceScore) {
+            float normalizedScore) {
         this(id, name, docType,
             null, source, null,
             snippet, null, null,
             null, null, null,
             null, topicBreadcrumb, null,
-            null, relevanceScore);
+            null, null, normalizedScore);
     }
 
     /**
@@ -268,7 +283,7 @@ public class ArticleAISearchResult {
     }
 
     /**
-     * Contextual Summary generated as part of metadata for embedding.
+     * Contextual Summary generated as part of metadata for the chunk content.
      */
     public Optional<String> contextualSummary() {
         return Optional.ofNullable(this.contextualSummary);
@@ -310,10 +325,22 @@ public class ArticleAISearchResult {
     }
 
     /**
-     * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * This score is only available when a re-ranker is enabled and represents a direct relevance
+     * comparison between the query and the returned snippet.
      */
-    public float relevanceScore() {
-        return this.relevanceScore;
+    public Optional<Float> relevanceScore() {
+        return Optional.ofNullable(this.relevanceScore);
+    }
+
+    /**
+     * Relative ranking score (0.0-1.0) normalized across all returned results, based on a combination of
+     * BM25 and semantic similarity scores. This score indicates how a result ranks compared to others in
+     * the same response, not its absolute relevance to the query. As a result, a high score does not
+     * necessarily imply strong query relevance.
+     */
+    public float normalizedScore() {
+        return this.normalizedScore;
     }
 
     public static Builder builder() {
@@ -413,7 +440,7 @@ public class ArticleAISearchResult {
 
 
     /**
-     * Contextual Summary generated as part of metadata for embedding.
+     * Contextual Summary generated as part of metadata for the chunk content.
      */
     public ArticleAISearchResult withContextualSummary(@Nullable String contextualSummary) {
         this.contextualSummary = contextualSummary;
@@ -467,10 +494,24 @@ public class ArticleAISearchResult {
 
 
     /**
-     * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * This score is only available when a re-ranker is enabled and represents a direct relevance
+     * comparison between the query and the returned snippet.
      */
-    public ArticleAISearchResult withRelevanceScore(float relevanceScore) {
+    public ArticleAISearchResult withRelevanceScore(@Nullable Float relevanceScore) {
         this.relevanceScore = relevanceScore;
+        return this;
+    }
+
+
+    /**
+     * Relative ranking score (0.0-1.0) normalized across all returned results, based on a combination of
+     * BM25 and semantic similarity scores. This score indicates how a result ranks compared to others in
+     * the same response, not its absolute relevance to the query. As a result, a high score does not
+     * necessarily imply strong query relevance.
+     */
+    public ArticleAISearchResult withNormalizedScore(float normalizedScore) {
+        this.normalizedScore = normalizedScore;
         return this;
     }
 
@@ -501,7 +542,8 @@ public class ArticleAISearchResult {
             Utils.enhancedDeepEquals(this.topicBreadcrumb, other.topicBreadcrumb) &&
             Utils.enhancedDeepEquals(this.tagCategories, other.tagCategories) &&
             Utils.enhancedDeepEquals(this.articleTypeAttributes, other.articleTypeAttributes) &&
-            Utils.enhancedDeepEquals(this.relevanceScore, other.relevanceScore);
+            Utils.enhancedDeepEquals(this.relevanceScore, other.relevanceScore) &&
+            Utils.enhancedDeepEquals(this.normalizedScore, other.normalizedScore);
     }
     
     @Override
@@ -512,7 +554,7 @@ public class ArticleAISearchResult {
             snippet, keywordSnippet, additionalSnippets,
             additionalSnippetCount, contextualSummary, modifiedDate,
             headerPath, topicBreadcrumb, tagCategories,
-            articleTypeAttributes, relevanceScore);
+            articleTypeAttributes, relevanceScore, normalizedScore);
     }
     
     @Override
@@ -534,7 +576,8 @@ public class ArticleAISearchResult {
                 "topicBreadcrumb", topicBreadcrumb,
                 "tagCategories", tagCategories,
                 "articleTypeAttributes", articleTypeAttributes,
-                "relevanceScore", relevanceScore);
+                "relevanceScore", relevanceScore,
+                "normalizedScore", normalizedScore);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -572,7 +615,9 @@ public class ArticleAISearchResult {
 
         private ArticleTypeAttributes articleTypeAttributes;
 
-        private float relevanceScore;
+        private Float relevanceScore;
+
+        private float normalizedScore;
 
         private Builder() {
           // force use of static builder() method
@@ -660,7 +705,7 @@ public class ArticleAISearchResult {
         }
 
         /**
-         * Contextual Summary generated as part of metadata for embedding.
+         * Contextual Summary generated as part of metadata for the chunk content.
          */
         public Builder contextualSummary(@Nullable String contextualSummary) {
             this.contextualSummary = contextualSummary;
@@ -708,10 +753,23 @@ public class ArticleAISearchResult {
         }
 
         /**
-         * Generated confidence score (0.0-1.0) for the snippet's relevance to the query.
+         * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+         * This score is only available when a re-ranker is enabled and represents a direct relevance
+         * comparison between the query and the returned snippet.
          */
-        public Builder relevanceScore(float relevanceScore) {
+        public Builder relevanceScore(@Nullable Float relevanceScore) {
             this.relevanceScore = relevanceScore;
+            return this;
+        }
+
+        /**
+         * Relative ranking score (0.0-1.0) normalized across all returned results, based on a combination of
+         * BM25 and semantic similarity scores. This score indicates how a result ranks compared to others in
+         * the same response, not its absolute relevance to the query. As a result, a high score does not
+         * necessarily imply strong query relevance.
+         */
+        public Builder normalizedScore(float normalizedScore) {
+            this.normalizedScore = normalizedScore;
             return this;
         }
 
@@ -722,7 +780,7 @@ public class ArticleAISearchResult {
                 snippet, keywordSnippet, additionalSnippets,
                 additionalSnippetCount, contextualSummary, modifiedDate,
                 headerPath, topicBreadcrumb, tagCategories,
-                articleTypeAttributes, relevanceScore);
+                articleTypeAttributes, relevanceScore, normalizedScore);
         }
 
     }

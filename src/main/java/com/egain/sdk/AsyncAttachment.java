@@ -8,17 +8,11 @@ import static com.egain.sdk.operations.Operations.AsyncRequestOperation;
 import com.egain.sdk.models.components.AcceptLanguage;
 import com.egain.sdk.models.components.AttachmentUpload;
 import com.egain.sdk.models.operations.CreateSignedURLRequest;
-import com.egain.sdk.models.operations.UploadAttachmentRequest;
 import com.egain.sdk.models.operations.async.CreateSignedURLRequestBuilder;
 import com.egain.sdk.models.operations.async.CreateSignedURLResponse;
-import com.egain.sdk.models.operations.async.UploadAttachmentRequestBuilder;
-import com.egain.sdk.models.operations.async.UploadAttachmentResponse;
 import com.egain.sdk.operations.CreateSignedURL;
-import com.egain.sdk.operations.UploadAttachment;
-import com.egain.sdk.utils.Blob;
 import com.egain.sdk.utils.Headers;
 import jakarta.annotation.Nonnull;
-import java.lang.String;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -68,44 +62,6 @@ public class AsyncAttachment {
         CreateSignedURLRequest request = new CreateSignedURLRequest(acceptLanguage, body);
         AsyncRequestOperation<CreateSignedURLRequest, CreateSignedURLResponse> operation
               = new CreateSignedURL.Async(sdkConfiguration, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
-    }
-
-
-    /**
-     * Upload Attachment
-     * 
-     * <p>## Overview
-     * The Upload Attachment API uses the signed URL produced by the Generate Signed URL to Upload API to
-     * upload an attachment.
-     * The Make a Suggestion API uses this API to upload attachments.
-     * 
-     * @return The async call builder
-     */
-    public UploadAttachmentRequestBuilder uploadAttachment() {
-        return new UploadAttachmentRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Upload Attachment
-     * 
-     * <p>## Overview
-     * The Upload Attachment API uses the signed URL produced by the Generate Signed URL to Upload API to
-     * upload an attachment.
-     * The Make a Suggestion API uses this API to upload attachments.
-     * 
-     * @param acceptLanguage 
-     * @param signature Signature data to upload attachment.
-     * @param body 
-     * @return {@code CompletableFuture<UploadAttachmentResponse>} - The async response
-     */
-    public CompletableFuture<UploadAttachmentResponse> uploadAttachment(
-            @Nonnull AcceptLanguage acceptLanguage, @Nonnull String signature,
-            @Nonnull Blob body) {
-        UploadAttachmentRequest request = new UploadAttachmentRequest(acceptLanguage, signature, body);
-        AsyncRequestOperation<UploadAttachmentRequest, UploadAttachmentResponse> operation
-              = new UploadAttachment.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }

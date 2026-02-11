@@ -6,6 +6,7 @@ package com.egain.sdk.models.operations;
 import static com.egain.sdk.operations.Operations.RequestOperation;
 
 import com.egain.sdk.SDKConfiguration;
+import com.egain.sdk.models.components.AcceptLanguage;
 import com.egain.sdk.models.components.KnowledgeExport;
 import com.egain.sdk.operations.ExportContent;
 import com.egain.sdk.utils.Headers;
@@ -15,18 +16,31 @@ import jakarta.annotation.Nonnull;
 public class ExportContentRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers();
-    private KnowledgeExport request;
+    private final ExportContentRequest.Builder pojoBuilder;
+    private ExportContentRequest request;
+    private boolean _setterCalled;
 
     public ExportContentRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.pojoBuilder = ExportContentRequest.builder();
     }
 
-    public ExportContentRequestBuilder request(@Nonnull KnowledgeExport request) {
-        this.request = Utils.checkNotNull(request, "request");
+    public ExportContentRequestBuilder acceptLanguage(@Nonnull AcceptLanguage acceptLanguage) {
+        this.pojoBuilder.acceptLanguage(acceptLanguage);
+        this._setterCalled = true;
         return this;
     }
 
-    private KnowledgeExport _buildRequest() {
+    public ExportContentRequestBuilder body(@Nonnull KnowledgeExport body) {
+        this.pojoBuilder.body(body);
+        this._setterCalled = true;
+        return this;
+    }
+
+    private ExportContentRequest _buildRequest() {
+        if (this._setterCalled) {
+            this.request = this.pojoBuilder.build();
+        }
         return this.request;
     }
     
@@ -43,7 +57,7 @@ public class ExportContentRequestBuilder {
     * @return The response from the server.
     */
     public ExportContentResponse call() {
-        RequestOperation<KnowledgeExport, ExportContentResponse> operation
+        RequestOperation<ExportContentRequest, ExportContentResponse> operation
               = new ExportContent.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(this._buildRequest()));
     }

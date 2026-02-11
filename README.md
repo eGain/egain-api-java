@@ -26,7 +26,8 @@ Developer-friendly & type-safe Java SDK specifically catered to leverage *openap
 <!-- Start Summary [summary] -->
 ## Summary
 
-Knowledge Portal Manager APIs: ### License
+Knowledge Portal Manager APIs: 
+### License
   The following licenses are required to use the Knowledge Access APIs:
   * If the user is an agent, then the *Knowledge + AI* license is required.
   * If the user is a customer, the *Self-Service* and *Advanced Self-Service* licenses must be available.
@@ -66,7 +67,6 @@ The following Resources have predefined limits for specific access attributes fo
   * [Asynchronous Support](#asynchronous-support)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
-  * [File uploads](#file-uploads)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
@@ -88,7 +88,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.egain.sdk:egain-api:0.1.4'
+implementation 'com.egain.sdk:egain-api:0.2.0'
 ```
 
 Maven:
@@ -96,7 +96,7 @@ Maven:
 <dependency>
     <groupId>com.egain.sdk</groupId>
     <artifactId>egain-api</artifactId>
-    <version>0.1.4</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
@@ -140,10 +140,10 @@ public class Application {
             .build();
 
         RetrieveChunksRequest req = RetrieveChunksRequest.builder()
-                .q("fair lending")
+                .q("What is a loan?")
                 .portalID("PROD-1000")
-                .language(LanguageCodeParameter.EN_US)
-                .filterUserProfileID("PROD-3210")
+                .language(RequiredLanguageCode.EN_US)
+                .filterUserProfileID("PROD-1030")
                 .filterTags(Map.ofEntries(
                     Map.entry("PROD-1234", List.of(
                         "PROD-2000",
@@ -154,6 +154,9 @@ public class Application {
                     .channel(RetrieveRequestChannel.builder()
                         .name("Eight Bank Website")
                         .build())
+                    .eventId("6154589f-b43f-4471-b2c7-92c6c888a664")
+                    .clientSessionId("6154589f-b43f-4471-b2c7-92c6c888a643")
+                    .sessionId("6154589f-b43f-4471-b2c7-92c6c888a689")
                     .build())
                 .build();
 
@@ -174,11 +177,9 @@ package hello.world;
 
 import com.egain.sdk.AsyncEgain;
 import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.*;
-import com.egain.sdk.models.operations.RetrieveChunksRequest;
-import com.egain.sdk.models.operations.async.RetrieveChunksResponse;
-import java.util.List;
-import java.util.Map;
+import com.egain.sdk.models.components.ExecutePrompt;
+import com.egain.sdk.models.components.LanguageCodeRequestBody;
+import com.egain.sdk.models.operations.async.ExecutePromptResponse;
 import java.util.concurrent.CompletableFuture;
 
 public class Application {
@@ -190,30 +191,17 @@ public class Application {
             .build()
             .async();
 
-        RetrieveChunksRequest req = RetrieveChunksRequest.builder()
-                .q("fair lending")
-                .portalID("PROD-1000")
-                .language(LanguageCodeParameter.EN_US)
-                .filterUserProfileID("PROD-3210")
-                .filterTags(Map.ofEntries(
-                    Map.entry("PROD-1234", List.of(
-                        "PROD-2000",
-                        "PROD-2003")),
-                    Map.entry("PROD-2005", List.of(
-                        "PROD-2007"))))
-                .body(RetrieveRequest.builder()
-                    .channel(RetrieveRequestChannel.builder()
-                        .name("Eight Bank Website")
-                        .build())
+        CompletableFuture<ExecutePromptResponse> resFut = sdk.aiservices().prompt().executePrompt()
+                .promptId("<id>")
+                .body(ExecutePrompt.builder()
+                    .department("Service")
+                    .languageCode(LanguageCodeRequestBody.EN_US)
+                    .clientSessionId("123e4567-e89b-12d3-a456-426614174000")
                     .build())
-                .build();
-
-        CompletableFuture<RetrieveChunksResponse> resFut = sdk.aiservices().retrieve().retrieveChunks()
-                .request(req)
                 .call();
 
         resFut.thenAccept(res -> {
-            if (res.retrieveResponse().isPresent()) {
+            if (res.executePromptResponse().isPresent()) {
             // handle response
             }
         });
@@ -306,44 +294,30 @@ To authenticate with the API the `accessToken` parameter must be set when initia
 package hello.world;
 
 import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.*;
-import com.egain.sdk.models.operations.RetrieveChunksRequest;
-import com.egain.sdk.models.operations.RetrieveChunksResponse;
+import com.egain.sdk.models.components.ExecutePrompt;
+import com.egain.sdk.models.components.LanguageCodeRequestBody;
+import com.egain.sdk.models.errors.BadRequestException;
+import com.egain.sdk.models.operations.ExecutePromptResponse;
 import java.lang.Exception;
-import java.util.List;
-import java.util.Map;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws BadRequestException, Exception {
 
         Egain sdk = Egain.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
-        RetrieveChunksRequest req = RetrieveChunksRequest.builder()
-                .q("fair lending")
-                .portalID("PROD-1000")
-                .language(LanguageCodeParameter.EN_US)
-                .filterUserProfileID("PROD-3210")
-                .filterTags(Map.ofEntries(
-                    Map.entry("PROD-1234", List.of(
-                        "PROD-2000",
-                        "PROD-2003")),
-                    Map.entry("PROD-2005", List.of(
-                        "PROD-2007"))))
-                .body(RetrieveRequest.builder()
-                    .channel(RetrieveRequestChannel.builder()
-                        .name("Eight Bank Website")
-                        .build())
+        ExecutePromptResponse res = sdk.aiservices().prompt().executePrompt()
+                .promptId("<id>")
+                .body(ExecutePrompt.builder()
+                    .department("Service")
+                    .languageCode(LanguageCodeRequestBody.EN_US)
+                    .clientSessionId("123e4567-e89b-12d3-a456-426614174000")
                     .build())
-                .build();
-
-        RetrieveChunksResponse res = sdk.aiservices().retrieve().retrieveChunks()
-                .request(req)
                 .call();
 
-        if (res.retrieveResponse().isPresent()) {
+        if (res.executePromptResponse().isPresent()) {
             // handle response
         }
     }
@@ -357,196 +331,147 @@ public class Application {
 <details open>
 <summary>Available methods</summary>
 
-#### [aiservices().answers()](docs/sdks/answers/README.md)
+#### [aiservices().answers()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/answers/README.md)
 
-* [getBestAnswer](docs/sdks/answers/README.md#getbestanswer) - Get the best answer for a user query
+* [getBestAnswer](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/answers/README.md#getbestanswer) - Generate an Answer
 
-#### [aiservices().retrieve()](docs/sdks/retrieve/README.md)
+#### [aiservices().prompt()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/aiservicesprompt/README.md)
 
-* [retrieveChunks](docs/sdks/retrieve/README.md#retrievechunks) - Retrieve Chunks
+* [executePrompt](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/aiservicesprompt/README.md#executeprompt) - Execute a predefined prompt
 
-#### [content().import_()](docs/sdks/import/README.md)
+#### [aiservices().retrieve()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/retrieve/README.md)
 
-* [createImportJob](docs/sdks/import/README.md#createimportjob) - Import content from external sources by creating an import job
-* [getImportStatus](docs/sdks/import/README.md#getimportstatus) - Get the current status of an import or validation job
-* [createImportValidationJob](docs/sdks/import/README.md#createimportvalidationjob) - Validate content structure and format before import by creating an import validation job
-* [cancelImport](docs/sdks/import/README.md#cancelimport) - Cancel an import or validation job
+* [retrieveChunks](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/retrieve/README.md#retrievechunks) - Retrieve Chunks
 
-#### [portal().article()](docs/sdks/article/README.md)
+#### [content().import_()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md)
 
-* [getArticleById](docs/sdks/article/README.md#getarticlebyid) - Get Article by ID
-* [getArticleByIdWithEditions](docs/sdks/article/README.md#getarticlebyidwitheditions) - Get Article By ID with Editions
-* [getArticleEditionDetails](docs/sdks/article/README.md#getarticleeditiondetails) - Get Article Edition Details
-* [addToReply](docs/sdks/article/README.md#addtoreply) - Add Article to Reply
-* [addAsReference](docs/sdks/article/README.md#addasreference) - Add as Reference
-* [getArticlesInTopic](docs/sdks/article/README.md#getarticlesintopic) - Get Articles in Topic
-* [getArticleAttachmentById](docs/sdks/article/README.md#getarticleattachmentbyid) - Get Article Attachment By ID
-* [getAttachmentByIdInPortal](docs/sdks/article/README.md#getattachmentbyidinportal) - Get Article Attachment in Portal
-* [getRelatedArticles](docs/sdks/article/README.md#getrelatedarticles) - Get Related Articles
-* [getAnnouncementArticles](docs/sdks/article/README.md#getannouncementarticles) - Get Announcement Articles
-* [getArticleRatings](docs/sdks/article/README.md#getarticleratings) - Get Article Ratings
-* [rateArticle](docs/sdks/article/README.md#ratearticle) - Rate an Article
-* [getPendingComplianceArticles](docs/sdks/article/README.md#getpendingcompliancearticles) - Get Pending Article Compliances
-* [getAcknowledgedComplianceArticles](docs/sdks/article/README.md#getacknowledgedcompliancearticles) - Get Acknowledged Article Compliances
-* [complyArticle](docs/sdks/article/README.md#complyarticle) - Comply With an Article
-* [getMySubscription](docs/sdks/article/README.md#getmysubscription) - My Subscription
-* [subscribeArticle](docs/sdks/article/README.md#subscribearticle) - Subscribe to an Article
-* [unsubscribeArticle](docs/sdks/article/README.md#unsubscribearticle) - Unsubscribe to an Article
-* [getArticlePermissionsById](docs/sdks/article/README.md#getarticlepermissionsbyid) - Get Article Permissions By ID
-* [getArticlePersonalization](docs/sdks/article/README.md#getarticlepersonalization) - Get Article Personalization Details
+* [createImportJob](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#createimportjob) - Create Import Job
+* [getImportStatus](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#getimportstatus) - Get Job Status
+* [createImportValidationJob](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#createimportvalidationjob) - Create Validation Job
+* [cancelImport](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#cancelimport) - Cancel Job
 
-#### [portal().articlelists()](docs/sdks/articlelists/README.md)
+#### [portal().article()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md)
 
-* [getAllArticleLists](docs/sdks/articlelists/README.md#getallarticlelists) - Get All Article Lists
-* [getArticleListDetails](docs/sdks/articlelists/README.md#getarticlelistdetails) - Get Article List by ID
+* [getArticleById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticlebyid) - Get Article by ID
+* [getArticleByIdWithEditions](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticlebyidwitheditions) - Get Article By ID with Editions
+* [getArticleEditionDetails](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticleeditiondetails) - Get Article Edition Details
+* [addToReply](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#addtoreply) - Add Article to Reply
+* [addAsReference](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#addasreference) - Add as Reference
+* [getArticlesInTopic](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticlesintopic) - Get Articles in Topic
+* [getArticleAttachmentById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticleattachmentbyid) - Get Article Attachment By ID
+* [getAttachmentByIdInPortal](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getattachmentbyidinportal) - Get Article Attachment in Portal
+* [getRelatedArticles](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getrelatedarticles) - Get Related Articles
+* [getAnnouncementArticles](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getannouncementarticles) - Get Announcement Articles
+* [getArticleRatings](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticleratings) - Get Article Ratings
+* [rateArticle](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#ratearticle) - Rate an Article
+* [getPendingComplianceArticles](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getpendingcompliancearticles) - Get Pending Article Compliances
+* [getAcknowledgedComplianceArticles](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getacknowledgedcompliancearticles) - Get Acknowledged Article Compliances
+* [complyArticle](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#complyarticle) - Comply With an Article
+* [getMySubscription](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getmysubscription) - My Subscription
+* [subscribeArticle](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#subscribearticle) - Subscribe to an Article
+* [unsubscribeArticle](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#unsubscribearticle) - Unsubscribe to an Article
+* [getArticlePermissionsById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticlepermissionsbyid) - Get Article Permissions By ID
+* [getArticlePersonalization](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticlepersonalization) - Get Article Personalization Details
 
-#### [portal().attachment()](docs/sdks/attachment/README.md)
+#### [portal().articlelists()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/articlelists/README.md)
 
-* [createSignedURL](docs/sdks/attachment/README.md#createsignedurl) - Generate Signed URL to Upload API
-* [uploadAttachment](docs/sdks/attachment/README.md#uploadattachment) - Upload Attachment
+* [getAllArticleLists](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/articlelists/README.md#getallarticlelists) - Get All Article Lists
+* [getArticleListDetails](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/articlelists/README.md#getarticlelistdetails) - Get Article List by ID
 
-#### [portal().bookmark()](docs/sdks/bookmark/README.md)
+#### [portal().attachment()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/attachment/README.md)
 
-* [addbookmark](docs/sdks/bookmark/README.md#addbookmark) - Add a Bookmark
-* [getbookmark](docs/sdks/bookmark/README.md#getbookmark) - Get All Bookmarks for a Portal
-* [deletebookmark](docs/sdks/bookmark/README.md#deletebookmark) - Delete a Bookmark
+* [createSignedURL](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/attachment/README.md#createsignedurl) - Generate Signed URL to Upload API
 
-#### [portal().connectorssearchevents()](docs/sdks/connectorssearchevents/README.md)
+#### [portal().bookmark()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/bookmark/README.md)
 
-* [createSearchResultEventForConnectors](docs/sdks/connectorssearchevents/README.md#createsearchresulteventforconnectors) - Event for Search Using Connectors
-* [createViewedSearchResultsEventForConnectors](docs/sdks/connectorssearchevents/README.md#createviewedsearchresultseventforconnectors) - Event for Viewed Search Results Using Connectors
+* [addbookmark](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/bookmark/README.md#addbookmark) - Add a Bookmark
+* [getbookmark](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/bookmark/README.md#getbookmark) - Get All Bookmarks for a Portal
+* [deletebookmark](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/bookmark/README.md#deletebookmark) - Delete a Bookmark
 
-#### [portal().escalation()](docs/sdks/escalation/README.md)
+#### [portal().connectorssearchevents()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/connectorssearchevents/README.md)
 
-* [startCustomerEscalation](docs/sdks/escalation/README.md#startcustomerescalation) - Start Customer Escalation
-* [searchPriorToEscalation](docs/sdks/escalation/README.md#searchpriortoescalation) - Search Prior To Customer Escalation
-* [completeCustomerEscalation](docs/sdks/escalation/README.md#completecustomerescalation) - Complete Customer Escalation
-* [avertCustomerEscalation](docs/sdks/escalation/README.md#avertcustomerescalation) - Avert Customer Escalation
+* [createSearchResultEventForConnectors](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/connectorssearchevents/README.md#createsearchresulteventforconnectors) - Event for Search Using Connectors
+* [createViewedSearchResultsEventForConnectors](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/connectorssearchevents/README.md#createviewedsearchresultseventforconnectors) - Event for Viewed Search Results Using Connectors
 
-#### [portal().export()](docs/sdks/export/README.md)
+#### [portal().export()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/export/README.md)
 
-* [exportContent](docs/sdks/export/README.md#exportcontent) - Export Knowledge
-* [exportStatus](docs/sdks/export/README.md#exportstatus) - Get Export Job Status
+* [exportContent](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/export/README.md#exportcontent) - Export Knowledge
+* [exportStatus](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/export/README.md#exportstatus) - Get Export Job Status
 
-#### [portal().federatedsearchevent()](docs/sdks/federatedsearchevent/README.md)
+#### [portal().federatedsearchevent()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/federatedsearchevent/README.md)
 
-* [createFederatedSearchResultEvent](docs/sdks/federatedsearchevent/README.md#createfederatedsearchresultevent) - Event For Viewed Federated Search Result
+* [createFederatedSearchResultEvent](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/federatedsearchevent/README.md#createfederatedsearchresultevent) - Event For Viewed Federated Search Result
 
-#### [portal().general()](docs/sdks/general/README.md)
+#### [portal().general()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/general/README.md)
 
-* [getAllPortals](docs/sdks/general/README.md#getallportals) - Get All Portals
-* [getMyPortals](docs/sdks/general/README.md#getmyportals) - Get All Portals Accessible To User
-* [getPortalDetailsById](docs/sdks/general/README.md#getportaldetailsbyid) - Get Portal Details By ID
-* [getTagCategoriesForInterestForPortal](docs/sdks/general/README.md#gettagcategoriesforinterestforportal) - Get Tag Categories for Interest for a Portal
+* [getAllPortals](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/general/README.md#getallportals) - Get All Portals
+* [getMyPortals](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/general/README.md#getmyportals) - Get All Portals Accessible To User
+* [getPortalDetailsById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/general/README.md#getportaldetailsbyid) - Get Portal Details By ID
+* [getTagCategoriesForInterestForPortal](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/general/README.md#gettagcategoriesforinterestforportal) - Get Tag Categories for Interest for a Portal
 
-#### [portal().guidedhelp()](docs/sdks/guidedhelp/README.md)
+#### [portal().guidedhelp()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md)
 
-* [getAllCasebasesReleases](docs/sdks/guidedhelp/README.md#getallcasebasesreleases) - Get Available Casebases Releases
-* [getCasebaseReleaseById](docs/sdks/guidedhelp/README.md#getcasebasereleasebyid) - Get Details of a Casebase Release
-* [getClusterByCasebaseReleaseId](docs/sdks/guidedhelp/README.md#getclusterbycasebasereleaseid) - Get Cluster Details of a Casebase Release
-* [getAllProfilesInPortal](docs/sdks/guidedhelp/README.md#getallprofilesinportal) - Get All Profiles Available in Portal
-* [startGHSearch](docs/sdks/guidedhelp/README.md#startghsearch) - Start a Guided Help Search
-* [stepGHSearch](docs/sdks/guidedhelp/README.md#stepghsearch) - Perform a Step in a Guided Help Search
-* [getAllCases](docs/sdks/guidedhelp/README.md#getallcases) - Get All Cases of a Cluster in Release
-* [getCaseById](docs/sdks/guidedhelp/README.md#getcasebyid) - Get Details of a Case
-* [acceptGHSolution](docs/sdks/guidedhelp/README.md#acceptghsolution) - Accept Solution
-* [rejectGHSolution](docs/sdks/guidedhelp/README.md#rejectghsolution) - Reject Solution
-* [createQuickpick](docs/sdks/guidedhelp/README.md#createquickpick) - Create Quickpick
-* [getAllQuickPicks](docs/sdks/guidedhelp/README.md#getallquickpicks) - Get All Quickpicks for a Portal
-* [restoreQuickpick](docs/sdks/guidedhelp/README.md#restorequickpick) - Resume a Quickpick
+* [getAllCasebasesReleases](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#getallcasebasesreleases) - Get Available Casebases Releases
+* [getCasebaseReleaseById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#getcasebasereleasebyid) - Get Details of a Casebase Release
+* [getClusterByCasebaseReleaseId](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#getclusterbycasebasereleaseid) - Get Cluster Details of a Casebase Release
+* [getAllProfilesInPortal](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#getallprofilesinportal) - Get All Profiles Available in Portal
+* [startGHSearch](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#startghsearch) - Start a Guided Help Search
+* [stepGHSearch](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#stepghsearch) - Perform a Step in a Guided Help Search
+* [getAllCases](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#getallcases) - Get All Cases of a Cluster in Release
+* [getCaseById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#getcasebyid) - Get Details of a Case
+* [acceptGHSolution](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#acceptghsolution) - Accept Solution
+* [rejectGHSolution](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#rejectghsolution) - Reject Solution
+* [createQuickpick](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#createquickpick) - Create Quickpick
+* [getAllQuickPicks](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#getallquickpicks) - Get All Quickpicks for a Portal
+* [restoreQuickpick](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/guidedhelp/README.md#restorequickpick) - Resume a Quickpick
 
-#### [portal().populararticles()](docs/sdks/populararticles/README.md)
+#### [portal().populararticles()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/populararticles/README.md)
 
-* [getpopulararticles](docs/sdks/populararticles/README.md#getpopulararticles) - Get Popular Articles
+* [getpopulararticles](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/populararticles/README.md#getpopulararticles) - Get Popular Articles
 
-#### [portal().search()](docs/sdks/search/README.md)
+#### [portal().search()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/search/README.md)
 
-* [aiSearch](docs/sdks/search/README.md#aisearch) - Get the best search results for a user query
+* [aiSearch](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/search/README.md#aisearch) - Hybrid Search
 
-#### [portal().suggestion()](docs/sdks/suggestion/README.md)
+#### [portal().suggestion()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md)
 
-* [makeSuggestion](docs/sdks/suggestion/README.md#makesuggestion) - Make a Suggestion
-* [modifySuggestions](docs/sdks/suggestion/README.md#modifysuggestions) - Modify Suggestion
-* [searchSuggestion](docs/sdks/suggestion/README.md#searchsuggestion) - Get Suggestion by Status
-* [getSuggestion](docs/sdks/suggestion/README.md#getsuggestion) - Get Suggestion by ID
-* [deleteSuggestion](docs/sdks/suggestion/README.md#deletesuggestion) - Delete a Suggestion
-* [getRelatedArticlesForSuggestion](docs/sdks/suggestion/README.md#getrelatedarticlesforsuggestion) - Get Related Articles for Suggestion
-* [getSuggestionComments](docs/sdks/suggestion/README.md#getsuggestioncomments) - Get Suggestion Comments
-* [getSuggestionAttachments](docs/sdks/suggestion/README.md#getsuggestionattachments) - Get Suggestion Attachments
-* [getSuggestionAttachmentById](docs/sdks/suggestion/README.md#getsuggestionattachmentbyid) - Get Suggestion Attachment by ID
+* [makeSuggestion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#makesuggestion) - Make a Suggestion
+* [modifySuggestions](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#modifysuggestions) - Modify Suggestion
+* [searchSuggestion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#searchsuggestion) - Get Suggestion by Status
+* [getSuggestion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getsuggestion) - Get Suggestion by ID
+* [deleteSuggestion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#deletesuggestion) - Delete a Suggestion
+* [getRelatedArticlesForSuggestion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getrelatedarticlesforsuggestion) - Get Related Articles for Suggestion
+* [getSuggestionComments](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getsuggestioncomments) - Get Suggestion Comments
+* [getSuggestionAttachments](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getsuggestionattachments) - Get Suggestion Attachments
+* [getSuggestionAttachmentById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getsuggestionattachmentbyid) - Get Suggestion Attachment by ID
 
-#### [portal().topic()](docs/sdks/topic/README.md)
+#### [portal().topic()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/topic/README.md)
 
-* [getTopicBreadcrumbForArticle](docs/sdks/topic/README.md#gettopicbreadcrumbforarticle) - Get Topic Breadcrumb for Article
-* [getchildtopics](docs/sdks/topic/README.md#getchildtopics) - Get Immediate Child Topics
-* [getancestortopics](docs/sdks/topic/README.md#getancestortopics) - Get All Ancestor Topics
-* [getalltopics](docs/sdks/topic/README.md#getalltopics) - Get All Topics
+* [getTopicBreadcrumbForArticle](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/topic/README.md#gettopicbreadcrumbforarticle) - Get Topic Breadcrumb for Article
+* [getchildtopics](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/topic/README.md#getchildtopics) - Get Immediate Child Topics
+* [getancestortopics](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/topic/README.md#getancestortopics) - Get All Ancestor Topics
+* [getalltopics](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/topic/README.md#getalltopics) - Get All Topics
 
-#### [portal().userdetails()](docs/sdks/userdetails/README.md)
+#### [portal().userdetails()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/userdetails/README.md)
 
-* [getUserDetails](docs/sdks/userdetails/README.md#getuserdetails) - Get User Details
+* [getUserDetails](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/userdetails/README.md#getuserdetails) - Get User Details
 
-#### [portal().usermilestones()](docs/sdks/usermilestones/README.md)
+#### [portal().usermilestones()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/usermilestones/README.md)
 
-* [getUserMilestones](docs/sdks/usermilestones/README.md#getusermilestones) - Get User Milestones
+* [getUserMilestones](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/usermilestones/README.md#getusermilestones) - Get User Milestones
 
-#### [portal().userprofile()](docs/sdks/userprofile/README.md)
+#### [portal().userprofile()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/userprofile/README.md)
 
-* [getAllUserProfiles](docs/sdks/userprofile/README.md#getalluserprofiles) - Get All User Profiles Assigned to User
-* [selectUserProfile](docs/sdks/userprofile/README.md#selectuserprofile) - Select User Profile
+* [getAllUserProfiles](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/userprofile/README.md#getalluserprofiles) - Get All User Profiles Assigned to User
+* [selectUserProfile](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/userprofile/README.md#selectuserprofile) - Select User Profile
+
+### [prompt()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/prompt/README.md)
+
+* [getPromptTemplates](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/prompt/README.md#getprompttemplates) - Get Prompt Templates
+* [getPromptTemplateById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/prompt/README.md#getprompttemplatebyid) - Get Prompt Template By ID
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
-
-<!-- Start File uploads [file-upload] -->
-## File uploads
-
-Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files.
-
-The SDK provides a [`Blob`](src/main/java/com/egain/sdk/utils/Blob.java) utility class for efficient file handling. It supports various input sources including file paths, streams, strings, and byte arrays, while providing memory-efficient streaming and reactive processing.
-
-```java
-// Recommended for large files - streams data efficiently
-Blob fileBlob = Blob.from(Paths.get("large-document.pdf"));
-
-// For in-memory data
-Blob textBlob = Blob.from("Hello, World!");
-Blob dataBlob = Blob.from(myByteArray);
-```
-
-> [!TIP]
-> For comprehensive documentation including all factory methods, consumption patterns, and advanced usage examples, see the [Blob Utility Documentation](docs/utils/Blob.md).
-
-The following example demonstrates how to attach a file to a request:
-```java
-package hello.world;
-
-import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.AcceptLanguage;
-import com.egain.sdk.models.errors.WSErrorCommon;
-import com.egain.sdk.models.operations.UploadAttachmentResponse;
-import com.egain.sdk.utils.Blob;
-import java.lang.Exception;
-import java.nio.file.Paths;
-
-public class Application {
-
-    public static void main(String[] args) throws WSErrorCommon, Exception {
-
-        Egain sdk = Egain.builder()
-                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
-            .build();
-
-        UploadAttachmentResponse res = sdk.portal().attachment().uploadAttachment()
-                .acceptLanguage(AcceptLanguage.EN_US)
-                .signature("<value>")
-                .body(Blob.from(Paths.get("example.file")))
-                .call();
-
-    }
-}
-```
-<!-- End File uploads [file-upload] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
@@ -554,7 +479,7 @@ public class Application {
 Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
 
 
-[`EgainException`](./src/main/java/models/errors/EgainException.java) is the base class for all HTTP error responses. It has the following properties:
+[`EgainException`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/EgainException.java) is the base class for all HTTP error responses. It has the following properties:
 
 | Method           | Type                        | Description                                                              |
 | ---------------- | --------------------------- | ------------------------------------------------------------------------ |
@@ -570,43 +495,38 @@ Handling errors in this SDK should largely match your expectations. All operatio
 package hello.world;
 
 import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.*;
-import com.egain.sdk.models.errors.*;
-import com.egain.sdk.models.operations.CreateImportJobResponse;
+import com.egain.sdk.models.components.ExecutePrompt;
+import com.egain.sdk.models.components.LanguageCodeRequestBody;
+import com.egain.sdk.models.errors.BadRequestException;
+import com.egain.sdk.models.errors.EgainException;
+import com.egain.sdk.models.operations.ExecutePromptResponse;
 import java.io.UncheckedIOException;
 import java.lang.Exception;
+import java.lang.Long;
 import java.lang.String;
-import java.time.OffsetDateTime;
 import java.util.Optional;
 
 public class Application {
 
-    public static void main(String[] args) throws WSErrorCommon, SchemasWSErrorCommon, Exception {
+    public static void main(String[] args) throws BadRequestException, Exception {
 
         Egain sdk = Egain.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
         try {
 
-            ImportContent req = ImportContent.builder()
-                    .dataSource(ImportContentDataSource.builder()
-                        .type(ImportContentType.AWSS3_BUCKET)
-                        .path("s3://mybucket/myfolder/")
-                        .region("us-east-1")
-                        .credentials(ImportContentCredentials.builder()
-                            .build())
+            ExecutePromptResponse res = sdk.aiservices().prompt().executePrompt()
+                    .promptId("<id>")
+                    .body(ExecutePrompt.builder()
+                        .department("Service")
+                        .languageCode(LanguageCodeRequestBody.EN_US)
+                        .clientSessionId("123e4567-e89b-12d3-a456-426614174000")
                         .build())
-                    .operation(Operation.IMPORT)
-                    .scheduleTime(ScheduleTime.builder()
-                        .date(OffsetDateTime.parse("2024-03-01T10:00:00.000Z"))
-                        .build())
-                    .build();
-
-            CreateImportJobResponse res = sdk.content().import_().createImportJob()
-                    .request(req)
                     .call();
 
-            // handle response
+            if (res.executePromptResponse().isPresent()) {
+                // handle response
+            }
         } catch (EgainException ex) { // all SDK exceptions inherit from EgainException
 
             // ex.ToString() provides a detailed error message including
@@ -622,12 +542,12 @@ public class Application {
 
             // different error subclasses may be thrown 
             // depending on the service call
-            if (ex instanceof WSErrorCommon) {
-                var e = (WSErrorCommon) ex;
+            if (ex instanceof BadRequestException) {
+                var e = (BadRequestException) ex;
                 // Check error data fields
                 e.data().ifPresent(payload -> {
-                      String code = payload.code();
-                      String developerMessage = payload.developerMessage();
+                      Optional<Long> code = payload.code();
+                      Optional<String> developerMessage = payload.developerMessage();
                       // ...
                 });
             }
@@ -646,10 +566,10 @@ public class Application {
 
 ### Error Classes
 **Primary errors:**
-* [`EgainException`](./src/main/java/models/errors/EgainException.java): The base class for HTTP error responses.
-  * [`com.egain.sdk.models.errors.WSErrorCommon`](./src/main/java/models/errors/com.egain.sdk.models.errors.WSErrorCommon.java): Bad Request. *
+* [`EgainException`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/EgainException.java): The base class for HTTP error responses.
+  * [`com.egain.sdk.models.errors.WSErrorCommon`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/com.egain.sdk.models.errors.WSErrorCommon.java): Bad Request. *
 
-<details><summary>Less common errors (7)</summary>
+<details><summary>Less common errors (8)</summary>
 
 <br />
 
@@ -658,8 +578,9 @@ public class Application {
 `IOException` include `java.net.ConnectException`, `java.net.SocketTimeoutException`, `EOFException` (there are
 many more subclasses in the JDK platform).
 
-**Inherit from [`EgainException`](./src/main/java/models/errors/EgainException.java)**:
-* [`com.egain.sdk.models.errors.SchemasWSErrorCommon`](./src/main/java/models/errors/com.egain.sdk.models.errors.SchemasWSErrorCommon.java): Preconditions failed. Status code `412`. Applicable to 2 of 78 methods.*
+**Inherit from [`EgainException`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/EgainException.java)**:
+* [`com.egain.sdk.models.errors.SchemasWSErrorCommon`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/com.egain.sdk.models.errors.SchemasWSErrorCommon.java): Not acceptable. Applicable to 4 of 76 methods.*
+* [`com.egain.sdk.models.errors.BadRequestException`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/com.egain.sdk.models.errors.BadRequestException.java): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
 
 
 </details>
@@ -677,45 +598,31 @@ The default server can be overridden globally using the `.serverURL(String serve
 package hello.world;
 
 import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.*;
-import com.egain.sdk.models.operations.RetrieveChunksRequest;
-import com.egain.sdk.models.operations.RetrieveChunksResponse;
+import com.egain.sdk.models.components.ExecutePrompt;
+import com.egain.sdk.models.components.LanguageCodeRequestBody;
+import com.egain.sdk.models.errors.BadRequestException;
+import com.egain.sdk.models.operations.ExecutePromptResponse;
 import java.lang.Exception;
-import java.util.List;
-import java.util.Map;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws BadRequestException, Exception {
 
         Egain sdk = Egain.builder()
                 .serverURL("https://api.aidev.egain.cloud/knowledge/portalmgr/v4")
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
-        RetrieveChunksRequest req = RetrieveChunksRequest.builder()
-                .q("fair lending")
-                .portalID("PROD-1000")
-                .language(LanguageCodeParameter.EN_US)
-                .filterUserProfileID("PROD-3210")
-                .filterTags(Map.ofEntries(
-                    Map.entry("PROD-1234", List.of(
-                        "PROD-2000",
-                        "PROD-2003")),
-                    Map.entry("PROD-2005", List.of(
-                        "PROD-2007"))))
-                .body(RetrieveRequest.builder()
-                    .channel(RetrieveRequestChannel.builder()
-                        .name("Eight Bank Website")
-                        .build())
+        ExecutePromptResponse res = sdk.aiservices().prompt().executePrompt()
+                .promptId("<id>")
+                .body(ExecutePrompt.builder()
+                    .department("Service")
+                    .languageCode(LanguageCodeRequestBody.EN_US)
+                    .clientSessionId("123e4567-e89b-12d3-a456-426614174000")
                     .build())
-                .build();
-
-        RetrieveChunksResponse res = sdk.aiservices().retrieve().retrieveChunks()
-                .request(req)
                 .call();
 
-        if (res.retrieveResponse().isPresent()) {
+        if (res.executePromptResponse().isPresent()) {
             // handle response
         }
     }
@@ -729,45 +636,31 @@ The server URL can also be overridden on a per-operation basis, provided a serve
 package hello.world;
 
 import com.egain.sdk.Egain;
-import com.egain.sdk.models.components.*;
-import com.egain.sdk.models.operations.RetrieveChunksRequest;
-import com.egain.sdk.models.operations.RetrieveChunksResponse;
+import com.egain.sdk.models.components.ExecutePrompt;
+import com.egain.sdk.models.components.LanguageCodeRequestBody;
+import com.egain.sdk.models.errors.BadRequestException;
+import com.egain.sdk.models.operations.ExecutePromptResponse;
 import java.lang.Exception;
-import java.util.List;
-import java.util.Map;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws BadRequestException, Exception {
 
         Egain sdk = Egain.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
-        RetrieveChunksRequest req = RetrieveChunksRequest.builder()
-                .q("fair lending")
-                .portalID("PROD-1000")
-                .language(LanguageCodeParameter.EN_US)
-                .filterUserProfileID("PROD-3210")
-                .filterTags(Map.ofEntries(
-                    Map.entry("PROD-1234", List.of(
-                        "PROD-2000",
-                        "PROD-2003")),
-                    Map.entry("PROD-2005", List.of(
-                        "PROD-2007"))))
-                .body(RetrieveRequest.builder()
-                    .channel(RetrieveRequestChannel.builder()
-                        .name("Eight Bank Website")
-                        .build())
-                    .build())
-                .build();
-
-        RetrieveChunksResponse res = sdk.aiservices().retrieve().retrieveChunks()
-                .request(req)
+        ExecutePromptResponse res = sdk.aiservices().prompt().executePrompt()
                 .serverURL("https://api.aidev.egain.cloud/core/aiservices/v4")
+                .promptId("<id>")
+                .body(ExecutePrompt.builder()
+                    .department("Service")
+                    .languageCode(LanguageCodeRequestBody.EN_US)
+                    .clientSessionId("123e4567-e89b-12d3-a456-426614174000")
+                    .build())
                 .call();
 
-        if (res.retrieveResponse().isPresent()) {
+        if (res.executePromptResponse().isPresent()) {
             // handle response
         }
     }

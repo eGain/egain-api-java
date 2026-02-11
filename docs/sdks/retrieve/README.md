@@ -41,10 +41,10 @@ public class Application {
             .build();
 
         RetrieveChunksRequest req = RetrieveChunksRequest.builder()
-                .q("fair lending")
+                .q("What is a loan?")
                 .portalID("PROD-1000")
-                .language(LanguageCodeParameter.EN_US)
-                .filterUserProfileID("PROD-3210")
+                .language(RequiredLanguageCode.EN_US)
+                .filterUserProfileID("PROD-1030")
                 .filterTags(Map.ofEntries(
                     Map.entry("PROD-1234", List.of(
                         "PROD-2000",
@@ -55,6 +55,9 @@ public class Application {
                     .channel(RetrieveRequestChannel.builder()
                         .name("Eight Bank Website")
                         .build())
+                    .eventId("6154589f-b43f-4471-b2c7-92c6c888a664")
+                    .clientSessionId("6154589f-b43f-4471-b2c7-92c6c888a643")
+                    .sessionId("6154589f-b43f-4471-b2c7-92c6c888a689")
                     .build())
                 .build();
 

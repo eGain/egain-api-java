@@ -3,7 +3,7 @@
  */
 package com.egain.sdk.models.operations;
 
-import com.egain.sdk.models.components.LanguageCodeParameter;
+import com.egain.sdk.models.components.RequiredLanguageCode;
 import com.egain.sdk.models.components.RetrieveRequest;
 import com.egain.sdk.utils.SpeakeasyMetadata;
 import com.egain.sdk.utils.Utils;
@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public class RetrieveChunksRequest {
     /**
-     * The search query string. The string must be escaped as required by the URL syntax rules.
+     * The search query string.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=q")
     private String q;
@@ -37,15 +37,20 @@ public class RetrieveChunksRequest {
 
     /**
      * The language that describes the details of a resource. Resources available in different languages
-     * may differ from each other. <br><br> If lang is not passed, then the portal's default language is
-     * used.
+     * may differ from each other.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=$lang")
-    private LanguageCodeParameter language;
+    private RequiredLanguageCode language;
 
     /**
      * An object where each key is a **Category Tag ID** (numeric string),
      * and each value is an array of **Tag IDs** for that category.
+     * **Note**:
+     * - The '$filter[tags]' query parameter JSON value should be url encoded.
+     * - Some developer tools for invoking APIs may not url encode the '$filter[tags]' query parameter JSON
+     * value by default. Ensure that only url encoded values are used.
+     * - Example of JSON value: {"BASE-40845":["BASE-40849","BASE-40853"]}
+     * - Example of URL encoded value: %7B%22BASE-40845%22%3A%5B%22BASE-40849%22%2C%22BASE-40853%22%5D%7D
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=$filter[tags]")
     private Map<String, List<String>> filterTags;
@@ -65,7 +70,7 @@ public class RetrieveChunksRequest {
             @Nonnull String q,
             @Nonnull String portalID,
             @Nullable String filterUserProfileID,
-            @Nonnull LanguageCodeParameter language,
+            @Nonnull RequiredLanguageCode language,
             @Nullable Map<String, List<String>> filterTags,
             @Nullable List<String> filterTopicIds,
             @Nullable RetrieveRequest body) {
@@ -84,14 +89,14 @@ public class RetrieveChunksRequest {
     public RetrieveChunksRequest(
             @Nonnull String q,
             @Nonnull String portalID,
-            @Nonnull LanguageCodeParameter language) {
+            @Nonnull RequiredLanguageCode language) {
         this(q, portalID, null,
             language, null, null,
             null);
     }
 
     /**
-     * The search query string. The string must be escaped as required by the URL syntax rules.
+     * The search query string.
      */
     public String q() {
         return this.q;
@@ -111,16 +116,21 @@ public class RetrieveChunksRequest {
 
     /**
      * The language that describes the details of a resource. Resources available in different languages
-     * may differ from each other. <br><br> If lang is not passed, then the portal's default language is
-     * used.
+     * may differ from each other.
      */
-    public LanguageCodeParameter language() {
+    public RequiredLanguageCode language() {
         return this.language;
     }
 
     /**
      * An object where each key is a **Category Tag ID** (numeric string),
      * and each value is an array of **Tag IDs** for that category.
+     * **Note**:
+     * - The '$filter[tags]' query parameter JSON value should be url encoded.
+     * - Some developer tools for invoking APIs may not url encode the '$filter[tags]' query parameter JSON
+     * value by default. Ensure that only url encoded values are used.
+     * - Example of JSON value: {"BASE-40845":["BASE-40849","BASE-40853"]}
+     * - Example of URL encoded value: %7B%22BASE-40845%22%3A%5B%22BASE-40849%22%2C%22BASE-40853%22%5D%7D
      */
     public Optional<Map<String, List<String>>> filterTags() {
         return Optional.ofNullable(this.filterTags);
@@ -143,7 +153,7 @@ public class RetrieveChunksRequest {
 
 
     /**
-     * The search query string. The string must be escaped as required by the URL syntax rules.
+     * The search query string.
      */
     public RetrieveChunksRequest withQ(@Nonnull String q) {
         this.q = Utils.checkNotNull(q, "q");
@@ -169,10 +179,9 @@ public class RetrieveChunksRequest {
 
     /**
      * The language that describes the details of a resource. Resources available in different languages
-     * may differ from each other. <br><br> If lang is not passed, then the portal's default language is
-     * used.
+     * may differ from each other.
      */
-    public RetrieveChunksRequest withLanguage(@Nonnull LanguageCodeParameter language) {
+    public RetrieveChunksRequest withLanguage(@Nonnull RequiredLanguageCode language) {
         this.language = Utils.checkNotNull(language, "language");
         return this;
     }
@@ -181,6 +190,12 @@ public class RetrieveChunksRequest {
     /**
      * An object where each key is a **Category Tag ID** (numeric string),
      * and each value is an array of **Tag IDs** for that category.
+     * **Note**:
+     * - The '$filter[tags]' query parameter JSON value should be url encoded.
+     * - Some developer tools for invoking APIs may not url encode the '$filter[tags]' query parameter JSON
+     * value by default. Ensure that only url encoded values are used.
+     * - Example of JSON value: {"BASE-40845":["BASE-40849","BASE-40853"]}
+     * - Example of URL encoded value: %7B%22BASE-40845%22%3A%5B%22BASE-40849%22%2C%22BASE-40853%22%5D%7D
      */
     public RetrieveChunksRequest withFilterTags(@Nullable Map<String, List<String>> filterTags) {
         this.filterTags = filterTags;
@@ -251,7 +266,7 @@ public class RetrieveChunksRequest {
 
         private String filterUserProfileID;
 
-        private LanguageCodeParameter language;
+        private RequiredLanguageCode language;
 
         private Map<String, List<String>> filterTags;
 
@@ -264,7 +279,7 @@ public class RetrieveChunksRequest {
         }
 
         /**
-         * The search query string. The string must be escaped as required by the URL syntax rules.
+         * The search query string.
          */
         public Builder q(@Nonnull String q) {
             this.q = Utils.checkNotNull(q, "q");
@@ -287,10 +302,9 @@ public class RetrieveChunksRequest {
 
         /**
          * The language that describes the details of a resource. Resources available in different languages
-         * may differ from each other. <br><br> If lang is not passed, then the portal's default language is
-         * used.
+         * may differ from each other.
          */
-        public Builder language(@Nonnull LanguageCodeParameter language) {
+        public Builder language(@Nonnull RequiredLanguageCode language) {
             this.language = Utils.checkNotNull(language, "language");
             return this;
         }
@@ -298,6 +312,12 @@ public class RetrieveChunksRequest {
         /**
          * An object where each key is a **Category Tag ID** (numeric string),
          * and each value is an array of **Tag IDs** for that category.
+         * **Note**:
+         * - The '$filter[tags]' query parameter JSON value should be url encoded.
+         * - Some developer tools for invoking APIs may not url encode the '$filter[tags]' query parameter JSON
+         * value by default. Ensure that only url encoded values are used.
+         * - Example of JSON value: {"BASE-40845":["BASE-40849","BASE-40853"]}
+         * - Example of URL encoded value: %7B%22BASE-40845%22%3A%5B%22BASE-40849%22%2C%22BASE-40853%22%5D%7D
          */
         public Builder filterTags(@Nullable Map<String, List<String>> filterTags) {
             this.filterTags = filterTags;

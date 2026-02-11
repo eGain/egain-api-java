@@ -11,6 +11,7 @@ import com.egain.sdk.SDKConfiguration;
 import com.egain.sdk.SecuritySource;
 import com.egain.sdk.models.components.AISearchResponse;
 import com.egain.sdk.models.errors.APIException;
+import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.AiSearchRequest;
 import com.egain.sdk.models.operations.AiSearchResponse;
 import com.egain.sdk.utils.Blob;
@@ -130,7 +131,7 @@ public class AiSearch {
             HttpResponse<InputStream> httpRes;
             try {
                 httpRes = client.send(r);
-                if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
+                if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "403", "404", "406", "4XX", "500", "5XX")) {
                     httpRes = onError(httpRes, null);
                 } else {
                     httpRes = onSuccess(httpRes);
@@ -165,11 +166,29 @@ public class AiSearch {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "204")) {
+                // no content
+                return res;
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "406")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    throw WSErrorCommon.from(response);
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "500")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    throw WSErrorCommon.from(response);
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 throw APIException.from("API error occurred", response);
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "500", "5XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
                 // no content
                 throw APIException.from("API error occurred", response);
             }
@@ -203,7 +222,7 @@ public class AiSearch {
                         if (err != null) {
                             return onError(null, err);
                         }
-                        if (Utils.statusCodeMatches(resp.statusCode(), "400", "4XX", "500", "5XX")) {
+                        if (Utils.statusCodeMatches(resp.statusCode(), "400", "401", "403", "404", "406", "4XX", "500", "5XX")) {
                             return onError(resp, null);
                         }
                         return CompletableFuture.completedFuture(resp);
@@ -236,11 +255,31 @@ public class AiSearch {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "204")) {
+                // no content
+                return CompletableFuture.completedFuture(res);
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "406")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return WSErrorCommon.fromAsync(response)
+                            .thenCompose(CompletableFuture::failedFuture);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "500")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return WSErrorCommon.fromAsync(response)
+                            .thenCompose(CompletableFuture::failedFuture);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 return Utils.createAsyncApiError(response, "API error occurred");
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "500", "5XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "5XX")) {
                 // no content
                 return Utils.createAsyncApiError(response, "API error occurred");
             }

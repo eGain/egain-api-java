@@ -11,13 +11,16 @@
 ## exportContent
 
 ## Overview
-   The Content Export API initiates a bulk export of the Knowledge Hub to a client-provided Amazon S3 bucket or SFTP server path.
+   The Content Export API initiates a bulk export of the Knowledge Hub to a client-provided Amazon S3 bucket.
    It returns a URL with a Job ID to enable tracking the status of this asynchronous operation.  
    Each export job can send multiple JSON files, depending on the total number of items to process. 
    More than one bulk export can take place, as needed, one per portal.
 
 ## Permission
-  * Only a client application can invoke this API.   
+  * Only a client application can invoke this API.  
+  
+## License
+  * This API requires a site license (SKU: EG-CL-RTKA-PT).  
 
 
 ### Example Usage
@@ -41,26 +44,25 @@ public class Application {
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
-        KnowledgeExport req = KnowledgeExport.builder()
-                .portalID("PROD-1000")
-                .language(KnowledgeExportLanguage.builder()
-                    .code(KnowledgeExportCode.EN_US)
-                    .build())
-                .resourceTypes(List.of(
-                    ResourceType.ARTICLES))
-                .dataDestination(DataDestination.builder()
-                    .destinationType(DestinationType.AWSS3_BUCKET)
-                    .path("s3://amzn-s3-demo-bucket/mydeptfolder")
-                    .region("us-west-2")
-                    .credentials(KnowledgeExportCredentials.builder()
-                        .accessKey("s3-access-user")
-                        .secretKey("s3-access-secret")
+        ExportContentResponse res = sdk.portal().export().exportContent()
+                .acceptLanguage(AcceptLanguage.EN_US)
+                .body(KnowledgeExport.builder()
+                    .portalID("PROD-1000")
+                    .language(KnowledgeExportLanguage.builder()
+                        .code(KnowledgeExportCode.EN_US)
+                        .build())
+                    .resourceTypes(List.of(
+                        ResourceType.ARTICLES))
+                    .dataDestination(DataDestination.builder()
+                        .destinationType(DestinationType.AWSS3_BUCKET)
+                        .path("s3://amzn-s3-demo-bucket/mydeptfolder")
+                        .region("us-west-2")
+                        .credentials(Credentials.builder()
+                            .accessKey("s3-access-key")
+                            .secretKey("s3-access-secret")
+                            .build())
                         .build())
                     .build())
-                .build();
-
-        ExportContentResponse res = sdk.portal().export().exportContent()
-                .request(req)
                 .call();
 
         // handle response
@@ -70,9 +72,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                 | Type                                                      | Required                                                  | Description                                               |
-| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
-| `request`                                                 | [KnowledgeExport](../../models/shared/KnowledgeExport.md) | :heavy_check_mark:                                        | The request object to use for the request.                |
+| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     | Example                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `acceptLanguage`                                                                                                                | [AcceptLanguage](../../models/components/AcceptLanguage.md)                                                                     | :heavy_check_mark:                                                                                                              | The Language locale accepted by the client (used for locale specific fields in resource representation and in error responses). | en-US                                                                                                                           |
+| `body`                                                                                                                          | [KnowledgeExport](../../models/components/KnowledgeExport.md)                                                                   | :heavy_check_mark:                                                                                                              | N/A                                                                                                                             |                                                                                                                                 |
 
 ### Response
 
@@ -105,6 +108,9 @@ public class Application {
 
 ## Permission
   * Only a client application can invoke this API.  
+
+## License
+  * This API requires a site license (SKU: EG-CL-RTKA-PT).           
 
 
 ### Example Usage

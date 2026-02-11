@@ -9,15 +9,21 @@ import com.egain.sdk.utils.Headers;
 public class AsyncAiservices {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
+    private final AsyncAiservicesPrompt prompt;
     private final AsyncRetrieve retrieve;
     private final AsyncAnswers answers;
     private final Aiservices syncSDK;
 
     AsyncAiservices(Aiservices syncSDK, SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.prompt = new AsyncAiservicesPrompt(syncSDK.prompt(), this.sdkConfiguration);
         this.retrieve = new AsyncRetrieve(syncSDK.retrieve(), this.sdkConfiguration);
         this.answers = new AsyncAnswers(syncSDK.answers(), this.sdkConfiguration);
         this.syncSDK = syncSDK;
+    }
+
+    public final AsyncAiservicesPrompt prompt() {
+        return prompt;
     }
 
     public final AsyncRetrieve retrieve() {

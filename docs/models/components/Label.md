@@ -20,3 +20,14 @@ The name of the language.
 | `CHINESE`    | Chinese      |
 | `JAPANESE`   | Japanese     |
 | `KOREAN`     | Korean       |
+| `THAI`       | Thai         |
+| `VIETNAMESE` | Vietnamese   |
+| `INDONESIAN` | Indonesian   |
+| `MALAY`      | Malay        |
+| `FILIPINO`   | Filipino     |
+| `HINDI`      | Hindi        |
+| `UKRAINIAN`  | Ukrainian    |
+| `BULGARIAN`  | Bulgarian    |
+| `SLOVAK`     | Slovak       |
+| `SLOVENE`    | Slovene      |
+| `SERBIAN`    | Serbian      |

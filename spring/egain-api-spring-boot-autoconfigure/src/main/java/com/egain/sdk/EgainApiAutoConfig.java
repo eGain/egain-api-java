@@ -234,6 +234,17 @@ public class EgainApiAutoConfig {
         return egain.aiservices();
     }
     /**
+     * Creates a Prompt sub-SDK bean if none exists.
+     *
+     * @param egain the main SDK instance
+     * @return A configured Prompt instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public Prompt prompt(Egain egain) {
+        return egain.prompt();
+    }
+    /**
      * Creates a Content sub-SDK bean if none exists.
      *
      * @param egain the main SDK instance
@@ -278,6 +289,17 @@ public class EgainApiAutoConfig {
     @ConditionalOnMissingBean
     public AsyncAiservices asyncAiservices(AsyncEgain asyncEgain) {
         return asyncEgain.aiservices();
+    }
+    /**
+     * Creates an AsyncPrompt sub-SDK bean if none exists.
+     *
+     * @param asyncEgain the async SDK instance
+     * @return A configured AsyncPrompt instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AsyncPrompt asyncPrompt(AsyncEgain asyncEgain) {
+        return asyncEgain.prompt();
     }
     /**
      * Creates an AsyncContent sub-SDK bean if none exists.

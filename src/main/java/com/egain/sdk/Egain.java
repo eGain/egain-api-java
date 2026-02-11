@@ -65,6 +65,11 @@ public class Egain {
 
     private final Aiservices aiservices;
 
+    /**
+     * APIs for AssistGPT
+     */
+    private final Prompt prompt;
+
 
     private final Content content;
 
@@ -74,6 +79,13 @@ public class Egain {
 
     public Aiservices aiservices() {
         return aiservices;
+    }
+
+    /**
+     * APIs for AssistGPT
+     */
+    public Prompt prompt() {
+        return prompt;
     }
 
 
@@ -236,6 +248,7 @@ public class Egain {
     public Egain(SDKConfiguration sdkConfiguration) {
         sdkConfiguration.initialize();
         this.aiservices = new Aiservices(sdkConfiguration);
+        this.prompt = new Prompt(sdkConfiguration);
         this.content = new Content(sdkConfiguration);
         this.portal = new Portal(sdkConfiguration);
         sdkConfiguration = sdkConfiguration.hooks().sdkInit(sdkConfiguration);

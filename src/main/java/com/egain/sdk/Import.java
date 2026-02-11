@@ -47,7 +47,7 @@ public class Import {
     }
 
     /**
-     * Import content from external sources by creating an import job
+     * Create Import Job
      * 
      * <p># Import Content
      * 
@@ -66,6 +66,10 @@ public class Import {
      * 3. **Status Monitoring**: Use the job ID to monitor progress via the Status API
      * 4. **Completion**: Job completes when all content is processed or errors occur
      * 
+     * <p>**Note:** After a successful import, please allow for a brief delay before the content is fully
+     * available for use. The system's search service synchronizes all new and updated content every 30
+     * minutes.
+     * 
      * <p>## Supported Operations
      * - **Import**: Add new content to the knowledge base
      * - **Update**: Modify existing content
@@ -75,16 +79,10 @@ public class Import {
      * - Shared file path
      * 
      * <p>## Best Practices
-     * - **Scheduling**: Use scheduleTime for off-peak imports to minimize system impact
+     * - **Scheduling**: Use scheduleTime for off-peak imports to minimize system impact. Please note that
+     * jobs can only be scheduled for a maximum of 7 days from the current date and time.
      * - **Monitoring**: Regularly check job status and logs for any issues
      * - **Error Handling**: Review failed items and retry with corrections
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>Content can only be imported in user's home
-     * department.</li><li>User must have 'Author' role.</li><li>Content can only be imported if the user
-     * has all the required languages assigned.</li>&lt;/ul&gt;|
      * 
      * @return The call builder
      */
@@ -93,7 +91,7 @@ public class Import {
     }
 
     /**
-     * Import content from external sources by creating an import job
+     * Create Import Job
      * 
      * <p># Import Content
      * 
@@ -112,6 +110,10 @@ public class Import {
      * 3. **Status Monitoring**: Use the job ID to monitor progress via the Status API
      * 4. **Completion**: Job completes when all content is processed or errors occur
      * 
+     * <p>**Note:** After a successful import, please allow for a brief delay before the content is fully
+     * available for use. The system's search service synchronizes all new and updated content every 30
+     * minutes.
+     * 
      * <p>## Supported Operations
      * - **Import**: Add new content to the knowledge base
      * - **Update**: Modify existing content
@@ -121,16 +123,10 @@ public class Import {
      * - Shared file path
      * 
      * <p>## Best Practices
-     * - **Scheduling**: Use scheduleTime for off-peak imports to minimize system impact
+     * - **Scheduling**: Use scheduleTime for off-peak imports to minimize system impact. Please note that
+     * jobs can only be scheduled for a maximum of 7 days from the current date and time.
      * - **Monitoring**: Regularly check job status and logs for any issues
      * - **Error Handling**: Review failed items and retry with corrections
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>Content can only be imported in user's home
-     * department.</li><li>User must have 'Author' role.</li><li>Content can only be imported if the user
-     * has all the required languages assigned.</li>&lt;/ul&gt;|
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -141,7 +137,7 @@ public class Import {
     }
 
     /**
-     * Import content from external sources by creating an import job
+     * Create Import Job
      * 
      * <p># Import Content
      * 
@@ -160,6 +156,10 @@ public class Import {
      * 3. **Status Monitoring**: Use the job ID to monitor progress via the Status API
      * 4. **Completion**: Job completes when all content is processed or errors occur
      * 
+     * <p>**Note:** After a successful import, please allow for a brief delay before the content is fully
+     * available for use. The system's search service synchronizes all new and updated content every 30
+     * minutes.
+     * 
      * <p>## Supported Operations
      * - **Import**: Add new content to the knowledge base
      * - **Update**: Modify existing content
@@ -169,16 +169,10 @@ public class Import {
      * - Shared file path
      * 
      * <p>## Best Practices
-     * - **Scheduling**: Use scheduleTime for off-peak imports to minimize system impact
+     * - **Scheduling**: Use scheduleTime for off-peak imports to minimize system impact. Please note that
+     * jobs can only be scheduled for a maximum of 7 days from the current date and time.
      * - **Monitoring**: Regularly check job status and logs for any issues
      * - **Error Handling**: Review failed items and retry with corrections
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>Content can only be imported in user's home
-     * department.</li><li>User must have 'Author' role.</li><li>Content can only be imported if the user
-     * has all the required languages assigned.</li>&lt;/ul&gt;|
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param serverURL Overrides the server URL.
@@ -192,7 +186,7 @@ public class Import {
     }
 
     /**
-     * Get the current status of an import or validation job
+     * Get Job Status
      * 
      * <p># Get Import Job Status
      * 
@@ -220,13 +214,6 @@ public class Import {
      * - Content processing steps
      * - Validation results
      * - Error details with context
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>User must have 'Author' role.</li><li>The
-     * job must have been created by the logged in user, or the logged in user must have 'View' permissions
-     * on the user who created the job.</li>&lt;/ul&gt;|
      * 
      * @return The call builder
      */
@@ -235,7 +222,7 @@ public class Import {
     }
 
     /**
-     * Get the current status of an import or validation job
+     * Get Job Status
      * 
      * <p># Get Import Job Status
      * 
@@ -263,13 +250,6 @@ public class Import {
      * - Content processing steps
      * - Validation results
      * - Error details with context
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>User must have 'Author' role.</li><li>The
-     * job must have been created by the logged in user, or the logged in user must have 'View' permissions
-     * on the user who created the job.</li>&lt;/ul&gt;|
      * 
      * @param jobId **Job ID Parameter**
      *         
@@ -290,7 +270,7 @@ public class Import {
     }
 
     /**
-     * Get the current status of an import or validation job
+     * Get Job Status
      * 
      * <p># Get Import Job Status
      * 
@@ -318,13 +298,6 @@ public class Import {
      * - Content processing steps
      * - Validation results
      * - Error details with context
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>User must have 'Author' role.</li><li>The
-     * job must have been created by the logged in user, or the logged in user must have 'View' permissions
-     * on the user who created the job.</li>&lt;/ul&gt;|
      * 
      * @param jobId **Job ID Parameter**
      *         
@@ -349,7 +322,7 @@ public class Import {
     }
 
     /**
-     * Validate content structure and format before import by creating an import validation job
+     * Create Validation Job
      * 
      * <p># Validate Import Content
      * 
@@ -389,13 +362,6 @@ public class Import {
      * - **Fix Issues**: Address validation errors before proceeding with import
      * - **Test Small Batches**: Validate with small content samples first
      * - **Iterate**: Use validation feedback to improve content quality
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>User must have 'Author'
-     * role.</li><li>Content can only be imported if the user has all the required languages
-     * assigned.</li>&lt;/ul&gt;|
      * 
      * @return The call builder
      */
@@ -404,7 +370,7 @@ public class Import {
     }
 
     /**
-     * Validate content structure and format before import by creating an import validation job
+     * Create Validation Job
      * 
      * <p># Validate Import Content
      * 
@@ -444,13 +410,6 @@ public class Import {
      * - **Fix Issues**: Address validation errors before proceeding with import
      * - **Test Small Batches**: Validate with small content samples first
      * - **Iterate**: Use validation feedback to improve content quality
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>User must have 'Author'
-     * role.</li><li>Content can only be imported if the user has all the required languages
-     * assigned.</li>&lt;/ul&gt;|
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -461,7 +420,7 @@ public class Import {
     }
 
     /**
-     * Validate content structure and format before import by creating an import validation job
+     * Create Validation Job
      * 
      * <p># Validate Import Content
      * 
@@ -501,13 +460,6 @@ public class Import {
      * - **Fix Issues**: Address validation errors before proceeding with import
      * - **Test Small Batches**: Validate with small content samples first
      * - **Iterate**: Use validation feedback to improve content quality
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<ul><li>User must be a department user.</li><li>User must have 'Author'
-     * role.</li><li>Content can only be imported if the user has all the required languages
-     * assigned.</li>&lt;/ul&gt;|
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param serverURL Overrides the server URL.
@@ -521,7 +473,7 @@ public class Import {
     }
 
     /**
-     * Cancel an import or validation job
+     * Cancel Job
      * 
      * <p># Cancel Import or Validation Job
      * 
@@ -561,14 +513,6 @@ public class Import {
      * - **Monitor Jobs**: Regularly check job status to identify candidates for cancellation
      * - **Plan Cancellations**: Schedule cancellations during low-usage periods
      * - **Resource Planning**: Consider resource impact before cancelling large jobs
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<li>User must be a department user.</li><li>Content can only be validated for user's home
-     * department.</li><li>User must have 'Author' role.</li><li>The job must have been created by the
-     * logged in user, or the logged in user must have 'Edit' permissions on the user who created the
-     * job.</li>&lt;/ul&gt;|
      * 
      * @return The call builder
      */
@@ -577,7 +521,7 @@ public class Import {
     }
 
     /**
-     * Cancel an import or validation job
+     * Cancel Job
      * 
      * <p># Cancel Import or Validation Job
      * 
@@ -617,14 +561,6 @@ public class Import {
      * - **Monitor Jobs**: Regularly check job status to identify candidates for cancellation
      * - **Plan Cancellations**: Schedule cancellations during low-usage periods
      * - **Resource Planning**: Consider resource impact before cancelling large jobs
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<li>User must be a department user.</li><li>Content can only be validated for user's home
-     * department.</li><li>User must have 'Author' role.</li><li>The job must have been created by the
-     * logged in user, or the logged in user must have 'Edit' permissions on the user who created the
-     * job.</li>&lt;/ul&gt;|
      * 
      * @param jobId **Job ID Parameter**
      *         
@@ -645,7 +581,7 @@ public class Import {
     }
 
     /**
-     * Cancel an import or validation job
+     * Cancel Job
      * 
      * <p># Cancel Import or Validation Job
      * 
@@ -685,14 +621,6 @@ public class Import {
      * - **Monitor Jobs**: Regularly check job status to identify candidates for cancellation
      * - **Plan Cancellations**: Schedule cancellations during low-usage periods
      * - **Resource Planning**: Consider resource impact before cancelling large jobs
-     * 
-     * <p>## Permissions
-     * | Actor | Permission |
-     * | ------- | --------|
-     * | User |<li>User must be a department user.</li><li>Content can only be validated for user's home
-     * department.</li><li>User must have 'Author' role.</li><li>The job must have been created by the
-     * logged in user, or the logged in user must have 'Edit' permissions on the user who created the
-     * job.</li>&lt;/ul&gt;|
      * 
      * @param jobId **Job ID Parameter**
      *         

@@ -46,7 +46,7 @@ public class GetBestAnswer {
      */
     public static final String[] GET_BEST_ANSWER_SERVERS = {
         /**
-         * aiservices
+         * Production Server
          */
         "https://api.aidev.egain.cloud/core/aiservices/v4",
     };

@@ -38,7 +38,8 @@ public class RetrieveResponseAnswer {
     private RetrieveResponseAnswerType answerType;
 
     /**
-     * Confidence score (0.0-1.0) reflecting how well the answer matches the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * It represents a direct relevance comparison between the query and the returned snippet.
      */
     @JsonProperty("relevanceScore")
     private float relevanceScore;
@@ -80,7 +81,8 @@ public class RetrieveResponseAnswer {
     }
 
     /**
-     * Confidence score (0.0-1.0) reflecting how well the answer matches the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * It represents a direct relevance comparison between the query and the returned snippet.
      */
     public float relevanceScore() {
         return this.relevanceScore;
@@ -119,7 +121,8 @@ public class RetrieveResponseAnswer {
 
 
     /**
-     * Confidence score (0.0-1.0) reflecting how well the answer matches the query.
+     * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+     * It represents a direct relevance comparison between the query and the returned snippet.
      */
     public RetrieveResponseAnswer withRelevanceScore(float relevanceScore) {
         this.relevanceScore = relevanceScore;
@@ -199,7 +202,8 @@ public class RetrieveResponseAnswer {
         }
 
         /**
-         * Confidence score (0.0-1.0) reflecting how well the answer matches the query.
+         * Query-specific relevance score (0.0-1.0) that reflects how well the result matches the user query.
+         * It represents a direct relevance comparison between the query and the returned snippet.
          */
         public Builder relevanceScore(float relevanceScore) {
             this.relevanceScore = relevanceScore;

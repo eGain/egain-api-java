@@ -4,11 +4,14 @@
 package com.egain.sdk.models.operations;
 
 import com.egain.sdk.models.components.LanguageCodeParameter;
+import com.egain.sdk.utils.LazySingletonValue;
 import com.egain.sdk.utils.SpeakeasyMetadata;
 import com.egain.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
@@ -47,6 +50,12 @@ public class AiSearchRequest {
     /**
      * An object where each key is a **Category Tag ID** (numeric string),
      * and each value is an array of **Tag IDs** for that category.
+     * **Note**:
+     * - The '$filter[tags]' query parameter JSON value should be url encoded.
+     * - Some developer tools for invoking APIs may not url encode the '$filter[tags]' query parameter JSON
+     * value by default. Ensure that only url encoded values are used.
+     * - Example of JSON value: {"BASE-40845":["BASE-40849","BASE-40853"]}
+     * - Example of URL encoded value: %7B%22BASE-40845%22%3A%5B%22BASE-40849%22%2C%22BASE-40853%22%5D%7D
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=$filter[tags]")
     private Map<String, List<String>> filterTags;
@@ -63,6 +72,20 @@ public class AiSearchRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=articleCustomAdditionalAttributes")
     private String articleCustomAdditionalAttributes;
 
+    /**
+     * Pagination parameter that specifies the page number of results to be returned. Used in conjunction
+     * with $pagesize.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=$pagenum")
+    private Long pagenum;
+
+    /**
+     * Pagination parameter that specifies the number of results per page. Used in conjunction with
+     * $pagenum.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=$pagesize")
+    private Long pagesize;
+
     @JsonCreator
     public AiSearchRequest(
             @Nonnull String q,
@@ -71,7 +94,9 @@ public class AiSearchRequest {
             @Nonnull LanguageCodeParameter language,
             @Nullable Map<String, List<String>> filterTags,
             @Nullable List<String> filterTopicIds,
-            @Nullable String articleCustomAdditionalAttributes) {
+            @Nullable String articleCustomAdditionalAttributes,
+            @Nullable Long pagenum,
+            @Nullable Long pagesize) {
         this.q = Optional.ofNullable(q)
             .orElseThrow(() -> new IllegalArgumentException("q cannot be null"));
         this.portalID = Optional.ofNullable(portalID)
@@ -82,6 +107,10 @@ public class AiSearchRequest {
         this.filterTags = filterTags;
         this.filterTopicIds = filterTopicIds;
         this.articleCustomAdditionalAttributes = articleCustomAdditionalAttributes;
+        this.pagenum = Optional.ofNullable(pagenum)
+            .orElse(Builder._SINGLETON_VALUE_Pagenum.value());
+        this.pagesize = Optional.ofNullable(pagesize)
+            .orElse(Builder._SINGLETON_VALUE_Pagesize.value());
     }
     
     public AiSearchRequest(
@@ -90,7 +119,7 @@ public class AiSearchRequest {
             @Nonnull LanguageCodeParameter language) {
         this(q, portalID, null,
             language, null, null,
-            null);
+            null, null, null);
     }
 
     /**
@@ -127,6 +156,12 @@ public class AiSearchRequest {
     /**
      * An object where each key is a **Category Tag ID** (numeric string),
      * and each value is an array of **Tag IDs** for that category.
+     * **Note**:
+     * - The '$filter[tags]' query parameter JSON value should be url encoded.
+     * - Some developer tools for invoking APIs may not url encode the '$filter[tags]' query parameter JSON
+     * value by default. Ensure that only url encoded values are used.
+     * - Example of JSON value: {"BASE-40845":["BASE-40849","BASE-40853"]}
+     * - Example of URL encoded value: %7B%22BASE-40845%22%3A%5B%22BASE-40849%22%2C%22BASE-40853%22%5D%7D
      */
     public Optional<Map<String, List<String>>> filterTags() {
         return Optional.ofNullable(this.filterTags);
@@ -144,6 +179,22 @@ public class AiSearchRequest {
      */
     public Optional<String> articleCustomAdditionalAttributes() {
         return Optional.ofNullable(this.articleCustomAdditionalAttributes);
+    }
+
+    /**
+     * Pagination parameter that specifies the page number of results to be returned. Used in conjunction
+     * with $pagesize.
+     */
+    public Optional<Long> pagenum() {
+        return Optional.ofNullable(this.pagenum);
+    }
+
+    /**
+     * Pagination parameter that specifies the number of results per page. Used in conjunction with
+     * $pagenum.
+     */
+    public Optional<Long> pagesize() {
+        return Optional.ofNullable(this.pagesize);
     }
 
     public static Builder builder() {
@@ -193,6 +244,12 @@ public class AiSearchRequest {
     /**
      * An object where each key is a **Category Tag ID** (numeric string),
      * and each value is an array of **Tag IDs** for that category.
+     * **Note**:
+     * - The '$filter[tags]' query parameter JSON value should be url encoded.
+     * - Some developer tools for invoking APIs may not url encode the '$filter[tags]' query parameter JSON
+     * value by default. Ensure that only url encoded values are used.
+     * - Example of JSON value: {"BASE-40845":["BASE-40849","BASE-40853"]}
+     * - Example of URL encoded value: %7B%22BASE-40845%22%3A%5B%22BASE-40849%22%2C%22BASE-40853%22%5D%7D
      */
     public AiSearchRequest withFilterTags(@Nullable Map<String, List<String>> filterTags) {
         this.filterTags = filterTags;
@@ -218,6 +275,26 @@ public class AiSearchRequest {
     }
 
 
+    /**
+     * Pagination parameter that specifies the page number of results to be returned. Used in conjunction
+     * with $pagesize.
+     */
+    public AiSearchRequest withPagenum(@Nullable Long pagenum) {
+        this.pagenum = pagenum;
+        return this;
+    }
+
+
+    /**
+     * Pagination parameter that specifies the number of results per page. Used in conjunction with
+     * $pagenum.
+     */
+    public AiSearchRequest withPagesize(@Nullable Long pagesize) {
+        this.pagesize = pagesize;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -234,7 +311,9 @@ public class AiSearchRequest {
             Utils.enhancedDeepEquals(this.language, other.language) &&
             Utils.enhancedDeepEquals(this.filterTags, other.filterTags) &&
             Utils.enhancedDeepEquals(this.filterTopicIds, other.filterTopicIds) &&
-            Utils.enhancedDeepEquals(this.articleCustomAdditionalAttributes, other.articleCustomAdditionalAttributes);
+            Utils.enhancedDeepEquals(this.articleCustomAdditionalAttributes, other.articleCustomAdditionalAttributes) &&
+            Utils.enhancedDeepEquals(this.pagenum, other.pagenum) &&
+            Utils.enhancedDeepEquals(this.pagesize, other.pagesize);
     }
     
     @Override
@@ -242,7 +321,7 @@ public class AiSearchRequest {
         return Utils.enhancedHash(
             q, portalID, filterUserProfileID,
             language, filterTags, filterTopicIds,
-            articleCustomAdditionalAttributes);
+            articleCustomAdditionalAttributes, pagenum, pagesize);
     }
     
     @Override
@@ -254,7 +333,9 @@ public class AiSearchRequest {
                 "language", language,
                 "filterTags", filterTags,
                 "filterTopicIds", filterTopicIds,
-                "articleCustomAdditionalAttributes", articleCustomAdditionalAttributes);
+                "articleCustomAdditionalAttributes", articleCustomAdditionalAttributes,
+                "pagenum", pagenum,
+                "pagesize", pagesize);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -273,6 +354,10 @@ public class AiSearchRequest {
         private List<String> filterTopicIds;
 
         private String articleCustomAdditionalAttributes;
+
+        private Long pagenum;
+
+        private Long pagesize;
 
         private Builder() {
           // force use of static builder() method
@@ -316,6 +401,12 @@ public class AiSearchRequest {
         /**
          * An object where each key is a **Category Tag ID** (numeric string),
          * and each value is an array of **Tag IDs** for that category.
+         * **Note**:
+         * - The '$filter[tags]' query parameter JSON value should be url encoded.
+         * - Some developer tools for invoking APIs may not url encode the '$filter[tags]' query parameter JSON
+         * value by default. Ensure that only url encoded values are used.
+         * - Example of JSON value: {"BASE-40845":["BASE-40849","BASE-40853"]}
+         * - Example of URL encoded value: %7B%22BASE-40845%22%3A%5B%22BASE-40849%22%2C%22BASE-40853%22%5D%7D
          */
         public Builder filterTags(@Nullable Map<String, List<String>> filterTags) {
             this.filterTags = filterTags;
@@ -338,12 +429,42 @@ public class AiSearchRequest {
             return this;
         }
 
+        /**
+         * Pagination parameter that specifies the page number of results to be returned. Used in conjunction
+         * with $pagesize.
+         */
+        public Builder pagenum(@Nullable Long pagenum) {
+            this.pagenum = pagenum;
+            return this;
+        }
+
+        /**
+         * Pagination parameter that specifies the number of results per page. Used in conjunction with
+         * $pagenum.
+         */
+        public Builder pagesize(@Nullable Long pagesize) {
+            this.pagesize = pagesize;
+            return this;
+        }
+
         public AiSearchRequest build() {
             return new AiSearchRequest(
                 q, portalID, filterUserProfileID,
                 language, filterTags, filterTopicIds,
-                articleCustomAdditionalAttributes);
+                articleCustomAdditionalAttributes, pagenum, pagesize);
         }
 
+
+        private static final LazySingletonValue<Long> _SINGLETON_VALUE_Pagenum =
+                new LazySingletonValue<>(
+                        "pagenum",
+                        "1",
+                        new TypeReference<Long>() {});
+
+        private static final LazySingletonValue<Long> _SINGLETON_VALUE_Pagesize =
+                new LazySingletonValue<>(
+                        "pagesize",
+                        "20",
+                        new TypeReference<Long>() {});
     }
 }

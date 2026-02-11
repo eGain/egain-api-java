@@ -23,7 +23,6 @@ public class Portal {
     private final Suggestion suggestion;
     private final Usermilestones usermilestones;
     private final Federatedsearchevent federatedsearchevent;
-    private final Escalation escalation;
     private final Connectorssearchevents connectorssearchevents;
     private final Attachment attachment;
     private final Export export;
@@ -43,7 +42,6 @@ public class Portal {
         this.suggestion = new Suggestion(this.sdkConfiguration);
         this.usermilestones = new Usermilestones(this.sdkConfiguration);
         this.federatedsearchevent = new Federatedsearchevent(this.sdkConfiguration);
-        this.escalation = new Escalation(this.sdkConfiguration);
         this.connectorssearchevents = new Connectorssearchevents(this.sdkConfiguration);
         this.attachment = new Attachment(this.sdkConfiguration);
         this.export = new Export(this.sdkConfiguration);
@@ -100,10 +98,6 @@ public class Portal {
 
     public final Federatedsearchevent federatedsearchevent() {
         return federatedsearchevent;
-    }
-
-    public final Escalation escalation() {
-        return escalation;
     }
 
     public final Connectorssearchevents connectorssearchevents() {

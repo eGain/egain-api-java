@@ -5,11 +5,11 @@
 
 ### Available Operations
 
-* [aiSearch](#aisearch) - Get the best search results for a user query
+* [aiSearch](#aisearch) - Hybrid Search
 
 ## aiSearch
 
-The Search API is a hybrid search service that combines semantic understanding with keyword precision to deliver fast, contextual, and relevant results from your enterprise knowledge base. It enables secure, role-aware access to articles, FAQs, and documentation across customer, agent, and employee interfaces. Each query returns a ranked list of results with snippets, metadata, and relevance scores. <br>**This endpoint is only available for Self Service environments.**
+The Search API is a hybrid search service that combines semantic understanding with keyword precision to deliver fast, contextual, and relevant results from your enterprise knowledge base. It enables secure, role-aware access to articles, FAQs, and documentation across customer, agent, and employee interfaces. Each query returns a ranked list of results with snippets, metadata, and relevance scores.
 
 
 ### Example Usage
@@ -20,6 +20,7 @@ package hello.world;
 
 import com.egain.sdk.Egain;
 import com.egain.sdk.models.components.LanguageCodeParameter;
+import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.AiSearchRequest;
 import com.egain.sdk.models.operations.AiSearchResponse;
 import java.lang.Exception;
@@ -28,17 +29,17 @@ import java.util.Map;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws WSErrorCommon, Exception {
 
         Egain sdk = Egain.builder()
                 .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
             .build();
 
         AiSearchRequest req = AiSearchRequest.builder()
-                .q("fair lending")
+                .q("What is a loan?")
                 .portalID("PROD-1000")
                 .language(LanguageCodeParameter.EN_US)
-                .filterUserProfileID("PROD-3210")
+                .filterUserProfileID("PROD-1030")
                 .filterTags(Map.ofEntries(
                     Map.entry("PROD-1234", List.of(
                         "PROD-2000",
@@ -70,6 +71,8 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/WSErrorCommon | 400, 401, 403, 404, 406     | application/json            |
+| models/errors/WSErrorCommon | 500                         | application/json            |
+| models/errors/APIException  | 4XX, 5XX                    | \*/\*                       |

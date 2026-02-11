@@ -47,7 +47,7 @@ public class SearchSuggestionRequest {
     private SortIdName sort;
 
     /**
-     * Common query parameter $order.
+     * Common query parameter $order.<br>_Default value_: asc
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=$order")
     private Order order;
@@ -129,7 +129,7 @@ public class SearchSuggestionRequest {
     }
 
     /**
-     * Common query parameter $order.
+     * Common query parameter $order.<br>_Default value_: asc
      */
     public Optional<Order> order() {
         return Optional.ofNullable(this.order);
@@ -195,7 +195,7 @@ public class SearchSuggestionRequest {
 
 
     /**
-     * Common query parameter $order.
+     * Common query parameter $order.<br>_Default value_: asc
      */
     public SearchSuggestionRequest withOrder(@Nullable Order order) {
         this.order = order;
@@ -318,7 +318,7 @@ public class SearchSuggestionRequest {
         }
 
         /**
-         * Common query parameter $order.
+         * Common query parameter $order.<br>_Default value_: asc
          */
         public Builder order(@Nullable Order order) {
             this.order = order;

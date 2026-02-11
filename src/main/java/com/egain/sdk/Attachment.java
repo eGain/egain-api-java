@@ -10,15 +10,9 @@ import com.egain.sdk.models.components.AttachmentUpload;
 import com.egain.sdk.models.operations.CreateSignedURLRequest;
 import com.egain.sdk.models.operations.CreateSignedURLRequestBuilder;
 import com.egain.sdk.models.operations.CreateSignedURLResponse;
-import com.egain.sdk.models.operations.UploadAttachmentRequest;
-import com.egain.sdk.models.operations.UploadAttachmentRequestBuilder;
-import com.egain.sdk.models.operations.UploadAttachmentResponse;
 import com.egain.sdk.operations.CreateSignedURL;
-import com.egain.sdk.operations.UploadAttachment;
-import com.egain.sdk.utils.Blob;
 import com.egain.sdk.utils.Headers;
 import jakarta.annotation.Nonnull;
-import java.lang.String;
 
 
 public class Attachment {
@@ -67,43 +61,6 @@ public class Attachment {
         CreateSignedURLRequest request = new CreateSignedURLRequest(acceptLanguage, body);
         RequestOperation<CreateSignedURLRequest, CreateSignedURLResponse> operation
               = new CreateSignedURL.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
-     * Upload Attachment
-     * 
-     * <p>## Overview
-     * The Upload Attachment API uses the signed URL produced by the Generate Signed URL to Upload API to
-     * upload an attachment.
-     * The Make a Suggestion API uses this API to upload attachments.
-     * 
-     * @return The call builder
-     */
-    public UploadAttachmentRequestBuilder uploadAttachment() {
-        return new UploadAttachmentRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Upload Attachment
-     * 
-     * <p>## Overview
-     * The Upload Attachment API uses the signed URL produced by the Generate Signed URL to Upload API to
-     * upload an attachment.
-     * The Make a Suggestion API uses this API to upload attachments.
-     * 
-     * @param acceptLanguage 
-     * @param signature Signature data to upload attachment.
-     * @param body 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public UploadAttachmentResponse uploadAttachment(
-            @Nonnull AcceptLanguage acceptLanguage, @Nonnull String signature,
-            @Nonnull Blob body) {
-        UploadAttachmentRequest request = new UploadAttachmentRequest(acceptLanguage, signature, body);
-        RequestOperation<UploadAttachmentRequest, UploadAttachmentResponse> operation
-              = new UploadAttachment.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

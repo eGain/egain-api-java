@@ -34,34 +34,43 @@ public class AnswersResponse {
     private AnswersResponseChannel channel;
 
     /**
-     * ID that ties multiple API calls to the same user session. Will be used as part of to tie events back
-     * to a session.
-     */
-    @JsonProperty("sessionId")
-    private String sessionId;
-
-    /**
      * Unique ID for this specific API call or event.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("eventId")
     private String eventId;
 
+    /**
+     * Session ID passed by the client for this specific API call or event.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("clientSessionId")
+    private String clientSessionId;
+
+    /**
+     * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
+     * tie events back to a session.
+     */
+    @JsonProperty("sessionId")
+    private String sessionId;
+
     @JsonCreator
     public AnswersResponse(
             @JsonProperty("answer") @Nonnull AnswersResponseAnswer answer,
             @JsonProperty("searchResults") @Nonnull List<SearchResult> searchResults,
             @JsonProperty("channel") @Nullable AnswersResponseChannel channel,
-            @JsonProperty("sessionId") @Nonnull String sessionId,
-            @JsonProperty("eventId") @Nullable String eventId) {
+            @JsonProperty("eventId") @Nullable String eventId,
+            @JsonProperty("clientSessionId") @Nullable String clientSessionId,
+            @JsonProperty("sessionId") @Nonnull String sessionId) {
         this.answer = Optional.ofNullable(answer)
             .orElseThrow(() -> new IllegalArgumentException("answer cannot be null"));
         this.searchResults = Optional.ofNullable(searchResults)
             .orElseThrow(() -> new IllegalArgumentException("searchResults cannot be null"));
         this.channel = channel;
+        this.eventId = eventId;
+        this.clientSessionId = clientSessionId;
         this.sessionId = Optional.ofNullable(sessionId)
             .orElseThrow(() -> new IllegalArgumentException("sessionId cannot be null"));
-        this.eventId = eventId;
     }
     
     public AnswersResponse(
@@ -69,7 +78,7 @@ public class AnswersResponse {
             @Nonnull List<SearchResult> searchResults,
             @Nonnull String sessionId) {
         this(answer, searchResults, null,
-            sessionId, null);
+            null, null, sessionId);
     }
 
     public AnswersResponseAnswer answer() {
@@ -89,18 +98,25 @@ public class AnswersResponse {
     }
 
     /**
-     * ID that ties multiple API calls to the same user session. Will be used as part of to tie events back
-     * to a session.
-     */
-    public String sessionId() {
-        return this.sessionId;
-    }
-
-    /**
      * Unique ID for this specific API call or event.
      */
     public Optional<String> eventId() {
         return Optional.ofNullable(this.eventId);
+    }
+
+    /**
+     * Session ID passed by the client for this specific API call or event.
+     */
+    public Optional<String> clientSessionId() {
+        return Optional.ofNullable(this.clientSessionId);
+    }
+
+    /**
+     * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
+     * tie events back to a session.
+     */
+    public String sessionId() {
+        return this.sessionId;
     }
 
     public static Builder builder() {
@@ -131,20 +147,29 @@ public class AnswersResponse {
 
 
     /**
-     * ID that ties multiple API calls to the same user session. Will be used as part of to tie events back
-     * to a session.
+     * Unique ID for this specific API call or event.
      */
-    public AnswersResponse withSessionId(@Nonnull String sessionId) {
-        this.sessionId = Utils.checkNotNull(sessionId, "sessionId");
+    public AnswersResponse withEventId(@Nullable String eventId) {
+        this.eventId = eventId;
         return this;
     }
 
 
     /**
-     * Unique ID for this specific API call or event.
+     * Session ID passed by the client for this specific API call or event.
      */
-    public AnswersResponse withEventId(@Nullable String eventId) {
-        this.eventId = eventId;
+    public AnswersResponse withClientSessionId(@Nullable String clientSessionId) {
+        this.clientSessionId = clientSessionId;
+        return this;
+    }
+
+
+    /**
+     * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
+     * tie events back to a session.
+     */
+    public AnswersResponse withSessionId(@Nonnull String sessionId) {
+        this.sessionId = Utils.checkNotNull(sessionId, "sessionId");
         return this;
     }
 
@@ -162,15 +187,16 @@ public class AnswersResponse {
             Utils.enhancedDeepEquals(this.answer, other.answer) &&
             Utils.enhancedDeepEquals(this.searchResults, other.searchResults) &&
             Utils.enhancedDeepEquals(this.channel, other.channel) &&
-            Utils.enhancedDeepEquals(this.sessionId, other.sessionId) &&
-            Utils.enhancedDeepEquals(this.eventId, other.eventId);
+            Utils.enhancedDeepEquals(this.eventId, other.eventId) &&
+            Utils.enhancedDeepEquals(this.clientSessionId, other.clientSessionId) &&
+            Utils.enhancedDeepEquals(this.sessionId, other.sessionId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             answer, searchResults, channel,
-            sessionId, eventId);
+            eventId, clientSessionId, sessionId);
     }
     
     @Override
@@ -179,8 +205,9 @@ public class AnswersResponse {
                 "answer", answer,
                 "searchResults", searchResults,
                 "channel", channel,
-                "sessionId", sessionId,
-                "eventId", eventId);
+                "eventId", eventId,
+                "clientSessionId", clientSessionId,
+                "sessionId", sessionId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -192,9 +219,11 @@ public class AnswersResponse {
 
         private AnswersResponseChannel channel;
 
-        private String sessionId;
-
         private String eventId;
+
+        private String clientSessionId;
+
+        private String sessionId;
 
         private Builder() {
           // force use of static builder() method
@@ -220,15 +249,6 @@ public class AnswersResponse {
         }
 
         /**
-         * ID that ties multiple API calls to the same user session. Will be used as part of to tie events back
-         * to a session.
-         */
-        public Builder sessionId(@Nonnull String sessionId) {
-            this.sessionId = Utils.checkNotNull(sessionId, "sessionId");
-            return this;
-        }
-
-        /**
          * Unique ID for this specific API call or event.
          */
         public Builder eventId(@Nullable String eventId) {
@@ -236,10 +256,27 @@ public class AnswersResponse {
             return this;
         }
 
+        /**
+         * Session ID passed by the client for this specific API call or event.
+         */
+        public Builder clientSessionId(@Nullable String clientSessionId) {
+            this.clientSessionId = clientSessionId;
+            return this;
+        }
+
+        /**
+         * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
+         * tie events back to a session.
+         */
+        public Builder sessionId(@Nonnull String sessionId) {
+            this.sessionId = Utils.checkNotNull(sessionId, "sessionId");
+            return this;
+        }
+
         public AnswersResponse build() {
             return new AnswersResponse(
                 answer, searchResults, channel,
-                sessionId, eventId);
+                eventId, clientSessionId, sessionId);
         }
 
     }

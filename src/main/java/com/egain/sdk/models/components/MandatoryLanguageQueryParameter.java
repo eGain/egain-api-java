@@ -38,7 +38,19 @@ public enum MandatoryLanguageQueryParameter {
     AR_SA("ar-SA"),
     HRHR("hr-HR"),
     RORO("ro-RO"),
-    THTH("th-TH");
+    THTH("th-TH"),
+    DE_AT("de-AT"),
+    VI_VN("vi-VN"),
+    IDID("id-ID"),
+    MS_MY("ms-MY"),
+    FIL_PH("fil-PH"),
+    FR_CA("fr-CA"),
+    HI_IN("hi-IN"),
+    UK_UA("uk-UA"),
+    BGBG("bg-BG"),
+    SL_SI("sl-SI"),
+    SR_RS("sr-RS"),
+    XXXX("xx-XX");
 
     @JsonValue
     private final String value;

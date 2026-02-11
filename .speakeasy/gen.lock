@@ -1,18 +1,19 @@
 lockVersion: 2.0.0
 id: edea9aea-f337-4c9f-ac66-3f35737bcaa9
 management:
-  docChecksum: b6cbd2fc3d9c80d5933ba026bed6f41c
+  docChecksum: 37f153323af53fba6fa28e0ed382ec87
   docVersion: 4.0.0
   speakeasyVersion: 1.653.0
   generationVersion: 2.748.0
-  releaseVersion: 0.1.4
-  configChecksum: 2567d00995d44086974c81748406c247
+  releaseVersion: 0.2.0
+  configChecksum: 28f9cdd408f27d06a954d542bbd0a846
   published: true
 features:
   java:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.1
     core: 3.55.1
+    examples: 2.81.6
     flattening: 2.81.1
     globalSecurity: 2.83.1
     globalSecurityCallbacks: 0.1.0
@@ -23,11 +24,12 @@ features:
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.3
     sdkHooks: 1.1.0
-    uploadStreams: 0.1.0
+    unions: 0.3.0
 generatedFiles:
   - .gitattributes
   - USAGE.md
   - build.gradle
+  - docs/models/components/AISPaginationInfo.md
   - docs/models/components/AISearchResponse.md
   - docs/models/components/AITopicBreadcrumb.md
   - docs/models/components/AITopicSummary.md
@@ -53,6 +55,7 @@ generatedFiles:
   - docs/models/components/AnswersResponseAnswerType.md
   - docs/models/components/AnswersResponseChannel.md
   - docs/models/components/AnswersResponseType.md
+  - docs/models/components/AppliesTo.md
   - docs/models/components/Article.md
   - docs/models/components/ArticleAISearchResult.md
   - docs/models/components/ArticleAISearchResultCustomAttribute.md
@@ -76,8 +79,6 @@ generatedFiles:
   - docs/models/components/ArticleResult.md
   - docs/models/components/ArticleResultAdditionalAttributes.md
   - docs/models/components/ArticleResults.md
-  - docs/models/components/ArticleSearchResult.md
-  - docs/models/components/ArticleSearchResults.md
   - docs/models/components/ArticleSort.md
   - docs/models/components/ArticleSortOrder.md
   - docs/models/components/ArticleType.md
@@ -95,7 +96,6 @@ generatedFiles:
   - docs/models/components/Bookmark.md
   - docs/models/components/BookmarkResult.md
   - docs/models/components/BookmarkStatus.md
-  - docs/models/components/Captcha.md
   - docs/models/components/Case.md
   - docs/models/components/CaseAdditionalAttributes.md
   - docs/models/components/CaseAnswer.md
@@ -110,7 +110,6 @@ generatedFiles:
   - docs/models/components/CasebaseResult.md
   - docs/models/components/CasebaseSearchSettings.md
   - docs/models/components/CasebaseStatus.md
-  - docs/models/components/ChannelEnum.md
   - docs/models/components/ClusterId.md
   - docs/models/components/ClusterResult.md
   - docs/models/components/ClusterResults.md
@@ -125,8 +124,6 @@ generatedFiles:
   - docs/models/components/ComponentsSchemasTagGroup.md
   - docs/models/components/ConfigurableAttribute.md
   - docs/models/components/ConfigurableAttributes.md
-  - docs/models/components/ContactPerson.md
-  - docs/models/components/Contacts.md
   - docs/models/components/CreateBookmark.md
   - docs/models/components/CreateFederatedSearchEvent.md
   - docs/models/components/CreateQuickpick.md
@@ -138,13 +135,15 @@ generatedFiles:
   - docs/models/components/CreateViewedSearchResultEventForConnectors.md
   - docs/models/components/CreatedBy.md
   - docs/models/components/CreatedDateAndTime.md
+  - docs/models/components/Credentials.md
   - docs/models/components/CustomAttribute.md
   - docs/models/components/CustomAttributeType.md
-  - docs/models/components/Customer.md
   - docs/models/components/DataDestination.md
+  - docs/models/components/DataSourceCredentials.md
   - docs/models/components/Department.md
   - docs/models/components/DestinationType.md
   - docs/models/components/DetailField.md
+  - docs/models/components/DisplayAt.md
   - docs/models/components/DisplayField.md
   - docs/models/components/DueDateDateAndTime.md
   - docs/models/components/DynamicCluster.md
@@ -153,7 +152,11 @@ generatedFiles:
   - docs/models/components/EditionPublishProfile.md
   - docs/models/components/EditionWithContent.md
   - docs/models/components/EditionWithContentAccessTags.md
-  - docs/models/components/Email.md
+  - docs/models/components/EventRegistration.md
+  - docs/models/components/EventTypeRequestBody.md
+  - docs/models/components/ExecutePrompt.md
+  - docs/models/components/ExecutePromptResponse.md
+  - docs/models/components/ExecutePromptResponseEventType.md
   - docs/models/components/ExportStatus.md
   - docs/models/components/ExportStatusProgress.md
   - docs/models/components/ExportStatusResults.md
@@ -167,7 +170,6 @@ generatedFiles:
   - docs/models/components/GHStepSearchRequest.md
   - docs/models/components/Image.md
   - docs/models/components/ImportContent.md
-  - docs/models/components/ImportContentCredentials.md
   - docs/models/components/ImportContentDataSource.md
   - docs/models/components/ImportContentType.md
   - docs/models/components/ImportStatus.md
@@ -181,12 +183,12 @@ generatedFiles:
   - docs/models/components/KbLanguages.md
   - docs/models/components/KnowledgeExport.md
   - docs/models/components/KnowledgeExportCode.md
-  - docs/models/components/KnowledgeExportCredentials.md
   - docs/models/components/KnowledgeExportLanguage.md
   - docs/models/components/L10NString.md
   - docs/models/components/Label.md
   - docs/models/components/LanguageCode.md
   - docs/models/components/LanguageCodeParameter.md
+  - docs/models/components/LanguageCodeRequestBody.md
   - docs/models/components/LanguageQueryParameter.md
   - docs/models/components/LastModifiedDateAndTime.md
   - docs/models/components/Link.md
@@ -200,18 +202,18 @@ generatedFiles:
   - docs/models/components/ModifySuggestionAttachments.md
   - docs/models/components/Name.md
   - docs/models/components/Operation.md
-  - docs/models/components/OptionalArticleAttributes.md
   - docs/models/components/Order.md
+  - docs/models/components/OutputFormat.md
   - docs/models/components/OwnedBy.md
   - docs/models/components/PaginationInfo.md
   - docs/models/components/Personalization.md
   - docs/models/components/PersonalizationAccessTags.md
-  - docs/models/components/Phone.md
   - docs/models/components/Portal.md
   - docs/models/components/PortalResult.md
   - docs/models/components/PortalSettings.md
   - docs/models/components/Profile.md
   - docs/models/components/ProfileResult.md
+  - docs/models/components/PromptTemplate.md
   - docs/models/components/PublishProfile.md
   - docs/models/components/PublishView.md
   - docs/models/components/PublishViewTagCategory.md
@@ -228,6 +230,8 @@ generatedFiles:
   - docs/models/components/ReferenceResponseSource.md
   - docs/models/components/RelatedArticleForCreateUpdateDeleteSuggestion.md
   - docs/models/components/RelatedQuestions.md
+  - docs/models/components/Replacement.md
+  - docs/models/components/RequiredLanguageCode.md
   - docs/models/components/ResourceType.md
   - docs/models/components/ResultType.md
   - docs/models/components/RetrieveRequest.md
@@ -238,6 +242,7 @@ generatedFiles:
   - docs/models/components/RetrieveResponseAnswerType.md
   - docs/models/components/RetrieveResponseChannel.md
   - docs/models/components/RetrieveResponseType.md
+  - docs/models/components/ReviewStatus.md
   - docs/models/components/Role.md
   - docs/models/components/RoleTemplate.md
   - docs/models/components/ScheduleTime.md
@@ -252,21 +257,24 @@ generatedFiles:
   - docs/models/components/SchemasWSErrorCommonDetail.md
   - docs/models/components/SearchFilterAttribute.md
   - docs/models/components/SearchLearningLevel.md
+  - docs/models/components/SearchReplacement.md
+  - docs/models/components/SearchReplacementType.md
   - docs/models/components/SearchResult.md
   - docs/models/components/SearchResultDocType.md
   - docs/models/components/SearchResultSource.md
   - docs/models/components/SearchResults.md
   - docs/models/components/Security.md
   - docs/models/components/SessionContextVariable.md
+  - docs/models/components/SessionStatus.md
   - docs/models/components/ShortURL.md
-  - docs/models/components/SnippetForStructuredAuthoring.md
   - docs/models/components/SnippetType.md
   - docs/models/components/SortIdName.md
   - docs/models/components/SortIdNameDepartment.md
   - docs/models/components/Stage.md
   - docs/models/components/StartDateDateAndTime.md
-  - docs/models/components/StartEscalationRequest.md
   - docs/models/components/StartQuestionAndAnswer.md
+  - docs/models/components/StaticReplacement.md
+  - docs/models/components/StaticReplacementType.md
   - docs/models/components/StringAttributeValue.md
   - docs/models/components/StructuredAuthoringFields.md
   - docs/models/components/Suggestion.md
@@ -291,13 +299,13 @@ generatedFiles:
   - docs/models/components/TopicTreeNode.md
   - docs/models/components/TopicTreeResult.md
   - docs/models/components/TypeName.md
+  - docs/models/components/UseFor.md
   - docs/models/components/UserDetails.md
   - docs/models/components/UserProfile.md
   - docs/models/components/UserProfiles.md
   - docs/models/components/UserType.md
   - docs/models/components/UserView.md
   - docs/models/components/ValidateImportContent.md
-  - docs/models/components/ValidateImportContentCredentials.md
   - docs/models/components/ValidateImportContentDataSource.md
   - docs/models/components/ValidateImportContentType.md
   - docs/models/components/ValueType.md
@@ -305,6 +313,7 @@ generatedFiles:
   - docs/models/components/WSErrorCommonDetail.md
   - docs/models/components/Workflow.md
   - docs/models/components/WorkflowMilestone.md
+  - docs/models/errors/BadRequestException.md
   - docs/models/errors/SchemasWSErrorCommon.md
   - docs/models/errors/WSErrorCommon.md
   - docs/models/operations/AcceptGHSolutionRequest.md
@@ -318,12 +327,8 @@ generatedFiles:
   - docs/models/operations/AddbookmarkResponse.md
   - docs/models/operations/AiSearchRequest.md
   - docs/models/operations/AiSearchResponse.md
-  - docs/models/operations/AvertCustomerEscalationRequest.md
-  - docs/models/operations/AvertCustomerEscalationResponse.md
   - docs/models/operations/CancelImportRequest.md
   - docs/models/operations/CancelImportResponse.md
-  - docs/models/operations/CompleteCustomerEscalationRequest.md
-  - docs/models/operations/CompleteCustomerEscalationResponse.md
   - docs/models/operations/ComplyArticleRequest.md
   - docs/models/operations/ComplyArticleResponse.md
   - docs/models/operations/CreateFederatedSearchResultEventRequest.md
@@ -342,6 +347,9 @@ generatedFiles:
   - docs/models/operations/DeleteSuggestionResponse.md
   - docs/models/operations/DeletebookmarkRequest.md
   - docs/models/operations/DeletebookmarkResponse.md
+  - docs/models/operations/ExecutePromptRequest.md
+  - docs/models/operations/ExecutePromptResponse.md
+  - docs/models/operations/ExportContentRequest.md
   - docs/models/operations/ExportContentResponse.md
   - docs/models/operations/ExportStatusRequest.md
   - docs/models/operations/ExportStatusResponse.md
@@ -402,6 +410,13 @@ generatedFiles:
   - docs/models/operations/GetPendingComplianceArticlesResponse.md
   - docs/models/operations/GetPortalDetailsByIdRequest.md
   - docs/models/operations/GetPortalDetailsByIdResponse.md
+  - docs/models/operations/GetPromptTemplateByIdLanguageCode.md
+  - docs/models/operations/GetPromptTemplateByIdRequest.md
+  - docs/models/operations/GetPromptTemplateByIdResponse.md
+  - docs/models/operations/GetPromptTemplatesLanguageCode.md
+  - docs/models/operations/GetPromptTemplatesRequest.md
+  - docs/models/operations/GetPromptTemplatesResponse.md
+  - docs/models/operations/GetPromptTemplatesResponseBody.md
   - docs/models/operations/GetRelatedArticlesForSuggestionRequest.md
   - docs/models/operations/GetRelatedArticlesForSuggestionResponse.md
   - docs/models/operations/GetRelatedArticlesRequest.md
@@ -444,14 +459,10 @@ generatedFiles:
   - docs/models/operations/RestoreQuickpickResponse.md
   - docs/models/operations/RetrieveChunksRequest.md
   - docs/models/operations/RetrieveChunksResponse.md
-  - docs/models/operations/SearchPriorToEscalationRequest.md
-  - docs/models/operations/SearchPriorToEscalationResponse.md
   - docs/models/operations/SearchSuggestionRequest.md
   - docs/models/operations/SearchSuggestionResponse.md
   - docs/models/operations/SelectUserProfileRequest.md
   - docs/models/operations/SelectUserProfileResponse.md
-  - docs/models/operations/StartCustomerEscalationRequest.md
-  - docs/models/operations/StartCustomerEscalationResponse.md
   - docs/models/operations/StartGHSearchRequest.md
   - docs/models/operations/StartGHSearchResponse.md
   - docs/models/operations/StepGHSearchRequest.md
@@ -460,22 +471,22 @@ generatedFiles:
   - docs/models/operations/SubscribeArticleResponse.md
   - docs/models/operations/UnsubscribeArticleRequest.md
   - docs/models/operations/UnsubscribeArticleResponse.md
-  - docs/models/operations/UploadAttachmentRequest.md
-  - docs/models/operations/UploadAttachmentResponse.md
+  - docs/models/operations/UseFor.md
   - docs/models/operations/WorkflowMilestone.md
+  - docs/sdks/aiservicesprompt/README.md
   - docs/sdks/answers/README.md
   - docs/sdks/article/README.md
   - docs/sdks/articlelists/README.md
   - docs/sdks/attachment/README.md
   - docs/sdks/bookmark/README.md
   - docs/sdks/connectorssearchevents/README.md
-  - docs/sdks/escalation/README.md
   - docs/sdks/export/README.md
   - docs/sdks/federatedsearchevent/README.md
   - docs/sdks/general/README.md
   - docs/sdks/guidedhelp/README.md
   - docs/sdks/import/README.md
   - docs/sdks/populararticles/README.md
+  - docs/sdks/prompt/README.md
   - docs/sdks/retrieve/README.md
   - docs/sdks/search/README.md
   - docs/sdks/suggestion/README.md
@@ -499,10 +510,12 @@ generatedFiles:
   - spring/egain-api-spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
   - spring/egain-api-spring-boot-starter/build.gradle
   - src/main/java/com/egain/sdk/Aiservices.java
+  - src/main/java/com/egain/sdk/AiservicesPrompt.java
   - src/main/java/com/egain/sdk/Answers.java
   - src/main/java/com/egain/sdk/Article.java
   - src/main/java/com/egain/sdk/Articlelists.java
   - src/main/java/com/egain/sdk/AsyncAiservices.java
+  - src/main/java/com/egain/sdk/AsyncAiservicesPrompt.java
   - src/main/java/com/egain/sdk/AsyncAnswers.java
   - src/main/java/com/egain/sdk/AsyncArticle.java
   - src/main/java/com/egain/sdk/AsyncArticlelists.java
@@ -511,7 +524,6 @@ generatedFiles:
   - src/main/java/com/egain/sdk/AsyncConnectorssearchevents.java
   - src/main/java/com/egain/sdk/AsyncContent.java
   - src/main/java/com/egain/sdk/AsyncEgain.java
-  - src/main/java/com/egain/sdk/AsyncEscalation.java
   - src/main/java/com/egain/sdk/AsyncExport.java
   - src/main/java/com/egain/sdk/AsyncFederatedsearchevent.java
   - src/main/java/com/egain/sdk/AsyncGeneral.java
@@ -519,6 +531,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/AsyncImport.java
   - src/main/java/com/egain/sdk/AsyncPopulararticles.java
   - src/main/java/com/egain/sdk/AsyncPortal.java
+  - src/main/java/com/egain/sdk/AsyncPrompt.java
   - src/main/java/com/egain/sdk/AsyncRetrieve.java
   - src/main/java/com/egain/sdk/AsyncSearch.java
   - src/main/java/com/egain/sdk/AsyncSuggestion.java
@@ -531,7 +544,6 @@ generatedFiles:
   - src/main/java/com/egain/sdk/Connectorssearchevents.java
   - src/main/java/com/egain/sdk/Content.java
   - src/main/java/com/egain/sdk/Egain.java
-  - src/main/java/com/egain/sdk/Escalation.java
   - src/main/java/com/egain/sdk/Export.java
   - src/main/java/com/egain/sdk/Federatedsearchevent.java
   - src/main/java/com/egain/sdk/General.java
@@ -539,6 +551,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/Import.java
   - src/main/java/com/egain/sdk/Populararticles.java
   - src/main/java/com/egain/sdk/Portal.java
+  - src/main/java/com/egain/sdk/Prompt.java
   - src/main/java/com/egain/sdk/Retrieve.java
   - src/main/java/com/egain/sdk/SDKConfiguration.java
   - src/main/java/com/egain/sdk/Search.java
@@ -548,6 +561,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/Userdetails.java
   - src/main/java/com/egain/sdk/Usermilestones.java
   - src/main/java/com/egain/sdk/Userprofile.java
+  - src/main/java/com/egain/sdk/models/components/AISPaginationInfo.java
   - src/main/java/com/egain/sdk/models/components/AISearchResponse.java
   - src/main/java/com/egain/sdk/models/components/AITopicBreadcrumb.java
   - src/main/java/com/egain/sdk/models/components/AITopicSummary.java
@@ -573,6 +587,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/AnswersResponseAnswerType.java
   - src/main/java/com/egain/sdk/models/components/AnswersResponseChannel.java
   - src/main/java/com/egain/sdk/models/components/AnswersResponseType.java
+  - src/main/java/com/egain/sdk/models/components/AppliesTo.java
   - src/main/java/com/egain/sdk/models/components/Article.java
   - src/main/java/com/egain/sdk/models/components/ArticleAISearchResult.java
   - src/main/java/com/egain/sdk/models/components/ArticleAISearchResultCustomAttribute.java
@@ -596,8 +611,6 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/ArticleResult.java
   - src/main/java/com/egain/sdk/models/components/ArticleResultAdditionalAttributes.java
   - src/main/java/com/egain/sdk/models/components/ArticleResults.java
-  - src/main/java/com/egain/sdk/models/components/ArticleSearchResult.java
-  - src/main/java/com/egain/sdk/models/components/ArticleSearchResults.java
   - src/main/java/com/egain/sdk/models/components/ArticleSort.java
   - src/main/java/com/egain/sdk/models/components/ArticleSortOrder.java
   - src/main/java/com/egain/sdk/models/components/ArticleType.java
@@ -615,7 +628,6 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/Bookmark.java
   - src/main/java/com/egain/sdk/models/components/BookmarkResult.java
   - src/main/java/com/egain/sdk/models/components/BookmarkStatus.java
-  - src/main/java/com/egain/sdk/models/components/Captcha.java
   - src/main/java/com/egain/sdk/models/components/Case.java
   - src/main/java/com/egain/sdk/models/components/CaseAdditionalAttributes.java
   - src/main/java/com/egain/sdk/models/components/CaseAnswer.java
@@ -630,7 +642,6 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/CasebaseResult.java
   - src/main/java/com/egain/sdk/models/components/CasebaseSearchSettings.java
   - src/main/java/com/egain/sdk/models/components/CasebaseStatus.java
-  - src/main/java/com/egain/sdk/models/components/ChannelEnum.java
   - src/main/java/com/egain/sdk/models/components/ClusterId.java
   - src/main/java/com/egain/sdk/models/components/ClusterResult.java
   - src/main/java/com/egain/sdk/models/components/ClusterResults.java
@@ -645,8 +656,6 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/ComponentsSchemasTagGroup.java
   - src/main/java/com/egain/sdk/models/components/ConfigurableAttribute.java
   - src/main/java/com/egain/sdk/models/components/ConfigurableAttributes.java
-  - src/main/java/com/egain/sdk/models/components/ContactPerson.java
-  - src/main/java/com/egain/sdk/models/components/Contacts.java
   - src/main/java/com/egain/sdk/models/components/CreateBookmark.java
   - src/main/java/com/egain/sdk/models/components/CreateFederatedSearchEvent.java
   - src/main/java/com/egain/sdk/models/components/CreateQuickpick.java
@@ -658,13 +667,15 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/CreateViewedSearchResultEventForConnectors.java
   - src/main/java/com/egain/sdk/models/components/CreatedBy.java
   - src/main/java/com/egain/sdk/models/components/CreatedDateAndTime.java
+  - src/main/java/com/egain/sdk/models/components/Credentials.java
   - src/main/java/com/egain/sdk/models/components/CustomAttribute.java
   - src/main/java/com/egain/sdk/models/components/CustomAttributeType.java
-  - src/main/java/com/egain/sdk/models/components/Customer.java
   - src/main/java/com/egain/sdk/models/components/DataDestination.java
+  - src/main/java/com/egain/sdk/models/components/DataSourceCredentials.java
   - src/main/java/com/egain/sdk/models/components/Department.java
   - src/main/java/com/egain/sdk/models/components/DestinationType.java
   - src/main/java/com/egain/sdk/models/components/DetailField.java
+  - src/main/java/com/egain/sdk/models/components/DisplayAt.java
   - src/main/java/com/egain/sdk/models/components/DisplayField.java
   - src/main/java/com/egain/sdk/models/components/DueDateDateAndTime.java
   - src/main/java/com/egain/sdk/models/components/DynamicCluster.java
@@ -673,7 +684,11 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/EditionPublishProfile.java
   - src/main/java/com/egain/sdk/models/components/EditionWithContent.java
   - src/main/java/com/egain/sdk/models/components/EditionWithContentAccessTags.java
-  - src/main/java/com/egain/sdk/models/components/Email.java
+  - src/main/java/com/egain/sdk/models/components/EventRegistration.java
+  - src/main/java/com/egain/sdk/models/components/EventTypeRequestBody.java
+  - src/main/java/com/egain/sdk/models/components/ExecutePrompt.java
+  - src/main/java/com/egain/sdk/models/components/ExecutePromptResponse.java
+  - src/main/java/com/egain/sdk/models/components/ExecutePromptResponseEventType.java
   - src/main/java/com/egain/sdk/models/components/ExportStatus.java
   - src/main/java/com/egain/sdk/models/components/ExportStatusProgress.java
   - src/main/java/com/egain/sdk/models/components/ExportStatusResults.java
@@ -687,7 +702,6 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/GHStepSearchRequest.java
   - src/main/java/com/egain/sdk/models/components/Image.java
   - src/main/java/com/egain/sdk/models/components/ImportContent.java
-  - src/main/java/com/egain/sdk/models/components/ImportContentCredentials.java
   - src/main/java/com/egain/sdk/models/components/ImportContentDataSource.java
   - src/main/java/com/egain/sdk/models/components/ImportContentType.java
   - src/main/java/com/egain/sdk/models/components/ImportStatus.java
@@ -701,12 +715,12 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/KbLanguages.java
   - src/main/java/com/egain/sdk/models/components/KnowledgeExport.java
   - src/main/java/com/egain/sdk/models/components/KnowledgeExportCode.java
-  - src/main/java/com/egain/sdk/models/components/KnowledgeExportCredentials.java
   - src/main/java/com/egain/sdk/models/components/KnowledgeExportLanguage.java
   - src/main/java/com/egain/sdk/models/components/L10NString.java
   - src/main/java/com/egain/sdk/models/components/Label.java
   - src/main/java/com/egain/sdk/models/components/LanguageCode.java
   - src/main/java/com/egain/sdk/models/components/LanguageCodeParameter.java
+  - src/main/java/com/egain/sdk/models/components/LanguageCodeRequestBody.java
   - src/main/java/com/egain/sdk/models/components/LanguageQueryParameter.java
   - src/main/java/com/egain/sdk/models/components/LastModifiedDateAndTime.java
   - src/main/java/com/egain/sdk/models/components/Link.java
@@ -720,18 +734,18 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/ModifySuggestionAttachments.java
   - src/main/java/com/egain/sdk/models/components/Name.java
   - src/main/java/com/egain/sdk/models/components/Operation.java
-  - src/main/java/com/egain/sdk/models/components/OptionalArticleAttributes.java
   - src/main/java/com/egain/sdk/models/components/Order.java
+  - src/main/java/com/egain/sdk/models/components/OutputFormat.java
   - src/main/java/com/egain/sdk/models/components/OwnedBy.java
   - src/main/java/com/egain/sdk/models/components/PaginationInfo.java
   - src/main/java/com/egain/sdk/models/components/Personalization.java
   - src/main/java/com/egain/sdk/models/components/PersonalizationAccessTags.java
-  - src/main/java/com/egain/sdk/models/components/Phone.java
   - src/main/java/com/egain/sdk/models/components/Portal.java
   - src/main/java/com/egain/sdk/models/components/PortalResult.java
   - src/main/java/com/egain/sdk/models/components/PortalSettings.java
   - src/main/java/com/egain/sdk/models/components/Profile.java
   - src/main/java/com/egain/sdk/models/components/ProfileResult.java
+  - src/main/java/com/egain/sdk/models/components/PromptTemplate.java
   - src/main/java/com/egain/sdk/models/components/PublishProfile.java
   - src/main/java/com/egain/sdk/models/components/PublishView.java
   - src/main/java/com/egain/sdk/models/components/PublishViewTagCategory.java
@@ -748,6 +762,8 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/ReferenceResponseSource.java
   - src/main/java/com/egain/sdk/models/components/RelatedArticleForCreateUpdateDeleteSuggestion.java
   - src/main/java/com/egain/sdk/models/components/RelatedQuestions.java
+  - src/main/java/com/egain/sdk/models/components/Replacement.java
+  - src/main/java/com/egain/sdk/models/components/RequiredLanguageCode.java
   - src/main/java/com/egain/sdk/models/components/ResourceType.java
   - src/main/java/com/egain/sdk/models/components/ResultType.java
   - src/main/java/com/egain/sdk/models/components/RetrieveRequest.java
@@ -758,6 +774,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/RetrieveResponseAnswerType.java
   - src/main/java/com/egain/sdk/models/components/RetrieveResponseChannel.java
   - src/main/java/com/egain/sdk/models/components/RetrieveResponseType.java
+  - src/main/java/com/egain/sdk/models/components/ReviewStatus.java
   - src/main/java/com/egain/sdk/models/components/Role.java
   - src/main/java/com/egain/sdk/models/components/RoleTemplate.java
   - src/main/java/com/egain/sdk/models/components/ScheduleTime.java
@@ -772,21 +789,24 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/SchemasWSErrorCommonDetail.java
   - src/main/java/com/egain/sdk/models/components/SearchFilterAttribute.java
   - src/main/java/com/egain/sdk/models/components/SearchLearningLevel.java
+  - src/main/java/com/egain/sdk/models/components/SearchReplacement.java
+  - src/main/java/com/egain/sdk/models/components/SearchReplacementType.java
   - src/main/java/com/egain/sdk/models/components/SearchResult.java
   - src/main/java/com/egain/sdk/models/components/SearchResultDocType.java
   - src/main/java/com/egain/sdk/models/components/SearchResultSource.java
   - src/main/java/com/egain/sdk/models/components/SearchResults.java
   - src/main/java/com/egain/sdk/models/components/Security.java
   - src/main/java/com/egain/sdk/models/components/SessionContextVariable.java
+  - src/main/java/com/egain/sdk/models/components/SessionStatus.java
   - src/main/java/com/egain/sdk/models/components/ShortURL.java
-  - src/main/java/com/egain/sdk/models/components/SnippetForStructuredAuthoring.java
   - src/main/java/com/egain/sdk/models/components/SnippetType.java
   - src/main/java/com/egain/sdk/models/components/SortIdName.java
   - src/main/java/com/egain/sdk/models/components/SortIdNameDepartment.java
   - src/main/java/com/egain/sdk/models/components/Stage.java
   - src/main/java/com/egain/sdk/models/components/StartDateDateAndTime.java
-  - src/main/java/com/egain/sdk/models/components/StartEscalationRequest.java
   - src/main/java/com/egain/sdk/models/components/StartQuestionAndAnswer.java
+  - src/main/java/com/egain/sdk/models/components/StaticReplacement.java
+  - src/main/java/com/egain/sdk/models/components/StaticReplacementType.java
   - src/main/java/com/egain/sdk/models/components/StringAttributeValue.java
   - src/main/java/com/egain/sdk/models/components/StructuredAuthoringFields.java
   - src/main/java/com/egain/sdk/models/components/Suggestion.java
@@ -811,13 +831,13 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/components/TopicTreeNode.java
   - src/main/java/com/egain/sdk/models/components/TopicTreeResult.java
   - src/main/java/com/egain/sdk/models/components/TypeName.java
+  - src/main/java/com/egain/sdk/models/components/UseFor.java
   - src/main/java/com/egain/sdk/models/components/UserDetails.java
   - src/main/java/com/egain/sdk/models/components/UserProfile.java
   - src/main/java/com/egain/sdk/models/components/UserProfiles.java
   - src/main/java/com/egain/sdk/models/components/UserType.java
   - src/main/java/com/egain/sdk/models/components/UserView.java
   - src/main/java/com/egain/sdk/models/components/ValidateImportContent.java
-  - src/main/java/com/egain/sdk/models/components/ValidateImportContentCredentials.java
   - src/main/java/com/egain/sdk/models/components/ValidateImportContentDataSource.java
   - src/main/java/com/egain/sdk/models/components/ValidateImportContentType.java
   - src/main/java/com/egain/sdk/models/components/ValueType.java
@@ -828,6 +848,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/errors/APIException.java
   - src/main/java/com/egain/sdk/models/errors/AsyncAPIException.java
   - src/main/java/com/egain/sdk/models/errors/AuthException.java
+  - src/main/java/com/egain/sdk/models/errors/BadRequestException.java
   - src/main/java/com/egain/sdk/models/errors/EgainException.java
   - src/main/java/com/egain/sdk/models/errors/SchemasWSErrorCommon.java
   - src/main/java/com/egain/sdk/models/errors/WSErrorCommon.java
@@ -836,9 +857,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations//async/AddToReplyRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/AddbookmarkRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/AiSearchRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations//async/AvertCustomerEscalationRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/CancelImportRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations//async/CompleteCustomerEscalationRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/ComplyArticleRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/CreateFederatedSearchResultEventRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/CreateImportJobRequestBuilder.java
@@ -849,6 +868,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations//async/CreateViewedSearchResultsEventForConnectorsRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/DeleteSuggestionRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/DeletebookmarkRequestBuilder.java
+  - src/main/java/com/egain/sdk/models/operations//async/ExecutePromptRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/ExportContentRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/ExportStatusRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/GetAcknowledgedComplianceArticlesRequestBuilder.java
@@ -879,6 +899,8 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations//async/GetMySubscriptionRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/GetPendingComplianceArticlesRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/GetPortalDetailsByIdRequestBuilder.java
+  - src/main/java/com/egain/sdk/models/operations//async/GetPromptTemplateByIdRequestBuilder.java
+  - src/main/java/com/egain/sdk/models/operations//async/GetPromptTemplatesRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/GetRelatedArticlesForSuggestionRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/GetRelatedArticlesRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/GetSuggestionAttachmentByIdRequestBuilder.java
@@ -900,15 +922,12 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations//async/RejectGHSolutionRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/RestoreQuickpickRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/RetrieveChunksRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations//async/SearchPriorToEscalationRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/SearchSuggestionRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/SelectUserProfileRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations//async/StartCustomerEscalationRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/StartGHSearchRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/StepGHSearchRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/SubscribeArticleRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations//async/UnsubscribeArticleRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations//async/UploadAttachmentRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/AcceptGHSolutionRequest.java
   - src/main/java/com/egain/sdk/models/operations/AcceptGHSolutionRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/AcceptGHSolutionResponse.java
@@ -925,15 +944,9 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations/AiSearchRequest.java
   - src/main/java/com/egain/sdk/models/operations/AiSearchRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/AiSearchResponse.java
-  - src/main/java/com/egain/sdk/models/operations/AvertCustomerEscalationRequest.java
-  - src/main/java/com/egain/sdk/models/operations/AvertCustomerEscalationRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations/AvertCustomerEscalationResponse.java
   - src/main/java/com/egain/sdk/models/operations/CancelImportRequest.java
   - src/main/java/com/egain/sdk/models/operations/CancelImportRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/CancelImportResponse.java
-  - src/main/java/com/egain/sdk/models/operations/CompleteCustomerEscalationRequest.java
-  - src/main/java/com/egain/sdk/models/operations/CompleteCustomerEscalationRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations/CompleteCustomerEscalationResponse.java
   - src/main/java/com/egain/sdk/models/operations/ComplyArticleRequest.java
   - src/main/java/com/egain/sdk/models/operations/ComplyArticleRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/ComplyArticleResponse.java
@@ -962,6 +975,10 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations/DeletebookmarkRequest.java
   - src/main/java/com/egain/sdk/models/operations/DeletebookmarkRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/DeletebookmarkResponse.java
+  - src/main/java/com/egain/sdk/models/operations/ExecutePromptRequest.java
+  - src/main/java/com/egain/sdk/models/operations/ExecutePromptRequestBuilder.java
+  - src/main/java/com/egain/sdk/models/operations/ExecutePromptResponse.java
+  - src/main/java/com/egain/sdk/models/operations/ExportContentRequest.java
   - src/main/java/com/egain/sdk/models/operations/ExportContentRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/ExportContentResponse.java
   - src/main/java/com/egain/sdk/models/operations/ExportStatusRequest.java
@@ -1052,6 +1069,15 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations/GetPortalDetailsByIdRequest.java
   - src/main/java/com/egain/sdk/models/operations/GetPortalDetailsByIdRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/GetPortalDetailsByIdResponse.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplateByIdLanguageCode.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplateByIdRequest.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplateByIdRequestBuilder.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplateByIdResponse.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplatesLanguageCode.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplatesRequest.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplatesRequestBuilder.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplatesResponse.java
+  - src/main/java/com/egain/sdk/models/operations/GetPromptTemplatesResponseBody.java
   - src/main/java/com/egain/sdk/models/operations/GetRelatedArticlesForSuggestionRequest.java
   - src/main/java/com/egain/sdk/models/operations/GetRelatedArticlesForSuggestionRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/GetRelatedArticlesForSuggestionResponse.java
@@ -1115,18 +1141,12 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations/RetrieveChunksRequest.java
   - src/main/java/com/egain/sdk/models/operations/RetrieveChunksRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/RetrieveChunksResponse.java
-  - src/main/java/com/egain/sdk/models/operations/SearchPriorToEscalationRequest.java
-  - src/main/java/com/egain/sdk/models/operations/SearchPriorToEscalationRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations/SearchPriorToEscalationResponse.java
   - src/main/java/com/egain/sdk/models/operations/SearchSuggestionRequest.java
   - src/main/java/com/egain/sdk/models/operations/SearchSuggestionRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/SearchSuggestionResponse.java
   - src/main/java/com/egain/sdk/models/operations/SelectUserProfileRequest.java
   - src/main/java/com/egain/sdk/models/operations/SelectUserProfileRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/SelectUserProfileResponse.java
-  - src/main/java/com/egain/sdk/models/operations/StartCustomerEscalationRequest.java
-  - src/main/java/com/egain/sdk/models/operations/StartCustomerEscalationRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations/StartCustomerEscalationResponse.java
   - src/main/java/com/egain/sdk/models/operations/StartGHSearchRequest.java
   - src/main/java/com/egain/sdk/models/operations/StartGHSearchRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/StartGHSearchResponse.java
@@ -1139,18 +1159,14 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations/UnsubscribeArticleRequest.java
   - src/main/java/com/egain/sdk/models/operations/UnsubscribeArticleRequestBuilder.java
   - src/main/java/com/egain/sdk/models/operations/UnsubscribeArticleResponse.java
-  - src/main/java/com/egain/sdk/models/operations/UploadAttachmentRequest.java
-  - src/main/java/com/egain/sdk/models/operations/UploadAttachmentRequestBuilder.java
-  - src/main/java/com/egain/sdk/models/operations/UploadAttachmentResponse.java
+  - src/main/java/com/egain/sdk/models/operations/UseFor.java
   - src/main/java/com/egain/sdk/models/operations/WorkflowMilestone.java
   - src/main/java/com/egain/sdk/models/operations/async/AcceptGHSolutionResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/AddAsReferenceResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/AddToReplyResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/AddbookmarkResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/AiSearchResponse.java
-  - src/main/java/com/egain/sdk/models/operations/async/AvertCustomerEscalationResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/CancelImportResponse.java
-  - src/main/java/com/egain/sdk/models/operations/async/CompleteCustomerEscalationResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/ComplyArticleResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/CreateFederatedSearchResultEventResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/CreateImportJobResponse.java
@@ -1161,6 +1177,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations/async/CreateViewedSearchResultsEventForConnectorsResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/DeleteSuggestionResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/DeletebookmarkResponse.java
+  - src/main/java/com/egain/sdk/models/operations/async/ExecutePromptResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/ExportContentResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/ExportStatusResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/GetAcknowledgedComplianceArticlesResponse.java
@@ -1191,6 +1208,8 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations/async/GetMySubscriptionResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/GetPendingComplianceArticlesResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/GetPortalDetailsByIdResponse.java
+  - src/main/java/com/egain/sdk/models/operations/async/GetPromptTemplateByIdResponse.java
+  - src/main/java/com/egain/sdk/models/operations/async/GetPromptTemplatesResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/GetRelatedArticlesForSuggestionResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/GetRelatedArticlesResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/GetSuggestionAttachmentByIdResponse.java
@@ -1212,23 +1231,18 @@ generatedFiles:
   - src/main/java/com/egain/sdk/models/operations/async/RejectGHSolutionResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/RestoreQuickpickResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/RetrieveChunksResponse.java
-  - src/main/java/com/egain/sdk/models/operations/async/SearchPriorToEscalationResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/SearchSuggestionResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/SelectUserProfileResponse.java
-  - src/main/java/com/egain/sdk/models/operations/async/StartCustomerEscalationResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/StartGHSearchResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/StepGHSearchResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/SubscribeArticleResponse.java
   - src/main/java/com/egain/sdk/models/operations/async/UnsubscribeArticleResponse.java
-  - src/main/java/com/egain/sdk/models/operations/async/UploadAttachmentResponse.java
   - src/main/java/com/egain/sdk/operations/AcceptGHSolution.java
   - src/main/java/com/egain/sdk/operations/AddAsReference.java
   - src/main/java/com/egain/sdk/operations/AddToReply.java
   - src/main/java/com/egain/sdk/operations/Addbookmark.java
   - src/main/java/com/egain/sdk/operations/AiSearch.java
-  - src/main/java/com/egain/sdk/operations/AvertCustomerEscalation.java
   - src/main/java/com/egain/sdk/operations/CancelImport.java
-  - src/main/java/com/egain/sdk/operations/CompleteCustomerEscalation.java
   - src/main/java/com/egain/sdk/operations/ComplyArticle.java
   - src/main/java/com/egain/sdk/operations/CreateFederatedSearchResultEvent.java
   - src/main/java/com/egain/sdk/operations/CreateImportJob.java
@@ -1239,6 +1253,7 @@ generatedFiles:
   - src/main/java/com/egain/sdk/operations/CreateViewedSearchResultsEventForConnectors.java
   - src/main/java/com/egain/sdk/operations/DeleteSuggestion.java
   - src/main/java/com/egain/sdk/operations/Deletebookmark.java
+  - src/main/java/com/egain/sdk/operations/ExecutePrompt.java
   - src/main/java/com/egain/sdk/operations/ExportContent.java
   - src/main/java/com/egain/sdk/operations/ExportStatus.java
   - src/main/java/com/egain/sdk/operations/GetAcknowledgedComplianceArticles.java
@@ -1269,6 +1284,8 @@ generatedFiles:
   - src/main/java/com/egain/sdk/operations/GetMySubscription.java
   - src/main/java/com/egain/sdk/operations/GetPendingComplianceArticles.java
   - src/main/java/com/egain/sdk/operations/GetPortalDetailsById.java
+  - src/main/java/com/egain/sdk/operations/GetPromptTemplateById.java
+  - src/main/java/com/egain/sdk/operations/GetPromptTemplates.java
   - src/main/java/com/egain/sdk/operations/GetRelatedArticles.java
   - src/main/java/com/egain/sdk/operations/GetRelatedArticlesForSuggestion.java
   - src/main/java/com/egain/sdk/operations/GetSuggestion.java
@@ -1291,15 +1308,12 @@ generatedFiles:
   - src/main/java/com/egain/sdk/operations/RejectGHSolution.java
   - src/main/java/com/egain/sdk/operations/RestoreQuickpick.java
   - src/main/java/com/egain/sdk/operations/RetrieveChunks.java
-  - src/main/java/com/egain/sdk/operations/SearchPriorToEscalation.java
   - src/main/java/com/egain/sdk/operations/SearchSuggestion.java
   - src/main/java/com/egain/sdk/operations/SelectUserProfile.java
-  - src/main/java/com/egain/sdk/operations/StartCustomerEscalation.java
   - src/main/java/com/egain/sdk/operations/StartGHSearch.java
   - src/main/java/com/egain/sdk/operations/StepGHSearch.java
   - src/main/java/com/egain/sdk/operations/SubscribeArticle.java
   - src/main/java/com/egain/sdk/operations/UnsubscribeArticle.java
-  - src/main/java/com/egain/sdk/operations/UploadAttachment.java
   - src/main/java/com/egain/sdk/utils/AsyncHook.java
   - src/main/java/com/egain/sdk/utils/AsyncHooks.java
   - src/main/java/com/egain/sdk/utils/AsyncResponse.java
@@ -1504,7 +1518,7 @@ examples:
           Accept-Language: "en-US"
       responses:
         "200":
-          application/json: {"id": "PROD-2996", "additionalInfo": "Can be shared to public.", "articleMacro": "", "articleType": {"articleCategoryId": 0, "typeName": "General", "useStructuredAuthoring": false, "articleTypeId": "999700000002020"}, "articleKeywords": "Fair lending, Fair Housing Act, Discrimination protection, Residential mortgage loans, Equal opportunity housing", "articleSummary": "Fair lending ensures that lenders do not discriminate based on race, color,national origin, religion, sex, familial status, or disability when applying forresidential mortgage loans. The federal Fair Housing Act protects individuals'fair lending rights, enforced by the Office of Fair Housing and Equal Opportunity,along with state and local agencies. This law applies to U.S. citizens, greencard holders, and undocumented residents, ensuring equal opportunities in homesales, rentals, and financing.", "attachments": [{"id": "PROD-1000", "name": "eightbank.png", "size": 45152, "type": "INTERNAL", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/attachments/PROD-1000?q=fair%2Blending&%articleAdditionalAttributes=allonalArticleResult&workflowMilestone=publish&%24lang=en-US"}}], "availabilityDate": "2025-01-28T19:53:58Z", "availableEditions": [{"id": "PROD-2886", "name": "Customers", "isContentEdition": true, "publishProfile": {"id": "100100000003203", "name": "default"}, "link": {"rel": "article", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/PROD-2996?%articleResultAdditionalAttributes=allonalArticleResult&workflowMilestone=publish&%24lang=en-US&edition=PROD-2886"}}], "averageRating": 0, "content": "<h1>What is fair lending?</h1>\\n\\n<p>Fair lending prohibits lenders from considering your race, color, national origin, religion, sex, familial status, or disability when applying for residential mortgage loans. Fair lending guarantees the same lending opportunities to everyone.</p>\\n\\n\\n\\n\\n\\n<h1>If I am not from the United States, does the federal Fair Housing Act protect me?</h1>\\n\\n<p>Yes, whether you are a U.S. citizen, registered alien (a “green card” holder), or an undocumented resident of the U.S., you are protected by the federal Fair Housing Act.</p>\\n\\n<h1>How can the Fair Housing Act protect me when I purchase a home?</h1>\\n\\n<p>The federal Fair Housing Act makes it unlawful to discriminate in the sale, rental, or financing of homes because of race, color, national origin, religion, sex, familial status, or disability</p>\\n", "contentText": "What is fair lending?\r\n\n\n\r\nFair lending prohibits lenders from considering your race, color, national origin, religion, sex, familial status, or disability when applying for residential mortgage loans. Fair lending guarantees the same lending opportunities to everyone.\n\n\n\n\n\n\r\nIf I am not from the United States, does the federal Fair Housing Act protect me?\r\n\n\n\r\nYes, whether you are a U.S. citizen, registered alien (a “green card” holder), or an undocumented resident of the U.S., you are protected by the federal Fair Housing Act.\n\n\r\nHow can the Fair Housing Act protect me when I purchase a home?\r\n\n\n\r\nThe federal Fair Housing Act makes it unlawful to discriminate in the sale, rental, or financing of homes because of race, color, national origin, religion, sex, familial status, or disability\n", "createdBy": {"id": "1013", "firstName": "John", "middleName": "", "lastName": "Doe"}, "modifiedBy": {"id": "1013", "firstName": "John", "middleName": "", "lastName": "Doe"}, "ownedBy": {"id": "1013", "firstName": "John", "middleName": "", "lastName": "Doe"}, "createdDate": "2022-06-30T14:54:55Z", "customAttributes": [], "departmentID": "1001", "description": "Common questions and answers regarding Fair Lending.", "expirationDate": "2031-01-02T10:56:00Z", "imageURL": "https://hd.egain.com/images/km-for-dummies-24.jpg", "includeInGenAI": true, "isSubscribed": true, "modifiedDate": "2025-01-28T19:53:58Z", "languageCode": "en-US", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/PROD-2996?q=fair%2Blending&%articleAdditionalAttributes=all&workflowMilestone=publish&accessSource=article_view&publishViewId=PROD-3203&%24lang=en-US"}, "name": "Fair Lending FAQs", "structuredAuthoringFields": {"confidenceLevel": {"value": "", "displayValue": ""}, "issue": "", "environment": "", "cause": ""}, "articleState": "P", "timesRated": 0, "topicBreadcrumb": [{"topicSummary": [{"name": "Banking Regulations", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/topics/PROD-1080"}}]}], "versionId": "PROD-2884", "workflow": {"stages": [{"name": "publish", "milestone": {"name": {"value": "publish", "displayValue": "Published"}}}]}, "compliance": {"startDate": {"date": "2022-06-30T14:54:55Z"}, "dueDate": {"date": "2025-07-30T14:54:55Z"}}, "bookmarkStatus": {"isBookmarked": true, "bookmarkID": 777700000001234, "folderBreadcrumb": {"folderSummary": [{"id": 1001, "name": "content", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-0001/bookmarks/folders/1001"}}]}}}
+          application/json: {"id": "PROD-2996", "additionalInfo": "Can be shared to public.", "articleMacro": "", "articleType": {"articleCategoryId": 0, "typeName": "General", "useStructuredAuthoring": false, "articleTypeId": "999700000002020"}, "articleKeywords": "Fair lending, Fair Housing Act, Discrimination protection, Residential mortgage loans, Equal opportunity housing", "articleSummary": "Fair lending ensures that lenders do not discriminate based on race, color,national origin, religion, sex, familial status, or disability when applying forresidential mortgage loans. The federal Fair Housing Act protects individuals'fair lending rights, enforced by the Office of Fair Housing and Equal Opportunity,along with state and local agencies. This law applies to U.S. citizens, greencard holders, and undocumented residents, ensuring equal opportunities in homesales, rentals, and financing.", "attachments": [{"id": "PROD-1000", "name": "eightbank.png", "size": 45152, "type": "INTERNAL", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/attachments/PROD-1000?q=fair%2Blending&%articleAdditionalAttributes=allonalArticleResult&workflowMilestone=publish&%24lang=en-US"}}], "availabilityDate": "2025-01-28T19:53:58Z", "availableEditions": [{"id": "PROD-2886", "name": "Customers", "isContentEdition": true, "publishProfile": {"id": "PROD-3203", "name": "default"}, "link": {"rel": "article", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/PROD-2996?%articleResultAdditionalAttributes=allonalArticleResult&workflowMilestone=publish&%24lang=en-US&edition=PROD-2886"}}], "averageRating": 0, "content": "<h1>What is fair lending?</h1>\\n\\n<p>Fair lending prohibits lenders from considering your race, color, national origin, religion, sex, familial status, or disability when applying for residential mortgage loans. Fair lending guarantees the same lending opportunities to everyone.</p>\\n\\n\\n\\n\\n\\n<h1>If I am not from the United States, does the federal Fair Housing Act protect me?</h1>\\n\\n<p>Yes, whether you are a U.S. citizen, registered alien (a “green card” holder), or an undocumented resident of the U.S., you are protected by the federal Fair Housing Act.</p>\\n\\n<h1>How can the Fair Housing Act protect me when I purchase a home?</h1>\\n\\n<p>The federal Fair Housing Act makes it unlawful to discriminate in the sale, rental, or financing of homes because of race, color, national origin, religion, sex, familial status, or disability</p>\\n", "contentText": "What is fair lending?\r\n\n\n\r\nFair lending prohibits lenders from considering your race, color, national origin, religion, sex, familial status, or disability when applying for residential mortgage loans. Fair lending guarantees the same lending opportunities to everyone.\n\n\n\n\n\n\r\nIf I am not from the United States, does the federal Fair Housing Act protect me?\r\n\n\n\r\nYes, whether you are a U.S. citizen, registered alien (a “green card” holder), or an undocumented resident of the U.S., you are protected by the federal Fair Housing Act.\n\n\r\nHow can the Fair Housing Act protect me when I purchase a home?\r\n\n\n\r\nThe federal Fair Housing Act makes it unlawful to discriminate in the sale, rental, or financing of homes because of race, color, national origin, religion, sex, familial status, or disability\n", "createdBy": {"id": "1013", "firstName": "John", "middleName": "", "lastName": "Doe"}, "modifiedBy": {"id": "1013", "firstName": "John", "middleName": "", "lastName": "Doe"}, "ownedBy": {"id": "1013", "firstName": "John", "middleName": "", "lastName": "Doe"}, "createdDate": "2022-06-30T14:54:55Z", "customAttributes": [], "departmentID": "1001", "description": "Common questions and answers regarding Fair Lending.", "expirationDate": "2031-01-02T10:56:00Z", "imageURL": "https://hd.egain.com/images/km-for-dummies-24.jpg", "includeInGenAI": true, "isSubscribed": true, "modifiedDate": "2025-01-28T19:53:58Z", "languageCode": "en-US", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/PROD-2996?q=fair%2Blending&%articleAdditionalAttributes=all&workflowMilestone=publish&accessSource=article_view&publishViewId=PROD-3203&%24lang=en-US"}, "name": "Fair Lending FAQs", "structuredAuthoringFields": {"confidenceLevel": {"value": "", "displayValue": ""}, "issue": "", "environment": "", "cause": ""}, "articleState": "P", "timesRated": 0, "topicBreadcrumb": [{"topicSummary": [{"name": "Banking Regulations", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/topics/PROD-1080"}}]}], "versionId": "PROD-2884", "workflow": {"stages": [{"name": "publish", "milestone": {"name": {"value": "publish", "displayValue": "Published"}}}]}, "compliance": {"startDate": {"date": "2022-06-30T14:54:55Z"}, "dueDate": {"date": "2025-07-30T14:54:55Z"}}, "bookmarkStatus": {"isBookmarked": true, "bookmarkID": 777700000001234, "folderBreadcrumb": {"folderSummary": [{"id": 1001, "name": "content", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-0001/bookmarks/folders/1001"}}]}}}
     Required Attribute missing:
       parameters:
         path:
@@ -1563,7 +1577,7 @@ examples:
           Accept-Language: "en-US"
       responses:
         "200":
-          application/json: {"id": "PROD-2996", "articleType": {"articleCategoryId": 0, "typeName": "General", "useStructuredAuthoring": true, "articleTypeId": "999800000002020"}, "attachments": [{"id": "PROD-1000", "name": "eg_log_Ussuhvin0737_knowledge_import_1004.log", "size": 1024, "type": "INTERNAL", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/attachments/PROD-1000"}}], "availabilityDate": "2022-07-13T15:07:05Z", "availableEditions": [{"id": "PROD-2886", "name": "default", "publishProfile": {"id": "100100000003203", "name": "default"}, "link": {"rel": "article", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/PROD-2996?workflowMilestone=publish&lang=en-US&edition=PROD-2886"}}], "averageRating": 0, "createdBy": {"id": "1", "userName": "pa_mukul", "firstName": "Mukul", "lastName": "R"}, "modifiedBy": {"id": "1", "userName": "pa_mukul", "firstName": "Mukul", "lastName": "R"}, "ownedBy": {"id": "1", "userName": "pa_mukul", "firstName": "Mukul", "lastName": "R"}, "createdDate": "2022-06-29T03:52:46Z", "departmentID": "999", "includeInGenAI": true, "modifiedDate": "2022-07-13T08:07:05Z", "languageCode": "en-US", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/portals/PROD-1000/articles/PROD-2996"}, "name": "Article with CRC", "structuredAuthoringFields": {"confidenceLevel": {"value": "", "displayValue": ""}, "issue": "", "environment": "", "cause": ""}, "articleState": "P", "timesRated": 0, "relatedQuestions": {"relatedQuestion": ["What is sales?", "What is pre-sales?", "What is post-sales?"], "count": 3}, "versionId": "PROD-1411", "workflow": {"stages": [{"name": "publish", "milestone": {"name": {"value": "publish", "displayValue": "Published"}}}]}, "personalization": {"filters": {}}}
+          application/json: {"id": "PROD-2996", "additionalInfo": "Can be shared to public.", "articleType": {"articleCategoryId": 0, "typeName": "General", "useStructuredAuthoring": false, "articleTypeId": "100100000002020"}, "articleKeywords": "Fair lending, Fair Housing Act, Discrimination protection, Residential mortgage loans, Equal opportunity housing", "articleSummary": "Fair lending ensures that lenders do not discriminate based on race, color, national origin, religion, sex, familial status, or disability when applying for residential mortgage loans. The federal Fair Housing Act protects individuals' fair lending rights, enforced by the Office of Fair Housing and Equal Opportunity, along with state and local agencies. This law applies to U.S. citizens, green card holders, and undocumented residents, ensuring equal opportunities in home sales, rentals, and financing.", "attachments": [{"id": "PROD-1000", "name": "eightbank.png", "size": 45152, "type": "INTERNAL", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/articles/attachments/PROD-1000"}}], "availabilityDate": "2025-01-28T19:53:58.000Z", "availableEditions": [{"id": "PROD-2940", "publishProfile": {"id": "PROD-3020", "name": "Internal"}, "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/articles/PROD-2996/editions/PROD-3020?%24lang=en-US"}}, {"id": "PROD-2941", "publishProfile": {"id": "PROD-3203", "name": "Customers"}, "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/articles/PROD-2996/editions/PROD-3203?%24lang=en-US"}}], "averageRating": 0, "createdBy": {"id": "1013", "userName": "jdoe", "firstName": "John", "middleName": "", "lastName": "Doe"}, "modifiedBy": {"id": "1013", "userName": "jdoe", "firstName": "John", "middleName": "", "lastName": "Doe"}, "ownedBy": {"id": "1013", "userName": "jdoe", "firstName": "John", "middleName": "", "lastName": "Doe"}, "createdDate": "2022-06-30T07:54:55.000Z", "customAttributes": [], "departmentID": "1001", "description": "Common questions and answers regarding Fair Lending.", "expirationDate": "2031-01-02T18:56:15.000Z", "imageURL": "https://hd.egain.com/images/km-for-dummies-24.jpg", "includeInGenAI": true, "isSubscribed": false, "modifiedDate": "2025-01-28T19:53:58.000Z", "languageCode": "en-US", "link": {"rel": "self", "href": "/knowledge/portalmgr/v4/articles/PROD-2996/witheditions?%24lang=en-US"}, "name": "Fair Lending FAQs", "articleState": "P", "timesRated": 0, "versionId": "PROD-2939", "workflow": {"stages": [{"name": "publish", "milestone": {"name": {"value": "publish", "displayValue": "Published"}}}]}, "personalization": {"filters": {"tagCategory": [{"name": "Banking", "id": "PROD-1014", "tags": {"tag": [{"name": "Fair Lending", "id": "PROD-5381"}, {"name": "Banking Industry Regulations", "id": "PROD-2930"}]}, "tagGroups": {"tagGroup": [{"name": "Banking", "id": "PROD-2745"}]}}]}}}
     Required Attribute missing:
       parameters:
         path:
@@ -1595,7 +1609,7 @@ examples:
       parameters:
         path:
           articleID: "PROD-2996"
-          publishViewId: "959500000204621"
+          publishViewId: "PROD-3020"
         query:
           $lang: "en-US"
         header:
@@ -1611,7 +1625,7 @@ examples:
       parameters:
         path:
           articleID: "202200000002996"
-          publishViewId: "959500000204621"
+          publishViewId: "PROD-3020"
         query:
           $lang: "en-US"
         header:
@@ -1626,8 +1640,8 @@ examples:
     speakeasy-default-get-article-edition-details:
       parameters:
         path:
-          articleID: "<id>"
-          publishViewId: "959500000204621"
+          articleID: "PROD-2996"
+          publishViewId: "PROD-3020"
         query:
           $lang: "en-US"
         header:
@@ -1642,8 +1656,8 @@ examples:
     Required Attribute missing:
       parameters:
         path:
-          articleID: "<id>"
-          publishViewId: "959500000204621"
+          articleID: "PROD-2996"
+          publishViewId: "PROD-3020"
         query:
           $lang: "en-US"
         header:
@@ -1656,8 +1670,8 @@ examples:
     Unallowed attribute value:
       parameters:
         path:
-          articleID: "<id>"
-          publishViewId: "959500000204621"
+          articleID: "PROD-2996"
+          publishViewId: "PROD-3020"
         query:
           $lang: "en-US"
         header:
@@ -3361,6 +3375,7 @@ examples:
           $lang: "en-US"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3379,6 +3394,7 @@ examples:
           $lang: "en-US"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3397,6 +3413,7 @@ examples:
           $lang: "en-US"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3415,6 +3432,7 @@ examples:
           $lang: "en-US"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3435,6 +3453,7 @@ examples:
           $customAdditionalAttributes: "country_name"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3455,6 +3474,7 @@ examples:
           $customAdditionalAttributes: "internalScore,performance-rating_dept_923"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3474,6 +3494,7 @@ examples:
           topicAdditionalAttributes: ["all"]
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3492,6 +3513,7 @@ examples:
           $lang: "en-US"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3506,6 +3528,7 @@ examples:
           $lang: "en-US"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -3522,6 +3545,7 @@ examples:
           $lang: "en-US"
           $pagenum: 1
           $pagesize: 10
+          searchProfileId: "959500000204621"
         header:
           Accept-Language: "en-US"
       responses:
@@ -4989,11 +5013,12 @@ examples:
           shortUrlTemplate: "silver"
           $pagenum: 1
           $pagesize: 25
+          $order: "asc"
         header:
           Accept-Language: "en-US"
       responses:
         "200":
-          application/json: {"portal": [{"id": "PZ-0999", "name": "Master Portal", "description": "Automatically created portal allowing access to all published articles", "department": {"id": "999", "name": "Service"}, "shortURL": [{"id": "PROD-1000", "templateName": "silver", "shortURLName": "9BAED8", "isDefault": true}]}], "paginationInfo": {"count": 1, "pagenum": 1, "pagesize": 25}}
+          application/json: {"portal": [{"id": "PZ-9999", "name": "Master Portal", "description": "Automatically created portal allowing access to all published articles", "department": {"id": "999", "name": "Service"}, "shortURL": [{"id": "PROD-1000", "templateName": "silver", "shortURLName": "9BAED8", "isDefault": true}]}], "paginationInfo": {"count": 1, "pagenum": 1, "pagesize": 25}}
     All Portal with default/non-default Short URL:
       parameters:
         query:
@@ -5003,6 +5028,7 @@ examples:
           shortUrlTemplate: "silver"
           $pagenum: 1
           $pagesize: 25
+          $order: "asc"
         header:
           Accept-Language: "en-US"
       responses:
@@ -5017,6 +5043,7 @@ examples:
           shortUrlTemplate: "silver"
           $pagenum: 1
           $pagesize: 25
+          $order: "asc"
         header:
           Accept-Language: "en-US"
       responses:
@@ -5033,6 +5060,7 @@ examples:
           shortUrlTemplate: "silver"
           $pagenum: 1
           $pagesize: 25
+          $order: "asc"
         header:
           Accept-Language: "en-US"
       responses:
@@ -5130,13 +5158,51 @@ examples:
         path:
           portalID: "PROD-1000"
         query:
-          q: "fair lending"
-          $filter[userProfileID]: "PROD-3210"
+          q: "What is a loan?"
+          $filter[userProfileID]: "PROD-1030"
           $lang: "en-US"
           $filter[tags]: {"PROD-1234": ["PROD-2000", "PROD-2003"], "PROD-2005": ["PROD-2007"]}
+          $pagenum: 1
+          $pagesize: 20
       responses:
         "200":
-          application/json: {"searchResults": {"article": [{"id": "PROD-2996", "name": "Fair Lending FAQs", "docType": "PDF", "docName": "Lending FAQs", "source": "eGain Article", "customAttributes": [{"name": "loan_id", "value": ["78391"], "type": "STRING"}], "snippet": "What is fair lending...", "keywordSnippet": "What is fair lending...", "additionalSnippets": [{"id": "PROD-2996", "name": "Fair Lending FAQs", "docType": "DOCX", "docName": "Banking FAQs", "snippet": "The following Banking FAQs...", "keywordSnippet": "The following Banking FAQs...", "relevanceScore": 0.7}], "additionalSnippetCount": 1, "contextualSummary": "The summary of the lending FAQ...", "modifiedDate": "2025-01-28T19:53:58Z", "headerPath": "FAQs", "topicBreadcrumb": [], "articleTypeAttributes": {"typeName": "General", "articleTypeId": 243500000023393}, "relevanceScore": 0.8}]}}
+          application/json: {"searchResults": {"article": [{"id": "PROD-2996", "name": "Fair Lending FAQs", "docType": "PDF", "docName": "Lending FAQs", "source": "eGain Article", "customAttributes": [{"name": "loan_id", "value": ["78391"], "type": "STRING"}], "snippet": "What is fair lending...", "keywordSnippet": "What is fair lending...", "additionalSnippets": [{"id": "PROD-2996", "name": "Fair Lending FAQs", "docType": "DOCX", "docName": "Banking FAQs", "snippet": "The following Banking FAQs...", "keywordSnippet": "The following Banking FAQs...", "relevanceScore": 0.7, "normalizedScore": 0.9}], "additionalSnippetCount": 1, "contextualSummary": "The summary of the lending FAQ...", "modifiedDate": "2025-01-28T19:53:58Z", "headerPath": "FAQs", "topicBreadcrumb": [], "articleTypeAttributes": {"typeName": "General", "articleTypeId": 243500000023393}, "relevanceScore": 0.8, "normalizedScore": 0.9}]}}
+        "400":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+        "500":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+    Required Attribute missing:
+      parameters:
+        path:
+          portalID: "PROD-1000"
+        query:
+          q: "What is a loan?"
+          $filter[userProfileID]: "PROD-1030"
+          $lang: "en-US"
+          $filter[tags]: {"PROD-1234": ["PROD-2000", "PROD-2003"], "PROD-2005": ["PROD-2007"]}
+          $pagenum: 1
+          $pagesize: 20
+      responses:
+        "400":
+          application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: <param name>"}
+        "500":
+          application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: <param name>"}
+    Unallowed attribute value:
+      parameters:
+        path:
+          portalID: "PROD-1000"
+        query:
+          q: "What is a loan?"
+          $filter[userProfileID]: "PROD-1030"
+          $lang: "en-US"
+          $filter[tags]: {"PROD-1234": ["PROD-2000", "PROD-2003"], "PROD-2005": ["PROD-2007"]}
+          $pagenum: 1
+          $pagesize: 20
+      responses:
+        "400":
+          application/json: {"code": "400-196", "developerMessage": "Invalid value of attribute <attribute>, expected values are: [<possible_values>]."}
+        "500":
+          application/json: {"code": "400-196", "developerMessage": "Invalid value of attribute <attribute>, expected values are: [<possible_values>]."}
   makeSuggestion:
     Mandatory Attributes Only:
       parameters:
@@ -5265,6 +5331,8 @@ examples:
           filter[status]: "suggested"
           $pagenum: 1
           $pagesize: 25
+          $sort: "id"
+          $order: "asc"
         header:
           Accept-Language: "en-US"
       responses:
@@ -5278,6 +5346,8 @@ examples:
           filter[status]: "suggested"
           $pagenum: 1
           $pagesize: 25
+          $sort: "id"
+          $order: "asc"
         header:
           Accept-Language: "en-US"
       responses:
@@ -5293,6 +5363,8 @@ examples:
           filter[status]: "suggested"
           $pagenum: 1
           $pagesize: 25
+          $sort: "id"
+          $order: "asc"
         header:
           Accept-Language: "en-US"
       responses:
@@ -6109,16 +6181,22 @@ examples:
           application/json: {"code": "400-196", "developerMessage": "Invalid value of attribute <attribute>, expected values are: [<possible_values>]."}
   exportContent:
     Required Attribute missing:
+      parameters:
+        header:
+          Accept-Language: "en-US"
       requestBody:
-        application/json: {"articleCategories": "searchable", "portalID": "PROD-1000", "language": {"code": "en-US"}, "resourceTypes": ["articles"], "dataDestination": {"destinationType": "AWS S3 bucket", "path": "s3://amzn-s3-demo-bucket/mydeptfolder", "region": "us-west-2", "credentials": {"accessKey": "s3-access-user", "secretKey": "s3-access-secret"}}}
+        application/json: {"articleCategories": "searchable", "portalID": "PROD-1000", "language": {"code": "en-US"}, "resourceTypes": ["articles"], "dataDestination": {"destinationType": "AWS S3 bucket", "path": "s3://amzn-s3-demo-bucket/mydeptfolder", "region": "us-west-2", "credentials": {"accessKey": "s3-access-key", "secretKey": "s3-access-secret"}}}
       responses:
         "400":
           application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: <param name>"}
         "500":
           application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: <param name>"}
     Unallowed attribute value:
+      parameters:
+        header:
+          Accept-Language: "en-US"
       requestBody:
-        application/json: {"articleCategories": "searchable", "portalID": "PROD-1000", "language": {"code": "en-US"}, "resourceTypes": ["articles"], "dataDestination": {"destinationType": "AWS S3 bucket", "path": "s3://amzn-s3-demo-bucket/mydeptfolder", "region": "us-west-2", "credentials": {"accessKey": "s3-access-user", "secretKey": "s3-access-secret"}}}
+        application/json: {"articleCategories": "searchable", "portalID": "PROD-1000", "language": {"code": "en-US"}, "resourceTypes": ["articles"], "dataDestination": {"destinationType": "AWS S3 bucket", "path": "s3://amzn-s3-demo-bucket/mydeptfolder", "region": "us-west-2", "credentials": {"accessKey": "s3-access-key", "secretKey": "s3-access-secret"}}}
       responses:
         "400":
           application/json: {"code": "400-196", "developerMessage": "Invalid value of attribute <attribute>, expected values are: [<possible_values>]."}
@@ -6186,48 +6264,68 @@ examples:
         path:
           portalID: "PROD-1000"
         query:
-          q: "fair lending"
-          $filter[userProfileID]: "PROD-3210"
+          q: "What is a loan?"
+          $filter[userProfileID]: "PROD-1030"
           $lang: "en-US"
           $filter[tags]: {"PROD-1234": ["PROD-2000", "PROD-2003"], "PROD-2005": ["PROD-2007"]}
       requestBody:
-        application/json: {"channel": {"type": "custom", "name": "Eight Bank Website"}}
+        application/json: {"channel": {"type": "custom", "name": "Eight Bank Website"}, "eventId": "6154589f-b43f-4471-b2c7-92c6c888a664", "clientSessionId": "6154589f-b43f-4471-b2c7-92c6c888a643", "sessionId": "6154589f-b43f-4471-b2c7-92c6c888a689"}
       responses:
         "200":
-          application/json: {"answer": {"answerValue": "Per the Lending FAQ document...", "references": [{"id": "<id>", "name": "<value>", "docType": "HTML", "source": "eGain Article", "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1921"}]}]}], "answerType": "certified", "relevanceScore": 0.99}, "searchResults": [{"id": "PROD-48192", "name": "Lending FAQs", "docType": "DOCX", "source": "eGain Article", "snippet": "Fair lending is a part of...", "relevanceScore": 1189.65, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1921"}]}]}], "channel": {"type": "custom", "name": "Eight Bank Page"}, "eventId": "6154589f-b43f-4471-b2c7-92c6c888a871", "sessionId": "6154589f-b43f-4471-b2c7-92c6c888a643"}
+          application/json: {"answer": {"answerValue": "Per the Lending FAQ document...", "references": [{"id": "<id>", "name": "<value>", "docType": "HTML", "source": "eGain Article", "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1921"}]}]}], "answerType": "certified", "relevanceScore": 0.99}, "searchResults": [{"id": "PROD-48192", "name": "Lending FAQs", "docType": "DOCX", "source": "eGain Article", "snippet": "Fair lending is a part of...", "relevanceScore": 1189.65, "normalizedScore": 0.9, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1921"}]}]}], "channel": {"type": "custom", "name": "Eight Bank Website"}, "eventId": "6154589f-b43f-4471-b2c7-92c6c888a664", "clientSessionId": "6154589f-b43f-4471-b2c7-92c6c888a643", "sessionId": "6154589f-b43f-4471-b2c7-92c6c888a689"}
   getBestAnswer:
     speakeasy-default-get-best-answer:
       parameters:
         path:
           portalID: "PROD-1000"
         query:
-          q: "fair lending"
-          $filter[userProfileID]: "PROD-3210"
+          q: "What is a loan?"
+          $filter[userProfileID]: "PROD-1030"
           $lang: "en-US"
           $filter[tags]: {"PROD-1234": ["PROD-2000", "PROD-2003"], "PROD-2005": ["PROD-2007"]}
+      requestBody:
+        application/json: {"channel": {"type": "custom", "name": "Eight Bank Website"}, "eventId": "6154589f-b43f-4471-b2c7-92c6c888a664", "clientSessionId": "6154589f-b43f-4471-b2c7-92c6c888a643", "sessionId": "6154589f-b43f-4471-b2c7-92c6c888a689"}
       responses:
         "200":
-          application/json: {"answer": {"answerValue": "Per the lending FAQ document...", "references": [{"id": "<id>", "name": "<value>", "docType": "DOCX", "source": "eGain Article", "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1921"}]}]}], "answerType": "certified", "relevanceScore": 0.99}, "searchResults": [], "sessionId": "<id>"}
+          application/json: {"answer": {"answerValue": "The fair lending procedure...", "references": [{"id": "<id>", "name": "<value>", "docType": "DOCX", "source": "eGain Article", "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1921"}]}]}], "answerType": "certified", "relevanceScore": 0.99}, "searchResults": [], "channel": {"type": "custom", "name": "Eight Bank Website"}, "eventId": "6154589f-b43f-4471-b2c7-92c6c888a664", "clientSessionId": "6154589f-b43f-4471-b2c7-92c6c888a643", "sessionId": "6154589f-b43f-4471-b2c7-92c6c888a689"}
+    Generative Answer:
+      parameters:
+        path:
+          portalID: "PROD-1000"
+        query:
+          q: "What is a loan?"
+          $filter[userProfileID]: "PROD-1030"
+          $lang: "en-US"
+          $filter[tags]: {"PROD-1234": ["PROD-2000", "PROD-2003"], "PROD-2005": ["PROD-2007"]}
+      requestBody:
+        application/json: {"channel": {"type": "custom", "name": "Eight Bank Website"}, "eventId": "6154589f-b43f-4471-b2c7-92c6c888a664", "clientSessionId": "6154589f-b43f-4471-b2c7-92c6c888a643", "sessionId": "6154589f-b43f-4471-b2c7-92c6c888a689"}
+      responses:
+        "200":
+          application/json: {"answer": {"answerValue": "<p>A loan is a financial arrangement where a borrower receives money from a lender and agrees to repay it over time, usually with interest. For example, a mortgage loan is a type of loan used to purchase or refinance a home or real property, with payments typically spread over 10 to 30 years. The loan is secured by real estate, such as the borrower's primary residence.</p>", "references": [{"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article"}], "answerType": "generative", "relevanceScore": 0.9}, "searchResults": [{"id": "PROD-2731", "name": "What Does Loan Closing Mean?", "docType": "HTML", "source": "eGain Article", "snippet": "Closing, generally, is when you sign your loan documents and become obligated on the mortgage loan, and, in a purchase transaction, when the seller signs documents to transfer you title to the property. The timing may depend on state laws and local practices.", "snippetType": "chunks", "normalizedScore": 0.8953199783507835, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2680", "name": "What Information Will I Need to Apply for a Loan?", "docType": "HTML", "source": "eGain Article", "snippet": "Please have your personal information, annual income and any applicable collateral information available to apply.", "snippetType": "chunks", "normalizedScore": 0.8881018533023683, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2679", "name": "Can I have a Co-Signer?", "docType": "HTML", "source": "eGain Article", "snippet": "Yes, A Co-Signer is someone who agrees to be responsible for someone else’s debt. If you cosign someone’s loan and that person doesn’t make payments on the loan or defaults, you’ll have to repay the loan.", "snippetType": "chunks", "normalizedScore": 0.8485992046672263, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2679", "name": "Can I have a Co-Signer?", "docType": "HTML", "source": "eGain Article", "snippet": "Yes, A Co-Signer is someone who agrees to be responsible for someone else’s debt. If you cosign someone’s loan and that person doesn’t make payments on the loan or defaults, you’ll have to repay the loan.", "snippetType": "chunks", "normalizedScore": 0.8472550848151883, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2679", "name": "Can I have a Co-Signer?", "docType": "HTML", "source": "eGain Article", "snippet": "Yes, A Co-Signer is someone who agrees to be responsible for someone else’s debt. If you cosign someone’s loan and that person doesn’t make payments on the loan or defaults, you’ll have to repay the loan.", "snippetType": "chunks", "normalizedScore": 0.8472550848151883, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2681", "name": "What is a Co-Signer? Requirements for a Co-Signer?", "docType": "HTML", "source": "eGain Article", "snippet": "A co-signer is a person who is obligated to pay back the loan just as you, the borrower, are obligated to pay.", "snippetType": "chunks", "normalizedScore": 0.760438771174426, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2732", "name": "What is The Amortization Period?", "docType": "HTML", "source": "eGain Article", "snippet": "This is the repayment period of a loan during which payments of both principal and interest are required to be made to pay down the balance on the loan according to the terms of the loan documents prior to its maturity date. The amortization period may vary by the loan product and whether the loan has an interest-only period. For example, a 30-year fixed rate mortgage loan, which requires principal and interest payments from the beginning, has a 30-year amortization period.", "snippetType": "chunks", "normalizedScore": 0.6721146426033902, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2732", "name": "What is The Amortization Period?", "docType": "HTML", "source": "eGain Article", "snippet": "This is the repayment period of a loan during which payments of both principal and interest are required to be made to pay down the balance on the loan according to the terms of the loan documents prior to its maturity date. The amortization period may vary by the loan product and whether the loan has an interest-only period. For example, a 30-year fixed rate mortgage loan, which requires principal and interest payments from the beginning, has a 30-year amortization period.", "snippetType": "chunks", "normalizedScore": 0.6721146426033902, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "# Glossary of Terms\n\nA | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z\n\n\n|  |  |\n| --- | --- |\n| A |  |\n| Account | A type of financial property or financial obligation that is held and owned under your name. When you open a financial account—whether it’s a checking account, savings account, CD or money market account—you have certain rights and responsibilities as an account holder. |\n| Account balance | The total amount of all funds in your account. |\n| ACH (Automated Clearing House) | ACH is a type of electronic funds transfer system that operates between banks, businesses and individual consumers in a nationwide network. Banks use ACH payments to move money between them. When you sign up for direct deposit of your paycheck at work, that money often moves into your bank account via ACH. |\n| Adjustable rate | A rate of interest that can vary during the term of the loan. Usually used when referring to mortgages. |\n| Annual percentage rate (APR) | The interest rate and fees or additional costs you’re charged per year for a loan or credit card. For you as a customer, a lower rate is always better. |\n| Annual percentage yield (APY) | The effective annual rate of return taking into account the compounding of interest on a savings, checking, CD or money market account. On this rate, the higher the better. |\n| APR (Annual Percentage Rate) | The total annualized cost of a loan. When you borrow money, whether it’s via a credit card, car loan or another loan, the lender is required to disclose the APR, so you understand the full cost of borrowing the money. |\n| APY (Annual Percentage Yield) | The annual yield earned on a deposit account, such as a savings, money market or CD account. Savers can use APY as one of several factors to help determine which savings options are the best. |\n| Assets | Any personal possessions of value. This also includes cash, real estate and investments. |\n| ATM (Automated Teller Machine) | A convenient location for basic banking transactions, such as withdrawing cash, depositing checks or making balance inquiries. Many banks offer access to a network of fee-free ATMs. |\n| ATM fees | Fees you’re charged for using an out-of-network ATM or exceeding a certain number of ATM transactions for your account, if limited. |\n| Auto loan | A loan for the purchase of a vehicle you pay off over time. This is more expensive than buying a car outright since you’re paying interest, but you also get to use the car while you’re paying for it. |\n| Automated clearing house (ACH) | The electronic network used to transfer money between accounts at different institutions. |\n| Automated Teller Machine (ATM) card | A card that gives you access to your account through an ATM. If it’s a debit card, it will also work at retailers. |\n", "snippetType": "chunks", "normalizedScore": 0.671025038404711, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "# Glossary of Terms\n\nA | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z\n\n\n|  |  |\n| --- | --- |\n| A |  |\n| Account | A type of financial property or financial obligation that is held and owned under your name. When you open a financial account—whether it’s a checking account, savings account, CD or money market account—you have certain rights and responsibilities as an account holder. |\n| Account balance | The total amount of all funds in your account. |\n| ACH (Automated Clearing House) | ACH is a type of electronic funds transfer system that operates between banks, businesses and individual consumers in a nationwide network. Banks use ACH payments to move money between them. When you sign up for direct deposit of your paycheck at work, that money often moves into your bank account via ACH. |\n| Adjustable rate | A rate of interest that can vary during the term of the loan. Usually used when referring to mortgages. |\n| Annual percentage rate (APR) | The interest rate and fees or additional costs you’re charged per year for a loan or credit card. For you as a customer, a lower rate is always better. |\n| Annual percentage yield (APY) | The effective annual rate of return taking into account the compounding of interest on a savings, checking, CD or money market account. On this rate, the higher the better. |\n| APR (Annual Percentage Rate) | The total annualized cost of a loan. When you borrow money, whether it’s via a credit card, car loan or another loan, the lender is required to disclose the APR, so you understand the full cost of borrowing the money. |\n| APY (Annual Percentage Yield) | The annual yield earned on a deposit account, such as a savings, money market or CD account. Savers can use APY as one of several factors to help determine which savings options are the best. |\n| Assets | Any personal possessions of value. This also includes cash, real estate and investments. |\n| ATM (Automated Teller Machine) | A convenient location for basic banking transactions, such as withdrawing cash, depositing checks or making balance inquiries. Many banks offer access to a network of fee-free ATMs. |\n| ATM fees | Fees you’re charged for using an out-of-network ATM or exceeding a certain number of ATM transactions for your account, if limited. |\n| Auto loan | A loan for the purchase of a vehicle you pay off over time. This is more expensive than buying a car outright since you’re paying interest, but you also get to use the car while you’re paying for it. |\n| Automated clearing house (ACH) | The electronic network used to transfer money between accounts at different institutions. |\n| Automated Teller Machine (ATM) card | A card that gives you access to your account through an ATM. If it’s a debit card, it will also work at retailers. |\n", "snippetType": "chunks", "normalizedScore": 0.671025038404711, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "# Glossary of Terms\n\nA | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z\n\n\n|  |  |\n| --- | --- |\n| A |  |\n| Account | A type of financial property or financial obligation that is held and owned under your name. When you open a financial account—whether it’s a checking account, savings account, CD or money market account—you have certain rights and responsibilities as an account holder. |\n| Account balance | The total amount of all funds in your account. |\n| ACH (Automated Clearing House) | ACH is a type of electronic funds transfer system that operates between banks, businesses and individual consumers in a nationwide network. Banks use ACH payments to move money between them. When you sign up for direct deposit of your paycheck at work, that money often moves into your bank account via ACH. |\n| Adjustable rate | A rate of interest that can vary during the term of the loan. Usually used when referring to mortgages. |\n| Annual percentage rate (APR) | The interest rate and fees or additional costs you’re charged per year for a loan or credit card. For you as a customer, a lower rate is always better. |\n| Annual percentage yield (APY) | The effective annual rate of return taking into account the compounding of interest on a savings, checking, CD or money market account. On this rate, the higher the better. |\n| APR (Annual Percentage Rate) | The total annualized cost of a loan. When you borrow money, whether it’s via a credit card, car loan or another loan, the lender is required to disclose the APR, so you understand the full cost of borrowing the money. |\n| APY (Annual Percentage Yield) | The annual yield earned on a deposit account, such as a savings, money market or CD account. Savers can use APY as one of several factors to help determine which savings options are the best. |\n| Assets | Any personal possessions of value. This also includes cash, real estate and investments. |\n| ATM (Automated Teller Machine) | A convenient location for basic banking transactions, such as withdrawing cash, depositing checks or making balance inquiries. Many banks offer access to a network of fee-free ATMs. |\n| ATM fees | Fees you’re charged for using an out-of-network ATM or exceeding a certain number of ATM transactions for your account, if limited. |\n| Auto loan | A loan for the purchase of a vehicle you pay off over time. This is more expensive than buying a car outright since you’re paying interest, but you also get to use the car while you’re paying for it. |\n| Automated clearing house (ACH) | The electronic network used to transfer money between accounts at different institutions. |\n| Automated Teller Machine (ATM) card | A card that gives you access to your account through an ATM. If it’s a debit card, it will also work at retailers. |\n", "snippetType": "chunks", "normalizedScore": 0.6703273067082975, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Conditions | Also known as terms and conditions, this is the fine print of a bank account or loan agreement. Make sure you read and understand the implications of your financial accounts and obligations. |\n| Credit | An increase in a savings or checking account, such as a deposit made to the account. 2. A person or company’s ability to borrow money, with the expectation the money will be paid back in the future. |\n| Credit card | One of the most popular forms of credit, a card that allows you to spend up to a specific limit. Interest on the balance is assessed at the end of the monthly term, so to avoid paying any interest pay off your full balance each month. |\n| Credit limit | The maximum amount you’re allowed to charge on a credit card or HELOC. Once you’ve shown a habit of paying bills consistently on time, a lender may raise your credit limit—giving you more spending power. |\n| Credit rating | An evaluation of credit worthiness based on financial resources and credit history. Strictly speaking, ratings are usually applied to businesses or governments and expressed as a letter grade (A, B+, etc.) |\n| Credit score | In contrast to a credit rating, the credit score is a number (600, 700, etc.) indicating an individual's credit-worthiness. Credit bureaus look at factors such as your total debt, number of open accounts and whether you rent or own your home. A good credit score can result in a lower interest rate for loans. |\n| Credit/credit history/credit score | Credit generally refers to your ability to borrow—the willingness of banks and other lenders to extend a loan to you. If you have a strong credit history, that means you have a proven track record of paying bills on time and paying your debts. Your credit score is a measure of creditworthiness based, in part, on your credit history. Having a higher credit score can help you qualify for a lower interest on loans, better credit terms, larger loan amounts and higher credit limits. |\n| Current balance | The amount of funds in your account, including any pending activity. |\n| D |  |\n| Debit | A decrease in a savings or checking account, such as a withdrawal or a check written against the account. |\n| Debit card | An ATM card that allows you to pay for goods at stores or businesses, online, and at ATMs. A debit card draws the money from your checking account, in contrast to a credit card where you’re borrowing the money and have to pay it back later. |\n| Deposit | Funds added to your account. |\n| Direct deposit | An automatic deposit to your account made by your employer or an outside agency (such as a pension or government benefit payment). These are usually recurring and spare you the hassle of depositing a paper check. Online transfers are not considered direct deposits. |\n| E |  |\n| Early withdrawal penalty | A fee for withdrawing funds from an account—or closing it—before its maturity date. This applies to CDs and individual retirement accounts (IRAs). |\n| eBills | Electronic bills that are delivered directly to your online banking account for payment instead of being mailed to your home. |\n| Electronic check presentment (ECP) | An electronic image of a check that can be processed by banks and clearing houses instead of the actual paper check. |\n", "snippetType": "chunks", "normalizedScore": 0.5292205741674817, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Home Equity Line of Credit (HELOC) | A line of credit based on the estimated value of your home, or on the amount of equity in your home. |\n| Home Equity Loan | A type of loan that uses the equity of your home as collateral. Typically, a home equity loan allows you to borrow a one-time lump-sum amount of money equal to or less than the equity you have in your home. |\n| I |  |\n| Indexed rate | The rate charged for an adjustable rate loan, such as a HELOC, mortgage or credit card. |\n| Insufficient funds | An account balance too low to cover a check presented for payment. Sometimes abbreviated as NSF for \"non-sufficient funds.\" |\n| Interest | The cost of borrowing money or the amount earned on a deposit account. To calculate simple interest, multiply the original amount (of your savings or your loan) by the interest rate. For compound interest, the interest is added to the total amount as it accumulates. |\n| Interest income | Your earnings on savings accounts, certificates of deposit and money markets. Banks or other organizations or individuals who pay interest usually report it on Form 1099-INT. |\n| Interest rate | The annual percentage paid on an interest-bearing savings account or CD, or the interest charged on loans. The interest paid on a deposit account is the \"annual percentage yield\" (APY) and the rate charged on a loan is the \"annual percentage rate\" (APR). |\n| Interest transfer | A process that allows interest earned on one account to be transferred to another account. For example, the interest earned on a CD can be transferred to a money market account. |\n| Investments | Investments are financial assets that are purchased and sold by investors, with the goal of earning a return on investment (ROI). Common types of investments include stocks, bonds, mutual funds, index funds, exchange traded funds and real estate. There are also various alternative investments like gold, commodities, fine art, wine and more. Unlike bank savings and checking accounts, investments are not FDIC insured and have a risk of loss. |\n| J |  |\n| Joint account | An account with two or more owners that own the account equally, with the same rights and obligations of using the account. For example, many married couples have a joint checking account that allows them both to write checks and make deposits into the same shared account. |\n| M |  |\n| Maturity date | This is the date of expiration for the contractual obligation of a financial instrument. For example, certificates of deposit have a maturity date that depends on the length of the CD term. When the CD matures, you have the option to withdraw the money. Some banks and credit unions also allow you to roll it into a new CD or enable the CD to renew automatically. |\n| Micro-deposits | Small deposits (usually a dollar or two) made to verify an account you’re trying to link. Once verified, you can use the account you’ve linked to your bank account for actions such as money transfers. Micro-deposits are usually reversed so there’s no permanent change in your balance. See also: EDV |\n| Minimum balance | The amount your average balance in a deposit account must stay above to avoid fees. |\n| Money market account | A high-yield savings account that’s FDIC-insured up to $250,000. In contrast to a CD, with a money market account, you can still have regular access to your funds. |\n", "snippetType": "chunks", "normalizedScore": 0.52916013291157, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Home Equity Line of Credit (HELOC) | A line of credit based on the estimated value of your home, or on the amount of equity in your home. |\n| Home Equity Loan | A type of loan that uses the equity of your home as collateral. Typically, a home equity loan allows you to borrow a one-time lump-sum amount of money equal to or less than the equity you have in your home. |\n| I |  |\n| Indexed rate | The rate charged for an adjustable rate loan, such as a HELOC, mortgage or credit card. |\n| Insufficient funds | An account balance too low to cover a check presented for payment. Sometimes abbreviated as NSF for \"non-sufficient funds.\" |\n| Interest | The cost of borrowing money or the amount earned on a deposit account. To calculate simple interest, multiply the original amount (of your savings or your loan) by the interest rate. For compound interest, the interest is added to the total amount as it accumulates. |\n| Interest income | Your earnings on savings accounts, certificates of deposit and money markets. Banks or other organizations or individuals who pay interest usually report it on Form 1099-INT. |\n| Interest rate | The annual percentage paid on an interest-bearing savings account or CD, or the interest charged on loans. The interest paid on a deposit account is the \"annual percentage yield\" (APY) and the rate charged on a loan is the \"annual percentage rate\" (APR). |\n| Interest transfer | A process that allows interest earned on one account to be transferred to another account. For example, the interest earned on a CD can be transferred to a money market account. |\n| Investments | Investments are financial assets that are purchased and sold by investors, with the goal of earning a return on investment (ROI). Common types of investments include stocks, bonds, mutual funds, index funds, exchange traded funds and real estate. There are also various alternative investments like gold, commodities, fine art, wine and more. Unlike bank savings and checking accounts, investments are not FDIC insured and have a risk of loss. |\n| J |  |\n| Joint account | An account with two or more owners that own the account equally, with the same rights and obligations of using the account. For example, many married couples have a joint checking account that allows them both to write checks and make deposits into the same shared account. |\n| M |  |\n| Maturity date | This is the date of expiration for the contractual obligation of a financial instrument. For example, certificates of deposit have a maturity date that depends on the length of the CD term. When the CD matures, you have the option to withdraw the money. Some banks and credit unions also allow you to roll it into a new CD or enable the CD to renew automatically. |\n| Micro-deposits | Small deposits (usually a dollar or two) made to verify an account you’re trying to link. Once verified, you can use the account you’ve linked to your bank account for actions such as money transfers. Micro-deposits are usually reversed so there’s no permanent change in your balance. See also: EDV |\n| Minimum balance | The amount your average balance in a deposit account must stay above to avoid fees. |\n| Money market account | A high-yield savings account that’s FDIC-insured up to $250,000. In contrast to a CD, with a money market account, you can still have regular access to your funds. |\n", "snippetType": "chunks", "normalizedScore": 0.52916013291157, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Home Equity Line of Credit (HELOC) | A line of credit based on the estimated value of your home, or on the amount of equity in your home. |\n| Home Equity Loan | A type of loan that uses the equity of your home as collateral. Typically, a home equity loan allows you to borrow a one-time lump-sum amount of money equal to or less than the equity you have in your home. |\n| I |  |\n| Indexed rate | The rate charged for an adjustable rate loan, such as a HELOC, mortgage or credit card. |\n| Insufficient funds | An account balance too low to cover a check presented for payment. Sometimes abbreviated as NSF for \"non-sufficient funds.\" |\n| Interest | The cost of borrowing money or the amount earned on a deposit account. To calculate simple interest, multiply the original amount (of your savings or your loan) by the interest rate. For compound interest, the interest is added to the total amount as it accumulates. |\n| Interest income | Your earnings on savings accounts, certificates of deposit and money markets. Banks or other organizations or individuals who pay interest usually report it on Form 1099-INT. |\n| Interest rate | The annual percentage paid on an interest-bearing savings account or CD, or the interest charged on loans. The interest paid on a deposit account is the \"annual percentage yield\" (APY) and the rate charged on a loan is the \"annual percentage rate\" (APR). |\n| Interest transfer | A process that allows interest earned on one account to be transferred to another account. For example, the interest earned on a CD can be transferred to a money market account. |\n| Investments | Investments are financial assets that are purchased and sold by investors, with the goal of earning a return on investment (ROI). Common types of investments include stocks, bonds, mutual funds, index funds, exchange traded funds and real estate. There are also various alternative investments like gold, commodities, fine art, wine and more. Unlike bank savings and checking accounts, investments are not FDIC insured and have a risk of loss. |\n| J |  |\n| Joint account | An account with two or more owners that own the account equally, with the same rights and obligations of using the account. For example, many married couples have a joint checking account that allows them both to write checks and make deposits into the same shared account. |\n| M |  |\n| Maturity date | This is the date of expiration for the contractual obligation of a financial instrument. For example, certificates of deposit have a maturity date that depends on the length of the CD term. When the CD matures, you have the option to withdraw the money. Some banks and credit unions also allow you to roll it into a new CD or enable the CD to renew automatically. |\n| Micro-deposits | Small deposits (usually a dollar or two) made to verify an account you’re trying to link. Once verified, you can use the account you’ve linked to your bank account for actions such as money transfers. Micro-deposits are usually reversed so there’s no permanent change in your balance. See also: EDV |\n| Minimum balance | The amount your average balance in a deposit account must stay above to avoid fees. |\n| Money market account | A high-yield savings account that’s FDIC-insured up to $250,000. In contrast to a CD, with a money market account, you can still have regular access to your funds. |\n", "snippetType": "chunks", "normalizedScore": 0.52916013291157, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Conditions | Also known as terms and conditions, this is the fine print of a bank account or loan agreement. Make sure you read and understand the implications of your financial accounts and obligations. |\n| Credit | An increase in a savings or checking account, such as a deposit made to the account. 2. A person or company’s ability to borrow money, with the expectation the money will be paid back in the future. |\n| Credit card | One of the most popular forms of credit, a card that allows you to spend up to a specific limit. Interest on the balance is assessed at the end of the monthly term, so to avoid paying any interest pay off your full balance each month. |\n| Credit limit | The maximum amount you’re allowed to charge on a credit card or HELOC. Once you’ve shown a habit of paying bills consistently on time, a lender may raise your credit limit—giving you more spending power. |\n| Credit rating | An evaluation of credit worthiness based on financial resources and credit history. Strictly speaking, ratings are usually applied to businesses or governments and expressed as a letter grade (A, B+, etc.) |\n| Credit score | In contrast to a credit rating, the credit score is a number (600, 700, etc.) indicating an individual's credit-worthiness. Credit bureaus look at factors such as your total debt, number of open accounts and whether you rent or own your home. A good credit score can result in a lower interest rate for loans. |\n| Credit/credit history/credit score | Credit generally refers to your ability to borrow—the willingness of banks and other lenders to extend a loan to you. If you have a strong credit history, that means you have a proven track record of paying bills on time and paying your debts. Your credit score is a measure of creditworthiness based, in part, on your credit history. Having a higher credit score can help you qualify for a lower interest on loans, better credit terms, larger loan amounts and higher credit limits. |\n| Current balance | The amount of funds in your account, including any pending activity. |\n| D |  |\n| Debit | A decrease in a savings or checking account, such as a withdrawal or a check written against the account. |\n| Debit card | An ATM card that allows you to pay for goods at stores or businesses, online, and at ATMs. A debit card draws the money from your checking account, in contrast to a credit card where you’re borrowing the money and have to pay it back later. |\n| Deposit | Funds added to your account. |\n| Direct deposit | An automatic deposit to your account made by your employer or an outside agency (such as a pension or government benefit payment). These are usually recurring and spare you the hassle of depositing a paper check. Online transfers are not considered direct deposits. |\n| E |  |\n| Early withdrawal penalty | A fee for withdrawing funds from an account—or closing it—before its maturity date. This applies to CDs and individual retirement accounts (IRAs). |\n| eBills | Electronic bills that are delivered directly to your online banking account for payment instead of being mailed to your home. |\n| Electronic check presentment (ECP) | An electronic image of a check that can be processed by banks and clearing houses instead of the actual paper check. |\n", "snippetType": "chunks", "normalizedScore": 0.528856845715362, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Conditions | Also known as terms and conditions, this is the fine print of a bank account or loan agreement. Make sure you read and understand the implications of your financial accounts and obligations. |\n| Credit | An increase in a savings or checking account, such as a deposit made to the account. 2. A person or company’s ability to borrow money, with the expectation the money will be paid back in the future. |\n| Credit card | One of the most popular forms of credit, a card that allows you to spend up to a specific limit. Interest on the balance is assessed at the end of the monthly term, so to avoid paying any interest pay off your full balance each month. |\n| Credit limit | The maximum amount you’re allowed to charge on a credit card or HELOC. Once you’ve shown a habit of paying bills consistently on time, a lender may raise your credit limit—giving you more spending power. |\n| Credit rating | An evaluation of credit worthiness based on financial resources and credit history. Strictly speaking, ratings are usually applied to businesses or governments and expressed as a letter grade (A, B+, etc.) |\n| Credit score | In contrast to a credit rating, the credit score is a number (600, 700, etc.) indicating an individual's credit-worthiness. Credit bureaus look at factors such as your total debt, number of open accounts and whether you rent or own your home. A good credit score can result in a lower interest rate for loans. |\n| Credit/credit history/credit score | Credit generally refers to your ability to borrow—the willingness of banks and other lenders to extend a loan to you. If you have a strong credit history, that means you have a proven track record of paying bills on time and paying your debts. Your credit score is a measure of creditworthiness based, in part, on your credit history. Having a higher credit score can help you qualify for a lower interest on loans, better credit terms, larger loan amounts and higher credit limits. |\n| Current balance | The amount of funds in your account, including any pending activity. |\n| D |  |\n| Debit | A decrease in a savings or checking account, such as a withdrawal or a check written against the account. |\n| Debit card | An ATM card that allows you to pay for goods at stores or businesses, online, and at ATMs. A debit card draws the money from your checking account, in contrast to a credit card where you’re borrowing the money and have to pay it back later. |\n| Deposit | Funds added to your account. |\n| Direct deposit | An automatic deposit to your account made by your employer or an outside agency (such as a pension or government benefit payment). These are usually recurring and spare you the hassle of depositing a paper check. Online transfers are not considered direct deposits. |\n| E |  |\n| Early withdrawal penalty | A fee for withdrawing funds from an account—or closing it—before its maturity date. This applies to CDs and individual retirement accounts (IRAs). |\n| eBills | Electronic bills that are delivered directly to your online banking account for payment instead of being mailed to your home. |\n| Electronic check presentment (ECP) | An electronic image of a check that can be processed by banks and clearing houses instead of the actual paper check. |\n", "snippetType": "chunks", "normalizedScore": 0.528856845715362, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Minimum balance | The amount your average balance in a deposit account must stay above to avoid fees. |\n| Money market account | A high-yield savings account that’s FDIC-insured up to $250,000. In contrast to a CD, with a money market account, you can still have regular access to your funds. |\n| Mortgage loan | A loan used to purchase or refinance a home or real property, with payments usually spread over 10 to 30 years. It’s secured by real estate, such as the borrower's primary residence. |\n| Non-sufficient funds (NSF) | An account balance too low to cover a check presented for payment. |\n| Online bank | Online banks, also called digital or internet banks, operate primarily via the internet. You can manage your accounts at an online bank from a computer or mobile device from anywhere at any time. |\n| Overdraft | Something that occurs when you make a purchase with your debit card or write a check for an amount that exceeds your checking account’s available balance. Many bank accounts offer overdraft protection to help avoid overdraft fees. Some banks don’t charge overdraft fees at all. |\n| Overdraft protection | An arrangement made between you and your bank that allows you to withdraw more than the balance in your account without incurring any penalties. |\n| P |  |\n| Payee | A person or business to whom a check is written. |\n| Periodic rate | The interest rate over a specific period of time. A monthly periodic rate is the cost of credit per month. A daily periodic rate is the cost of credit per day, and so forth. |\n| Personal identification number (PIN) | A number issued with your debit or credit card so you can withdraw money from ATMs. To help prevent fraud, keep your PIN secret. A PIN should be memorized, never written down or disclosed to anyone else. |\n| Prime Rate | The interest rate that banks use to establish the indexed rate for certain loan products. The prime rate is published in The Wall Street Journal. |\n| Routing number | The first nine numbers that appear at the bottom of a check to identify the financial institution responsible for holding the account. Learn how to find a routing number on a check. |\n| S |  |\n| Savings account | An interest-bearing deposit account used for storing money, like an emergency fund. A savings account may have been your first experience with the banking industry. You have a number of options for where to stow your savings safely, both at banks and credit unions. |\n| Scheduled transfer | Moving money from one account to another on a regular recurring basis, often monthly. |\n| Secure Socket Layer (SSL) | A type of technology that protects your credit card and personal details when you shop or bank online. |\n| Service charge | A charge for a service or a penalty for not meeting certain requirements, such as insufficient funds in a checking account. |\n| Simple interest | Interest computed only on the principal balance, without compounding. |\n| Solvency | When banks have enough money to cover potential losses. Banks are expected to maintain a sufficient level of capital to remain solvent and avoid failure. The FDIC and other federal regulators work with banks to maintain standards for solvency. |\n", "snippetType": "chunks", "normalizedScore": 0.5201590697528378, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Minimum balance | The amount your average balance in a deposit account must stay above to avoid fees. |\n| Money market account | A high-yield savings account that’s FDIC-insured up to $250,000. In contrast to a CD, with a money market account, you can still have regular access to your funds. |\n| Mortgage loan | A loan used to purchase or refinance a home or real property, with payments usually spread over 10 to 30 years. It’s secured by real estate, such as the borrower's primary residence. |\n| Non-sufficient funds (NSF) | An account balance too low to cover a check presented for payment. |\n| Online bank | Online banks, also called digital or internet banks, operate primarily via the internet. You can manage your accounts at an online bank from a computer or mobile device from anywhere at any time. |\n| Overdraft | Something that occurs when you make a purchase with your debit card or write a check for an amount that exceeds your checking account’s available balance. Many bank accounts offer overdraft protection to help avoid overdraft fees. Some banks don’t charge overdraft fees at all. |\n| Overdraft protection | An arrangement made between you and your bank that allows you to withdraw more than the balance in your account without incurring any penalties. |\n| P |  |\n| Payee | A person or business to whom a check is written. |\n| Periodic rate | The interest rate over a specific period of time. A monthly periodic rate is the cost of credit per month. A daily periodic rate is the cost of credit per day, and so forth. |\n| Personal identification number (PIN) | A number issued with your debit or credit card so you can withdraw money from ATMs. To help prevent fraud, keep your PIN secret. A PIN should be memorized, never written down or disclosed to anyone else. |\n| Prime Rate | The interest rate that banks use to establish the indexed rate for certain loan products. The prime rate is published in The Wall Street Journal. |\n| Routing number | The first nine numbers that appear at the bottom of a check to identify the financial institution responsible for holding the account. Learn how to find a routing number on a check. |\n| S |  |\n| Savings account | An interest-bearing deposit account used for storing money, like an emergency fund. A savings account may have been your first experience with the banking industry. You have a number of options for where to stow your savings safely, both at banks and credit unions. |\n| Scheduled transfer | Moving money from one account to another on a regular recurring basis, often monthly. |\n| Secure Socket Layer (SSL) | A type of technology that protects your credit card and personal details when you shop or bank online. |\n| Service charge | A charge for a service or a penalty for not meeting certain requirements, such as insufficient funds in a checking account. |\n| Simple interest | Interest computed only on the principal balance, without compounding. |\n| Solvency | When banks have enough money to cover potential losses. Banks are expected to maintain a sufficient level of capital to remain solvent and avoid failure. The FDIC and other federal regulators work with banks to maintain standards for solvency. |\n", "snippetType": "chunks", "normalizedScore": 0.5181809022102427, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Minimum balance | The amount your average balance in a deposit account must stay above to avoid fees. |\n| Money market account | A high-yield savings account that’s FDIC-insured up to $250,000. In contrast to a CD, with a money market account, you can still have regular access to your funds. |\n| Mortgage loan | A loan used to purchase or refinance a home or real property, with payments usually spread over 10 to 30 years. It’s secured by real estate, such as the borrower's primary residence. |\n| Non-sufficient funds (NSF) | An account balance too low to cover a check presented for payment. |\n| Online bank | Online banks, also called digital or internet banks, operate primarily via the internet. You can manage your accounts at an online bank from a computer or mobile device from anywhere at any time. |\n| Overdraft | Something that occurs when you make a purchase with your debit card or write a check for an amount that exceeds your checking account’s available balance. Many bank accounts offer overdraft protection to help avoid overdraft fees. Some banks don’t charge overdraft fees at all. |\n| Overdraft protection | An arrangement made between you and your bank that allows you to withdraw more than the balance in your account without incurring any penalties. |\n| P |  |\n| Payee | A person or business to whom a check is written. |\n| Periodic rate | The interest rate over a specific period of time. A monthly periodic rate is the cost of credit per month. A daily periodic rate is the cost of credit per day, and so forth. |\n| Personal identification number (PIN) | A number issued with your debit or credit card so you can withdraw money from ATMs. To help prevent fraud, keep your PIN secret. A PIN should be memorized, never written down or disclosed to anyone else. |\n| Prime Rate | The interest rate that banks use to establish the indexed rate for certain loan products. The prime rate is published in The Wall Street Journal. |\n| Routing number | The first nine numbers that appear at the bottom of a check to identify the financial institution responsible for holding the account. Learn how to find a routing number on a check. |\n| S |  |\n| Savings account | An interest-bearing deposit account used for storing money, like an emergency fund. A savings account may have been your first experience with the banking industry. You have a number of options for where to stow your savings safely, both at banks and credit unions. |\n| Scheduled transfer | Moving money from one account to another on a regular recurring basis, often monthly. |\n| Secure Socket Layer (SSL) | A type of technology that protects your credit card and personal details when you shop or bank online. |\n| Service charge | A charge for a service or a penalty for not meeting certain requirements, such as insufficient funds in a checking account. |\n| Simple interest | Interest computed only on the principal balance, without compounding. |\n| Solvency | When banks have enough money to cover potential losses. Banks are expected to maintain a sufficient level of capital to remain solvent and avoid failure. The FDIC and other federal regulators work with banks to maintain standards for solvency. |\n", "snippetType": "chunks", "normalizedScore": 0.5181809022102427, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Simple interest | Interest computed only on the principal balance, without compounding. |\n| Solvency | When banks have enough money to cover potential losses. Banks are expected to maintain a sufficient level of capital to remain solvent and avoid failure. The FDIC and other federal regulators work with banks to maintain standards for solvency. |\n| Surcharge | An amount charged by the owner of an ATM. This generally applies to out-of-network ATMs. |\n| T |  |\n| Term | The time to the maturity of a loan or deposit. For example, a CD can have a term from 3 to 60 months. |\n| Total value | The current worth of an account, including funds on hold or pending approval. |\n| V |  |\n| Variable rate | An interest rate that may fluctuate during the term of a loan, line of credit or deposit account. The new rate is sometimes determined by The Wall Street Journal prime rate. See also “adjustable rate” and “indexed rate.” |\n| W |  |\n| Wire transfer | An electronic payment service for transferring funds by wire. Wire transfers are guaranteed funds for the recipient, meaning the payment cannot be revoked by the sender after the transfer. A wire transfer typically involves paying a fee, depending on whether the transfer is incoming or outgoing and domestic or international. |\n", "snippetType": "chunks", "normalizedScore": 0.4720211674363051, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2575", "name": "Glossary of Terms", "docType": "HTML", "source": "eGain Article", "snippet": "|  |  |\n| --- | --- |\n| Simple interest | Interest computed only on the principal balance, without compounding. |\n| Solvency | When banks have enough money to cover potential losses. Banks are expected to maintain a sufficient level of capital to remain solvent and avoid failure. The FDIC and other federal regulators work with banks to maintain standards for solvency. |\n| Surcharge | An amount charged by the owner of an ATM. This generally applies to out-of-network ATMs. |\n| T |  |\n| Term | The time to the maturity of a loan or deposit. For example, a CD can have a term from 3 to 60 months. |\n| Total value | The current worth of an account, including funds on hold or pending approval. |\n| V |  |\n| Variable rate | An interest rate that may fluctuate during the term of a loan, line of credit or deposit account. The new rate is sometimes determined by The Wall Street Journal prime rate. See also “adjustable rate” and “indexed rate.” |\n| W |  |\n| Wire transfer | An electronic payment service for transferring funds by wire. Wire transfers are guaranteed funds for the recipient, meaning the payment cannot be revoked by the sender after the transfer. A wire transfer typically involves paying a fee, depending on whether the transfer is incoming or outgoing and domestic or international. |\n", "snippetType": "chunks", "normalizedScore": 0.4720211674363051, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1072", "name": "Using Online Banking"}]}]}, {"id": "PROD-2615", "name": "Talk to a Banker - Home Loans", "docType": "HTML", "source": "eGain Article", "snippet": "Whether you have questions about buying or refinancing a home, applying for or paying off a mortgage or home equity line of credit, or how the home lending process works in general, we've got answers.\n\nMake an appointment with a \\[Sample Company Name\\] Bank today by visiting \\[Sample Website Address\\] or by calling to talk to a Banker: \\[Sample Customer Service Phone Number\\] \\[Sample Text Based Phone Number\\]. Outside the U.S., call \\[Sample International Number\\].", "snippetType": "chunks", "normalizedScore": 0.45921719114211856, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2997", "name": "Discriminitatory Lending Practices", "docType": "HTML", "source": "eGain Article", "snippet": "# What are some examples of discriminatory lending practices?\n\nA lender commits discriminatory lending practices when he or she acts in one or more of the following manners:\n\n- Refuses to make a mortgage loan on the basis of race, color, national origin, religion, sex, familial status, or disability; 7 8\n\n- Refuses to provide information regarding mortgage loans on the basis of race, color, national origin, religion, sex, familial status, or disability\n\n- Imposes different terms or conditions on a mortgage loan, such as different interest rates, points, or fees on the basis of race, color, national origin, religion, sex, familial status, or disability\n\n- Discriminates in appraising property on the basis of race, color, national origin, religion, sex, familial status, or disability\n\n- Steers an applicant toward a bad mortgage loan product on the basis of race, color, national origin, religion, sex, familial status, or disability\n\n- Provides inferior servicing of a mortgage loan on the basis of race, color, national origin, religion, sex, familial status, or disability\n\n# Can my bank officer commit lending discrimination?\n\nYes. Any lender, real estate and mortgage broker, appraiser, loan servicer, and title company can commit lending discrimination in any phase of the mortgage loan process. You should report any person, company, or entity attempting to violate your fair lending rights immediately to HUD or a state or local fair housing agency. (Refer to Red Tab, Reporting Lending Discrimination) \n\n# When does lending discrimination occur?\n\nWhether you are purchasing or refinancing a home, lending discrimination can occur at any stage of the lending process. For example, if a lender refuses to make a mortgage loan because of your race or ethnicity, or if a lender charges excessive fees to refinance your current mortgage loan based on your race or ethnicity, the lender is in violation of the federal Fair Housing Act. \n\n# What are some of the warning signs of lending discrimination?\n\nThe signs of lending discrimination may be blatant or subtle. They can occur in the marketing of mortgage loan products, mortgage loan transactions, terms and conditions of the loan, in the appraisal of a home, and in loan servicing.\n\nIn the marketing of mortgage loan products, be aware of:\n\n- Aggressive solicitations of adverse terms of credit to targeted minority neighborhoods, racial or ethnic groups, and communities\n\n- Racial steering to high cost lenders.\n\n- In the mortgage loan transaction, be aware of:\n\n- Requiring that women, but not men, provide a co-signer for a loan.\n\nIn the terms and conditions of the mortgage loan that are more often imposed upon borrowers of a certain race or nationality or upon women, be aware of: \n\n- Unnecessary closing costs\n\n- Inflated appraisal costs\n\n- Inflated broker or lender fees\n\n- Unnecessary recording fees\n\n- Excessive prepayment penalties\n\n- Changing mortgage loan terms at closing without the consent of the borrower.\n\nIn the appraisal of a home, be aware of properties that are undervalued because of the race or nationality of either the borrower or the other residents in the surrounding neighborhood.\n\nIn the servicing of the mortgage loan, be aware of:\n\n- Collection or foreclosure practices applied more harshly because of the race or nationality of either the borrower or the other residents in the surrounding neighborhood.", "snippetType": "chunks", "normalizedScore": 0.2830405804592237, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1080", "name": "Banking Regulations"}]}]}, {"id": "PROD-2733", "name": "What is the Difference Between Prequalification and Preapproval?", "docType": "HTML", "source": "eGain Article", "snippet": "**Prequalification**\n\nThe Banker collects estimates of your income and liabilities to determine what mortgage products may be available to you and what you can afford to borrow. Our Mortgage Bankers can prequalify you by phone, in some cases. It normally takes 15 to 20 minutes and the applicant will receive a prequalification letter.\n\n**Preapproval**\n\nThis is a more thorough review of your creditworthiness. We verify not only your credit, but also your income, assets and liabilities. Further, you will need to submit documentation such as proof of income, assets and debt records. The process can take 20 minutes if you come prepared, or in some cases up to 2 business days.", "snippetType": "chunks", "normalizedScore": 0.18605361669534096, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1070", "name": "Loans"}]}]}, {"id": "PROD-2583", "name": "Using Zelle", "docType": "HTML", "source": "eGain Article", "snippet": "# Using Zelle\n\nWith Zelle you can send money to friends, family and almost anyone you know and trust, no matter where they bank in the U.S.  \n\n# Why Use Zelle\n\nIt’s a fast and secure transfer where money is deposited directly into your recipient’s bank account typically within minutes. You can also request money from others using Zelle. \n\nYour recipient gets a request to send you money and you’ll receive the money within minutes after it’s sent.\n\n# Split Feature\n\nZelle comes with a handy Split feature that lets you easily divide expenses, making things like splitting dinner checks, settling up with roommates or paying your share of a group gift simple and easy.", "snippetType": "chunks", "normalizedScore": 0.18394147762849983, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1001", "name": "Online Access"}, {"id": "PROD-1084", "name": "Zelle"}]}]}, {"id": "PROD-2554", "name": "Banking Regulations", "docType": "HTML", "source": "eGain Article", "snippet": "U.S. banking regulation addresses privacy, disclosure, fraud prevention, anti-money laundering, anti-terrorism, anti-usury lending, and the promotion of lending to lower-income populations**.** Some individual cities also enact their own financial regulation laws (for example, defining what constitutes usurious lending).", "snippetType": "chunks", "normalizedScore": 0.16558712775547277, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1080", "name": "Banking Regulations"}]}]}, {"id": "PROD-2577", "name": "Short Description of Mobile Deposit", "docType": "HTML", "source": "eGain Article", "snippet": "\\[Sample Company Name\\] deposit is secure and convenient. Deposit checks directly into your account using your mobile device.\n\n# How does mobile deposit work?\n\nMobile check deposit allows you to save time by depositing your checks remotely, no matter where you are or what time of day it is. Instead of making a run to the bank, you can simply snap a picture of the front and back of the check on your smartphone and deposit it using the bank's mobile app.", "snippetType": "chunks", "normalizedScore": 0.13648458089091964, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1066", "name": "Checking and Savings Accounts"}]}]}, {"id": "PROD-2568", "name": "Office of the Comptroller of the Currency (OCC) Banking Regulations", "docType": "HTML", "source": "eGain Article", "snippet": "The OCC is the primary regulator of banks chartered under the National Bank Act (12 USC 1 et seq.) and federal savings associations chartered under the Home Owners' Loan Act of 1933 (12 USC 1461 et seq.). The OCC's regulations, derived from these acts, are in title 12 of the Code of Federal Regulations, \"Banks and Banking\" (12 CFR 1–199).\n\nThe OCC may take enforcement actions for violations of laws, rules or regulations, final orders or conditions imposed in writing; unsafe or unsound practices; and breach of fiduciary duty by institution-affiliated parties.\n\n- [OCC Bulletins](https://www.occ.treas.gov/news-issuances/bulletins/index.html)\n\n- [OCC Comptroller’s Handbook](https://www.occ.treas.gov/publications/publications-by-type/comptrollers-handbook/index-comptrollers-handbook.html)\n\n- [Part 2 - Sales of Credit Life Insurance](https://www.ecfr.gov/cgi-bin/text-idx?SID=224c14efa9422c576004740f04473ca0&tpl=/ecfrbrowse/Title12/12cfr2_main_02.tpl)\n\n- [Part 14 - Consumer Protection in Sales of Insurance](https://www.ecfr.gov/cgi-bin/text-idx?SID=224c14efa9422c576004740f04473ca0&tpl=/ecfrbrowse/Title12/12cfr14_main_02.tpl)\n\n- [Part 21 - Minimum Security Devices and Procedures, SAR & BSA Compliance Program](https://www.ecfr.gov/cgi-bin/text-idx?SID=224c14efa9422c576004740f04473ca0&tpl=/ecfrbrowse/Title12/12cfr21_main_02.tpl)\n\n- [Part 22 - Loans in Areas having Special Flood Hazards](https://www.ecfr.gov/cgi-bin/text-idx?SID=224c14efa9422c576004740f04473ca0&tpl=/ecfrbrowse/Title12/12cfr22_main_02.tpl)\n\n- [Part 25 - Community Reinvestment Act (CRA)](https://www.ecfr.gov/cgi-bin/text-idx?SID=224c14efa9422c576004740f04473ca0&tpl=/ecfrbrowse/Title12/12cfr25_main_02.tpl)\n\n- [Part 32 - Lending Limits](https://www.ecfr.gov/cgi-bin/text-idx?SID=224c14efa9422c576004740f04473ca0&tpl=/ecfrbrowse/Title12/12cfr32_main_02.tpl)\n\n- [Part 34 - Real Estate Lending and Appraisals](https://www.ecfr.gov/cgi-bin/text-idx?SID=224c14efa9422c576004740f04473ca0&tpl=/ecfrbrowse/Title12/12cfr34_main_02.tpl)", "snippetType": "chunks", "normalizedScore": 0.13457933361485352, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1080", "name": "Banking Regulations"}]}]}, {"id": "PROD-2766", "name": "How Do I Apply for a Credit Card?", "docType": "HTML", "source": "eGain Article", "snippet": "You can apply online for our <c/cName#1> and <c/cName#2> by going to _**Compare Credit Cards**_ and clicking **\"Apply Now\"** next to the card you want. Alternatively, you can apply by calling \\[Sample Customer Service Phone Number\\] \\[Sample Credit Card Extension\\] /  \\[Sample Text Based Phone Number\\], Mon–Fri 7 am–5 pm PT.  To apply for the Secured Credit Card, visit your local branch.", "snippetType": "chunks", "normalizedScore": 0.1103068233378137, "topicBreadcrumb": [{"topicSummary": [{"id": "PROD-1066", "name": "Checking and Savings Accounts"}, {"id": "PROD-1068", "name": "Credit Cards"}]}]}], "channel": {"type": "custom", "name": "Eight Bank Website"}, "eventId": "615458", "sessionId": "6154589f-b43f-4471-b2c7-92c6c888a791"}
   createImportJob:
     Import content in the Department:
       requestBody:
-        application/json: {"dataSource": {"type": "AWS S3 bucket", "path": "s3://mybucket/myfolder/", "region": "us-east-1", "credentials": {}}, "operation": "import", "scheduleTime": {"date": "2024-03-01T10:00:00.000Z"}}
+        application/json: {"dataSource": {"type": "AWS S3 bucket", "path": "s3://mybucket/myfolder/", "region": "us-east-1", "credentials": {"accessKey": "AKIAIOSFODNN7EXAMPLE", "secretKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"}}, "operation": "import", "scheduleTime": {"date": "2024-03-01T10:00:00.000Z"}}
       responses:
         "400":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
         "412":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
         "500":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+        "406":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
     Update existing content:
       requestBody:
-        application/json: {"dataSource": {"type": "Shared file path", "path": "sftp://server.com/content/updates/", "credentials": {}}, "operation": "reimport", "scheduleTime": {"date": "2024-03-01T02:00:00.000Z"}}
+        application/json: {"dataSource": {"type": "Shared file path", "path": "sftp://server.com/content/updates/", "credentials": {"username": "contentuser", "password": "securepassword"}}, "operation": "reimport", "scheduleTime": {"date": "2024-03-01T02:00:00.000Z"}}
       responses:
         "400":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
         "412":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
         "500":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+        "406":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
     LimitExceeded Value:
       requestBody:
@@ -6251,6 +6349,12 @@ examples:
       responses:
         "412":
           application/json: {"code": "412-100", "developerMessage": "Pre condition failed"}
+    Not Acceptable:
+      requestBody:
+        application/json: {"dataSource": {"type": "Shared file path", "path": "https://runny-hello.net"}, "operation": "reimport", "scheduleTime": {"date": "2024-03-01T10:00:00.000Z"}}
+      responses:
+        "406":
+          application/json: {"code": "406-100", "developerMessage": "The 'Accept-Language' header value is invalid."}
   getImportStatus:
     Job in Progress:
       parameters:
@@ -6307,26 +6411,37 @@ examples:
           application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: '<query_parameter>'."}
         "500":
           application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: '<query_parameter>'."}
+    Not Acceptable:
+      parameters:
+        path:
+          job_id: "7A84B875-6F75-4C7B-B137-0632B62DB0BD"
+      responses:
+        "406":
+          application/json: {"code": "406-100", "developerMessage": "The 'Accept-Language' header value is invalid."}
   createImportValidationJob:
     S3 content validation:
       requestBody:
-        application/json: {"dataSource": {"type": "AWS S3 bucket", "path": "s3://mybucket/myfolder/", "region": "us-east-1", "credentials": {}}}
+        application/json: {"dataSource": {"type": "AWS S3 bucket", "path": "s3://mybucket/myfolder/", "region": "us-east-1", "credentials": {"accessKey": "AKIAIOSFODNN7EXAMPLE", "secretKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"}}}
       responses:
         "400":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
         "412":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
         "500":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+        "406":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
     SFTP content validation:
       requestBody:
-        application/json: {"dataSource": {"type": "Shared file path", "path": "s3://mybucket/myfolder/"}}
+        application/json: {"dataSource": {"type": "Shared file path", "path": "s3://mybucket/myfolder/", "credentials": {"username": "contentuser", "password": "securepassword"}}}
       responses:
         "400":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
         "412":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
         "500":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+        "406":
           application/json: {"code": "<value>", "developerMessage": "<value>"}
     Unsupported Parameters:
       requestBody:
@@ -6358,6 +6473,12 @@ examples:
       responses:
         "412":
           application/json: {"code": "412-100", "developerMessage": "Pre condition failed"}
+    Not Acceptable:
+      requestBody:
+        application/json: {"dataSource": {"type": "AWS S3 bucket", "path": "https://emotional-litter.name/"}}
+      responses:
+        "406":
+          application/json: {"code": "406-100", "developerMessage": "The 'Accept-Language' header value is invalid."}
   cancelImport:
     Unauthorized:
       parameters:
@@ -6368,4 +6489,141 @@ examples:
           application/json: {"code": "401-101", "developerMessage": "Invalid or expired 'Authorization' header provided. New login is required."}
         "500":
           application/json: {"code": "401-101", "developerMessage": "Invalid or expired 'Authorization' header provided. New login is required."}
+    Not Acceptable:
+      parameters:
+        path:
+          job_id: "7A84B875-6F75-4C7B-B137-0632B62DB0BD"
+      responses:
+        "406":
+          application/json: {"code": "406-100", "developerMessage": "The 'Accept-Language' header value is invalid."}
+  executePrompt:
+    speakeasy-default-execute-prompt:
+      parameters:
+        path:
+          promptId: "<id>"
+      requestBody:
+        application/json: {"department": "Service", "languageCode": "en-US", "eventType": "generate", "clientSessionId": "123e4567-e89b-12d3-a456-426614174000", "streaming": false}
+      responses:
+        "200":
+          application/json: {"generatedResponse": "Customer enquired about the order status...", "eventType": "generate", "sessionId": "79e43699-c210-49cd-b512-05607f727b98", "clientSessionId": "123e4567-e89b-12d3-a456-426614174000", "sessionStatus": "active", "eventRegistration": "successful"}
+        "400":
+          application/json: {"code": 400, "developerMessage": "The eventType parameter has an invalid value. Must be 'generate' or 'regenerate'."}
+  getPromptTemplates:
+    speakeasy-default-get-prompt-templates:
+      parameters:
+        query:
+          department: "Service"
+          languageCode: "en-US"
+          name: "Generate email"
+          useFor: "knowledge"
+        header:
+          Accept-Language: "en-US"
+      responses:
+        "200":
+          application/json: {"promptTemplates": [{"name": "Generate Title", "id": "PROD-26471", "description": "Generate article title based on article content", "active": true, "useFor": "custom", "appliesTo": "chat", "instruction": "I want you to generate...", "outputFormat": "html", "createdOn": "2024-04-01T08:00:00Z", "modifiedDate": "2024-04-30T17:30:00Z", "createdBy": {}, "reviewStatus": "published", "isSystemCreated": false, "fieldToUpdate": "custom.contactPerson.cust1"}]}
+        "400":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+        "500":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+    Unsupported Parameters:
+      parameters:
+        query:
+          department: "Service"
+          languageCode: "en-US"
+          name: "Generate email"
+          useFor: "knowledge"
+        header:
+          Accept-Language: "en-US"
+      responses:
+        "400":
+          application/json: {"code": "400-101", "developerMessage": "Unsupported query parameter(s) supplied: '<query_parameter>'."}
+        "500":
+          application/json: {"code": "400-101", "developerMessage": "Unsupported query parameter(s) supplied: '<query_parameter>'."}
+    Invalid Value:
+      parameters:
+        query:
+          department: "Service"
+          languageCode: "en-US"
+          name: "Generate email"
+          useFor: "knowledge"
+        header:
+          Accept-Language: "en-US"
+      responses:
+        "400":
+          application/json: {"code": "400-152", "developerMessage": "Invalid value is provided in the request body for the following attribute:'<attribute_name>'."}
+        "500":
+          application/json: {"code": "400-152", "developerMessage": "Invalid value is provided in the request body for the following attribute:'<attribute_name>'."}
+    Missing required query parameter:
+      parameters:
+        query:
+          department: "Service"
+          languageCode: "en-US"
+          name: "Generate email"
+          useFor: "knowledge"
+        header:
+          Accept-Language: "en-US"
+      responses:
+        "400":
+          application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: '<query_parameter>'."}
+        "500":
+          application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: '<query_parameter>'."}
+  getPromptTemplateById:
+    speakeasy-default-get-prompt-template-by-id:
+      parameters:
+        path:
+          promptID: "PROD-4582"
+        query:
+          department: "Service"
+          languageCode: "en-US"
+        header:
+          Accept-Language: "en-US"
+      responses:
+        "200":
+          application/json: {"name": "Generate Title", "id": "PROD-26471", "description": "Generate article title based on article content", "active": true, "useFor": "custom", "appliesTo": "chat", "instruction": "I want you to generate...", "outputFormat": "html", "createdOn": "2024-04-01T08:00:00Z", "modifiedDate": "2024-04-30T17:30:00Z", "createdBy": {}, "reviewStatus": "published", "isSystemCreated": false, "fieldToUpdate": "custom.contactPerson.cust1"}
+        "400":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+        "500":
+          application/json: {"code": "<value>", "developerMessage": "<value>"}
+    Unsupported Parameters:
+      parameters:
+        path:
+          promptID: "PROD-4582"
+        query:
+          department: "Service"
+          languageCode: "en-US"
+        header:
+          Accept-Language: "en-US"
+      responses:
+        "400":
+          application/json: {"code": "400-101", "developerMessage": "Unsupported query parameter(s) supplied: '<query_parameter>'."}
+        "500":
+          application/json: {"code": "400-101", "developerMessage": "Unsupported query parameter(s) supplied: '<query_parameter>'."}
+    Invalid Value:
+      parameters:
+        path:
+          promptID: "PROD-4582"
+        query:
+          department: "Service"
+          languageCode: "en-US"
+        header:
+          Accept-Language: "en-US"
+      responses:
+        "400":
+          application/json: {"code": "400-152", "developerMessage": "Invalid value is provided in the request body for the following attribute:'<attribute_name>'."}
+        "500":
+          application/json: {"code": "400-152", "developerMessage": "Invalid value is provided in the request body for the following attribute:'<attribute_name>'."}
+    Missing required query parameter:
+      parameters:
+        path:
+          promptID: "PROD-4582"
+        query:
+          department: "Service"
+          languageCode: "en-US"
+        header:
+          Accept-Language: "en-US"
+      responses:
+        "400":
+          application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: '<query_parameter>'."}
+        "500":
+          application/json: {"code": "400-112", "developerMessage": "Required query parameter(s) is missing. The following parameters are required: '<query_parameter>'."}
 examplesVersion: 1.0.2
