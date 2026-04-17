@@ -19,15 +19,15 @@ public class DataSourceCredentials {
      * Access key for S3 credentials datasource. Provide along with Secret Key.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("accessKey")
-    private String accessKey;
+    @JsonProperty("accessKeyId")
+    private String accessKeyId;
 
     /**
      * Secret key for S3 credentials datasource. Provide along with Access Key.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("secretKey")
-    private String secretKey;
+    @JsonProperty("secretAccessKey")
+    private String secretAccessKey;
 
     /**
      * Username for SFTP credentials datasource. Provide along with Password.
@@ -45,12 +45,12 @@ public class DataSourceCredentials {
 
     @JsonCreator
     public DataSourceCredentials(
-            @JsonProperty("accessKey") @Nullable String accessKey,
-            @JsonProperty("secretKey") @Nullable String secretKey,
+            @JsonProperty("accessKeyId") @Nullable String accessKeyId,
+            @JsonProperty("secretAccessKey") @Nullable String secretAccessKey,
             @JsonProperty("username") @Nullable String username,
             @JsonProperty("password") @Nullable String password) {
-        this.accessKey = accessKey;
-        this.secretKey = secretKey;
+        this.accessKeyId = accessKeyId;
+        this.secretAccessKey = secretAccessKey;
         this.username = username;
         this.password = password;
     }
@@ -63,15 +63,15 @@ public class DataSourceCredentials {
     /**
      * Access key for S3 credentials datasource. Provide along with Secret Key.
      */
-    public Optional<String> accessKey() {
-        return Optional.ofNullable(this.accessKey);
+    public Optional<String> accessKeyId() {
+        return Optional.ofNullable(this.accessKeyId);
     }
 
     /**
      * Secret key for S3 credentials datasource. Provide along with Access Key.
      */
-    public Optional<String> secretKey() {
-        return Optional.ofNullable(this.secretKey);
+    public Optional<String> secretAccessKey() {
+        return Optional.ofNullable(this.secretAccessKey);
     }
 
     /**
@@ -96,8 +96,8 @@ public class DataSourceCredentials {
     /**
      * Access key for S3 credentials datasource. Provide along with Secret Key.
      */
-    public DataSourceCredentials withAccessKey(@Nullable String accessKey) {
-        this.accessKey = accessKey;
+    public DataSourceCredentials withAccessKeyId(@Nullable String accessKeyId) {
+        this.accessKeyId = accessKeyId;
         return this;
     }
 
@@ -105,8 +105,8 @@ public class DataSourceCredentials {
     /**
      * Secret key for S3 credentials datasource. Provide along with Access Key.
      */
-    public DataSourceCredentials withSecretKey(@Nullable String secretKey) {
-        this.secretKey = secretKey;
+    public DataSourceCredentials withSecretAccessKey(@Nullable String secretAccessKey) {
+        this.secretAccessKey = secretAccessKey;
         return this;
     }
 
@@ -139,8 +139,8 @@ public class DataSourceCredentials {
         }
         DataSourceCredentials other = (DataSourceCredentials) o;
         return 
-            Utils.enhancedDeepEquals(this.accessKey, other.accessKey) &&
-            Utils.enhancedDeepEquals(this.secretKey, other.secretKey) &&
+            Utils.enhancedDeepEquals(this.accessKeyId, other.accessKeyId) &&
+            Utils.enhancedDeepEquals(this.secretAccessKey, other.secretAccessKey) &&
             Utils.enhancedDeepEquals(this.username, other.username) &&
             Utils.enhancedDeepEquals(this.password, other.password);
     }
@@ -148,15 +148,15 @@ public class DataSourceCredentials {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accessKey, secretKey, username,
+            accessKeyId, secretAccessKey, username,
             password);
     }
     
     @Override
     public String toString() {
         return Utils.toString(DataSourceCredentials.class,
-                "accessKey", accessKey,
-                "secretKey", secretKey,
+                "accessKeyId", accessKeyId,
+                "secretAccessKey", secretAccessKey,
                 "username", username,
                 "password", password);
     }
@@ -164,9 +164,9 @@ public class DataSourceCredentials {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String accessKey;
+        private String accessKeyId;
 
-        private String secretKey;
+        private String secretAccessKey;
 
         private String username;
 
@@ -179,16 +179,16 @@ public class DataSourceCredentials {
         /**
          * Access key for S3 credentials datasource. Provide along with Secret Key.
          */
-        public Builder accessKey(@Nullable String accessKey) {
-            this.accessKey = accessKey;
+        public Builder accessKeyId(@Nullable String accessKeyId) {
+            this.accessKeyId = accessKeyId;
             return this;
         }
 
         /**
          * Secret key for S3 credentials datasource. Provide along with Access Key.
          */
-        public Builder secretKey(@Nullable String secretKey) {
-            this.secretKey = secretKey;
+        public Builder secretAccessKey(@Nullable String secretAccessKey) {
+            this.secretAccessKey = secretAccessKey;
             return this;
         }
 
@@ -210,7 +210,7 @@ public class DataSourceCredentials {
 
         public DataSourceCredentials build() {
             return new DataSourceCredentials(
-                accessKey, secretKey, username,
+                accessKeyId, secretAccessKey, username,
                 password);
         }
 

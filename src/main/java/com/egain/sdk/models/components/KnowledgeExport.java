@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
@@ -20,7 +21,8 @@ import java.util.Optional;
 
 public class KnowledgeExport {
     /**
-     * Category of articles to return. All includes browsable and searchable.
+     * Category of articles to return. If all is selected, it includes both browsable and searchable
+     * articles.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("articleCategories")
@@ -40,12 +42,25 @@ public class KnowledgeExport {
     private KnowledgeExportLanguage language;
 
     /**
-     * Types of Knowledge Hub resources to export. Multiple values can be specified using a comma-separated
-     * list: {articles, topics, portals, all}.
-     * Details of a single portal are exported.
-     * Articles whose state is Published are returned.
+     * Determines which article version to export. If true, the latest unpublished version will be exported
+     * for each article where available, and articles that do not have an unpublished version will be
+     * omitted from the export. If this property is false or omitted, the latest published version will be
+     * exported for each article where available.
      * 
-     * <p>Portal Attribute Name | Description
+     * <p>Each request exports either all published or all unpublished article versions in a portal; never
+     * both.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("exportUnpublishedOnly")
+    private Boolean exportUnpublishedOnly;
+
+    /**
+     * Types of Knowledge Hub resources to export. Use 'all' to specify all resource types at once.
+     * 
+     * <p>Below are the attributes that are returned for each resource type specified.
+     * 
+     * <p>##### Portal Resource Type Attributes
+     * Portal Attribute Name | Description
      * ------------------------------- | -----------
      * | id | The ID of the Portal in Readable format.
      * | alternateId | The system-generated ID of the Portal in long format.
@@ -54,7 +69,8 @@ public class KnowledgeExport {
      * | departmentId | ID of the department this Portal belongs to.
      * | defaultContentLanguageId | The default ID of the language for the portal content.
      * 
-     * <p>| Topic Attribute Name | Description
+     * <p>##### Topic Resource Type Attributes
+     * | Topic Attribute Name | Description
      * | ------------------------------ | -----------
      * | id | The ID of the Topic in Readable form.
      * | alternateId | The system-generated ID of the Topic in long form.
@@ -69,37 +85,9 @@ public class KnowledgeExport {
      * | customAttributes | One or more comma-separated names for Topic custom attributes defined by the
      * user to be returned.
      * 
-     * <p>| Article Attribute Name | Description
-     * | ---------------------- | -----------
-     * | id | The ID of the Article in Readable form.
-     * | alternateId | The system-generated ID of the Article in long form.
-     * | name  | The name of the Article.
-     * | additionalInfo | Additional information provided as Article metadata.
-     * | type | The Article type object and its attributes.
-     * | keywords | A comma-separated list of keywords associated with this Article, provided as metadata.
-     * | summary | A brief summary of the Article, provided as metadata.
-     * | state | The state of the Article. State P (Published).
-     * | departmentId | ID of the department this Article belongs to.
-     * | description | The description of the Article.
-     * | imageURL | The URL of the image that is present in the Article version. It is used as the
-     * thumbnail image for the Article.
-     * | attachements | The Article's uploaded attachments and their IDs.
-     * | includeInGenAI  | Indicates whether this Article is used for eGain's generative AI features.
-     * | topicBreadcrumb | Contains a list of topics from the top-level topic to this Article. There may be
-     * multiple paths.
-     * | versionId | The ID of the Article version that is returned.
-     * | expirationDate | The date that the Article is set to expire.
-     * | averageRating | Average rating of the Article.
-     * | timesRated | Number or times the Article was rated.
-     * | availabilityDate | The date the Article is set to be available.
-     * | modifiedDate | The date that the Article was last modified on.
-     * | articleMacro | The macro of the Article.
-     * | content | path to the Article content in .html format.
-     * | customAttributes | One or more comma-separated names for Article custom attributes defined by the
-     * user to be returned.
-     * | personalization | Article personalization details, incuding tag categories.
-     * | editions | The editions of the Article, including the publish profile (view) associated with each
-     * edition.
+     * <p>##### Article Resource Type Attributes
+     * Export article's attributes returned are aligned with the response of the [Get Article By ID with
+     * Editions](../article/getarticlebyidwitheditions) API.
      */
     @JsonProperty("resourceTypes")
     private List<ResourceType> resourceTypes;
@@ -113,6 +101,7 @@ public class KnowledgeExport {
             @JsonProperty("articleCategories") @Nullable ArticleCategories articleCategories,
             @JsonProperty("portalID") @Nonnull String portalID,
             @JsonProperty("language") @Nonnull KnowledgeExportLanguage language,
+            @JsonProperty("exportUnpublishedOnly") @Nullable Boolean exportUnpublishedOnly,
             @JsonProperty("resourceTypes") @Nonnull List<ResourceType> resourceTypes,
             @JsonProperty("dataDestination") @Nonnull DataDestination dataDestination) {
         this.articleCategories = Optional.ofNullable(articleCategories)
@@ -121,6 +110,8 @@ public class KnowledgeExport {
             .orElseThrow(() -> new IllegalArgumentException("portalID cannot be null"));
         this.language = Optional.ofNullable(language)
             .orElseThrow(() -> new IllegalArgumentException("language cannot be null"));
+        this.exportUnpublishedOnly = Optional.ofNullable(exportUnpublishedOnly)
+            .orElse(Builder._SINGLETON_VALUE_ExportUnpublishedOnly.value());
         this.resourceTypes = Optional.ofNullable(resourceTypes)
             .orElseThrow(() -> new IllegalArgumentException("resourceTypes cannot be null"));
         this.dataDestination = Optional.ofNullable(dataDestination)
@@ -133,11 +124,12 @@ public class KnowledgeExport {
             @Nonnull List<ResourceType> resourceTypes,
             @Nonnull DataDestination dataDestination) {
         this(null, portalID, language,
-            resourceTypes, dataDestination);
+            null, resourceTypes, dataDestination);
     }
 
     /**
-     * Category of articles to return. All includes browsable and searchable.
+     * Category of articles to return. If all is selected, it includes both browsable and searchable
+     * articles.
      */
     public Optional<ArticleCategories> articleCategories() {
         return Optional.ofNullable(this.articleCategories);
@@ -159,12 +151,25 @@ public class KnowledgeExport {
     }
 
     /**
-     * Types of Knowledge Hub resources to export. Multiple values can be specified using a comma-separated
-     * list: {articles, topics, portals, all}.
-     * Details of a single portal are exported.
-     * Articles whose state is Published are returned.
+     * Determines which article version to export. If true, the latest unpublished version will be exported
+     * for each article where available, and articles that do not have an unpublished version will be
+     * omitted from the export. If this property is false or omitted, the latest published version will be
+     * exported for each article where available.
      * 
-     * <p>Portal Attribute Name | Description
+     * <p>Each request exports either all published or all unpublished article versions in a portal; never
+     * both.
+     */
+    public Optional<Boolean> exportUnpublishedOnly() {
+        return Optional.ofNullable(this.exportUnpublishedOnly);
+    }
+
+    /**
+     * Types of Knowledge Hub resources to export. Use 'all' to specify all resource types at once.
+     * 
+     * <p>Below are the attributes that are returned for each resource type specified.
+     * 
+     * <p>##### Portal Resource Type Attributes
+     * Portal Attribute Name | Description
      * ------------------------------- | -----------
      * | id | The ID of the Portal in Readable format.
      * | alternateId | The system-generated ID of the Portal in long format.
@@ -173,7 +178,8 @@ public class KnowledgeExport {
      * | departmentId | ID of the department this Portal belongs to.
      * | defaultContentLanguageId | The default ID of the language for the portal content.
      * 
-     * <p>| Topic Attribute Name | Description
+     * <p>##### Topic Resource Type Attributes
+     * | Topic Attribute Name | Description
      * | ------------------------------ | -----------
      * | id | The ID of the Topic in Readable form.
      * | alternateId | The system-generated ID of the Topic in long form.
@@ -188,37 +194,9 @@ public class KnowledgeExport {
      * | customAttributes | One or more comma-separated names for Topic custom attributes defined by the
      * user to be returned.
      * 
-     * <p>| Article Attribute Name | Description
-     * | ---------------------- | -----------
-     * | id | The ID of the Article in Readable form.
-     * | alternateId | The system-generated ID of the Article in long form.
-     * | name  | The name of the Article.
-     * | additionalInfo | Additional information provided as Article metadata.
-     * | type | The Article type object and its attributes.
-     * | keywords | A comma-separated list of keywords associated with this Article, provided as metadata.
-     * | summary | A brief summary of the Article, provided as metadata.
-     * | state | The state of the Article. State P (Published).
-     * | departmentId | ID of the department this Article belongs to.
-     * | description | The description of the Article.
-     * | imageURL | The URL of the image that is present in the Article version. It is used as the
-     * thumbnail image for the Article.
-     * | attachements | The Article's uploaded attachments and their IDs.
-     * | includeInGenAI  | Indicates whether this Article is used for eGain's generative AI features.
-     * | topicBreadcrumb | Contains a list of topics from the top-level topic to this Article. There may be
-     * multiple paths.
-     * | versionId | The ID of the Article version that is returned.
-     * | expirationDate | The date that the Article is set to expire.
-     * | averageRating | Average rating of the Article.
-     * | timesRated | Number or times the Article was rated.
-     * | availabilityDate | The date the Article is set to be available.
-     * | modifiedDate | The date that the Article was last modified on.
-     * | articleMacro | The macro of the Article.
-     * | content | path to the Article content in .html format.
-     * | customAttributes | One or more comma-separated names for Article custom attributes defined by the
-     * user to be returned.
-     * | personalization | Article personalization details, incuding tag categories.
-     * | editions | The editions of the Article, including the publish profile (view) associated with each
-     * edition.
+     * <p>##### Article Resource Type Attributes
+     * Export article's attributes returned are aligned with the response of the [Get Article By ID with
+     * Editions](../article/getarticlebyidwitheditions) API.
      */
     public List<ResourceType> resourceTypes() {
         return this.resourceTypes;
@@ -234,7 +212,8 @@ public class KnowledgeExport {
 
 
     /**
-     * Category of articles to return. All includes browsable and searchable.
+     * Category of articles to return. If all is selected, it includes both browsable and searchable
+     * articles.
      */
     public KnowledgeExport withArticleCategories(@Nullable ArticleCategories articleCategories) {
         this.articleCategories = articleCategories;
@@ -262,12 +241,27 @@ public class KnowledgeExport {
 
 
     /**
-     * Types of Knowledge Hub resources to export. Multiple values can be specified using a comma-separated
-     * list: {articles, topics, portals, all}.
-     * Details of a single portal are exported.
-     * Articles whose state is Published are returned.
+     * Determines which article version to export. If true, the latest unpublished version will be exported
+     * for each article where available, and articles that do not have an unpublished version will be
+     * omitted from the export. If this property is false or omitted, the latest published version will be
+     * exported for each article where available.
      * 
-     * <p>Portal Attribute Name | Description
+     * <p>Each request exports either all published or all unpublished article versions in a portal; never
+     * both.
+     */
+    public KnowledgeExport withExportUnpublishedOnly(@Nullable Boolean exportUnpublishedOnly) {
+        this.exportUnpublishedOnly = exportUnpublishedOnly;
+        return this;
+    }
+
+
+    /**
+     * Types of Knowledge Hub resources to export. Use 'all' to specify all resource types at once.
+     * 
+     * <p>Below are the attributes that are returned for each resource type specified.
+     * 
+     * <p>##### Portal Resource Type Attributes
+     * Portal Attribute Name | Description
      * ------------------------------- | -----------
      * | id | The ID of the Portal in Readable format.
      * | alternateId | The system-generated ID of the Portal in long format.
@@ -276,7 +270,8 @@ public class KnowledgeExport {
      * | departmentId | ID of the department this Portal belongs to.
      * | defaultContentLanguageId | The default ID of the language for the portal content.
      * 
-     * <p>| Topic Attribute Name | Description
+     * <p>##### Topic Resource Type Attributes
+     * | Topic Attribute Name | Description
      * | ------------------------------ | -----------
      * | id | The ID of the Topic in Readable form.
      * | alternateId | The system-generated ID of the Topic in long form.
@@ -291,37 +286,9 @@ public class KnowledgeExport {
      * | customAttributes | One or more comma-separated names for Topic custom attributes defined by the
      * user to be returned.
      * 
-     * <p>| Article Attribute Name | Description
-     * | ---------------------- | -----------
-     * | id | The ID of the Article in Readable form.
-     * | alternateId | The system-generated ID of the Article in long form.
-     * | name  | The name of the Article.
-     * | additionalInfo | Additional information provided as Article metadata.
-     * | type | The Article type object and its attributes.
-     * | keywords | A comma-separated list of keywords associated with this Article, provided as metadata.
-     * | summary | A brief summary of the Article, provided as metadata.
-     * | state | The state of the Article. State P (Published).
-     * | departmentId | ID of the department this Article belongs to.
-     * | description | The description of the Article.
-     * | imageURL | The URL of the image that is present in the Article version. It is used as the
-     * thumbnail image for the Article.
-     * | attachements | The Article's uploaded attachments and their IDs.
-     * | includeInGenAI  | Indicates whether this Article is used for eGain's generative AI features.
-     * | topicBreadcrumb | Contains a list of topics from the top-level topic to this Article. There may be
-     * multiple paths.
-     * | versionId | The ID of the Article version that is returned.
-     * | expirationDate | The date that the Article is set to expire.
-     * | averageRating | Average rating of the Article.
-     * | timesRated | Number or times the Article was rated.
-     * | availabilityDate | The date the Article is set to be available.
-     * | modifiedDate | The date that the Article was last modified on.
-     * | articleMacro | The macro of the Article.
-     * | content | path to the Article content in .html format.
-     * | customAttributes | One or more comma-separated names for Article custom attributes defined by the
-     * user to be returned.
-     * | personalization | Article personalization details, incuding tag categories.
-     * | editions | The editions of the Article, including the publish profile (view) associated with each
-     * edition.
+     * <p>##### Article Resource Type Attributes
+     * Export article's attributes returned are aligned with the response of the [Get Article By ID with
+     * Editions](../article/getarticlebyidwitheditions) API.
      */
     public KnowledgeExport withResourceTypes(@Nonnull List<ResourceType> resourceTypes) {
         this.resourceTypes = Utils.checkNotNull(resourceTypes, "resourceTypes");
@@ -348,6 +315,7 @@ public class KnowledgeExport {
             Utils.enhancedDeepEquals(this.articleCategories, other.articleCategories) &&
             Utils.enhancedDeepEquals(this.portalID, other.portalID) &&
             Utils.enhancedDeepEquals(this.language, other.language) &&
+            Utils.enhancedDeepEquals(this.exportUnpublishedOnly, other.exportUnpublishedOnly) &&
             Utils.enhancedDeepEquals(this.resourceTypes, other.resourceTypes) &&
             Utils.enhancedDeepEquals(this.dataDestination, other.dataDestination);
     }
@@ -356,7 +324,7 @@ public class KnowledgeExport {
     public int hashCode() {
         return Utils.enhancedHash(
             articleCategories, portalID, language,
-            resourceTypes, dataDestination);
+            exportUnpublishedOnly, resourceTypes, dataDestination);
     }
     
     @Override
@@ -365,6 +333,7 @@ public class KnowledgeExport {
                 "articleCategories", articleCategories,
                 "portalID", portalID,
                 "language", language,
+                "exportUnpublishedOnly", exportUnpublishedOnly,
                 "resourceTypes", resourceTypes,
                 "dataDestination", dataDestination);
     }
@@ -378,6 +347,8 @@ public class KnowledgeExport {
 
         private KnowledgeExportLanguage language;
 
+        private Boolean exportUnpublishedOnly;
+
         private List<ResourceType> resourceTypes;
 
         private DataDestination dataDestination;
@@ -387,7 +358,8 @@ public class KnowledgeExport {
         }
 
         /**
-         * Category of articles to return. All includes browsable and searchable.
+         * Category of articles to return. If all is selected, it includes both browsable and searchable
+         * articles.
          */
         public Builder articleCategories(@Nullable ArticleCategories articleCategories) {
             this.articleCategories = articleCategories;
@@ -412,12 +384,26 @@ public class KnowledgeExport {
         }
 
         /**
-         * Types of Knowledge Hub resources to export. Multiple values can be specified using a comma-separated
-         * list: {articles, topics, portals, all}.
-         * Details of a single portal are exported.
-         * Articles whose state is Published are returned.
+         * Determines which article version to export. If true, the latest unpublished version will be exported
+         * for each article where available, and articles that do not have an unpublished version will be
+         * omitted from the export. If this property is false or omitted, the latest published version will be
+         * exported for each article where available.
          * 
-         * <p>Portal Attribute Name | Description
+         * <p>Each request exports either all published or all unpublished article versions in a portal; never
+         * both.
+         */
+        public Builder exportUnpublishedOnly(@Nullable Boolean exportUnpublishedOnly) {
+            this.exportUnpublishedOnly = exportUnpublishedOnly;
+            return this;
+        }
+
+        /**
+         * Types of Knowledge Hub resources to export. Use 'all' to specify all resource types at once.
+         * 
+         * <p>Below are the attributes that are returned for each resource type specified.
+         * 
+         * <p>##### Portal Resource Type Attributes
+         * Portal Attribute Name | Description
          * ------------------------------- | -----------
          * | id | The ID of the Portal in Readable format.
          * | alternateId | The system-generated ID of the Portal in long format.
@@ -426,7 +412,8 @@ public class KnowledgeExport {
          * | departmentId | ID of the department this Portal belongs to.
          * | defaultContentLanguageId | The default ID of the language for the portal content.
          * 
-         * <p>| Topic Attribute Name | Description
+         * <p>##### Topic Resource Type Attributes
+         * | Topic Attribute Name | Description
          * | ------------------------------ | -----------
          * | id | The ID of the Topic in Readable form.
          * | alternateId | The system-generated ID of the Topic in long form.
@@ -441,37 +428,9 @@ public class KnowledgeExport {
          * | customAttributes | One or more comma-separated names for Topic custom attributes defined by the
          * user to be returned.
          * 
-         * <p>| Article Attribute Name | Description
-         * | ---------------------- | -----------
-         * | id | The ID of the Article in Readable form.
-         * | alternateId | The system-generated ID of the Article in long form.
-         * | name  | The name of the Article.
-         * | additionalInfo | Additional information provided as Article metadata.
-         * | type | The Article type object and its attributes.
-         * | keywords | A comma-separated list of keywords associated with this Article, provided as metadata.
-         * | summary | A brief summary of the Article, provided as metadata.
-         * | state | The state of the Article. State P (Published).
-         * | departmentId | ID of the department this Article belongs to.
-         * | description | The description of the Article.
-         * | imageURL | The URL of the image that is present in the Article version. It is used as the
-         * thumbnail image for the Article.
-         * | attachements | The Article's uploaded attachments and their IDs.
-         * | includeInGenAI  | Indicates whether this Article is used for eGain's generative AI features.
-         * | topicBreadcrumb | Contains a list of topics from the top-level topic to this Article. There may be
-         * multiple paths.
-         * | versionId | The ID of the Article version that is returned.
-         * | expirationDate | The date that the Article is set to expire.
-         * | averageRating | Average rating of the Article.
-         * | timesRated | Number or times the Article was rated.
-         * | availabilityDate | The date the Article is set to be available.
-         * | modifiedDate | The date that the Article was last modified on.
-         * | articleMacro | The macro of the Article.
-         * | content | path to the Article content in .html format.
-         * | customAttributes | One or more comma-separated names for Article custom attributes defined by the
-         * user to be returned.
-         * | personalization | Article personalization details, incuding tag categories.
-         * | editions | The editions of the Article, including the publish profile (view) associated with each
-         * edition.
+         * <p>##### Article Resource Type Attributes
+         * Export article's attributes returned are aligned with the response of the [Get Article By ID with
+         * Editions](../article/getarticlebyidwitheditions) API.
          */
         public Builder resourceTypes(@Nonnull List<ResourceType> resourceTypes) {
             this.resourceTypes = Utils.checkNotNull(resourceTypes, "resourceTypes");
@@ -486,7 +445,7 @@ public class KnowledgeExport {
         public KnowledgeExport build() {
             return new KnowledgeExport(
                 articleCategories, portalID, language,
-                resourceTypes, dataDestination);
+                exportUnpublishedOnly, resourceTypes, dataDestination);
         }
 
 
@@ -495,5 +454,11 @@ public class KnowledgeExport {
                         "articleCategories",
                         "\"searchable\"",
                         new TypeReference<ArticleCategories>() {});
+
+        private static final LazySingletonValue<Boolean> _SINGLETON_VALUE_ExportUnpublishedOnly =
+                new LazySingletonValue<>(
+                        "exportUnpublishedOnly",
+                        "false",
+                        new TypeReference<Boolean>() {});
     }
 }

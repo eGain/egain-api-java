@@ -3,6 +3,7 @@
  */
 package com.egain.sdk.models.operations;
 
+import com.egain.sdk.models.components.AcceptLanguage;
 import com.egain.sdk.utils.SpeakeasyMetadata;
 import com.egain.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -14,6 +15,13 @@ import java.util.Optional;
 
 public class ExportStatusRequest {
     /**
+     * The Language locale accepted by the client (used for locale specific fields in resource
+     * representation and in error responses).
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=Accept-Language")
+    private AcceptLanguage acceptLanguage;
+
+    /**
      * **Example Usage:**
      * ```bash
      * GET /content/export/7A84B875-6F75-4C7B-B137-0632B62DB0BD/status
@@ -24,9 +32,20 @@ public class ExportStatusRequest {
 
     @JsonCreator
     public ExportStatusRequest(
+            @Nonnull AcceptLanguage acceptLanguage,
             @Nonnull String jobID) {
+        this.acceptLanguage = Optional.ofNullable(acceptLanguage)
+            .orElseThrow(() -> new IllegalArgumentException("acceptLanguage cannot be null"));
         this.jobID = Optional.ofNullable(jobID)
             .orElseThrow(() -> new IllegalArgumentException("jobID cannot be null"));
+    }
+
+    /**
+     * The Language locale accepted by the client (used for locale specific fields in resource
+     * representation and in error responses).
+     */
+    public AcceptLanguage acceptLanguage() {
+        return this.acceptLanguage;
     }
 
     /**
@@ -41,6 +60,16 @@ public class ExportStatusRequest {
 
     public static Builder builder() {
         return new Builder();
+    }
+
+
+    /**
+     * The Language locale accepted by the client (used for locale specific fields in resource
+     * representation and in error responses).
+     */
+    public ExportStatusRequest withAcceptLanguage(@Nonnull AcceptLanguage acceptLanguage) {
+        this.acceptLanguage = Utils.checkNotNull(acceptLanguage, "acceptLanguage");
+        return this;
     }
 
 
@@ -66,28 +95,41 @@ public class ExportStatusRequest {
         }
         ExportStatusRequest other = (ExportStatusRequest) o;
         return 
+            Utils.enhancedDeepEquals(this.acceptLanguage, other.acceptLanguage) &&
             Utils.enhancedDeepEquals(this.jobID, other.jobID);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            jobID);
+            acceptLanguage, jobID);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ExportStatusRequest.class,
+                "acceptLanguage", acceptLanguage,
                 "jobID", jobID);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private AcceptLanguage acceptLanguage;
+
         private String jobID;
 
         private Builder() {
           // force use of static builder() method
+        }
+
+        /**
+         * The Language locale accepted by the client (used for locale specific fields in resource
+         * representation and in error responses).
+         */
+        public Builder acceptLanguage(@Nonnull AcceptLanguage acceptLanguage) {
+            this.acceptLanguage = Utils.checkNotNull(acceptLanguage, "acceptLanguage");
+            return this;
         }
 
         /**
@@ -103,7 +145,7 @@ public class ExportStatusRequest {
 
         public ExportStatusRequest build() {
             return new ExportStatusRequest(
-                jobID);
+                acceptLanguage, jobID);
         }
 
     }

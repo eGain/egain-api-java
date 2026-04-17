@@ -44,18 +44,18 @@ public class RetrieveResponse {
     private String eventId;
 
     /**
-     * Session ID passed by the client for this specific API call or event.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("clientSessionId")
-    private String clientSessionId;
-
-    /**
      * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
      * tie events back to a session.
      */
     @JsonProperty("sessionId")
     private String sessionId;
+
+    /**
+     * Session ID passed by the client for this specific API call or event.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("clientSessionId")
+    private String clientSessionId;
 
     @JsonCreator
     public RetrieveResponse(
@@ -63,23 +63,23 @@ public class RetrieveResponse {
             @JsonProperty("searchResults") @Nonnull List<SearchResult> searchResults,
             @JsonProperty("channel") @Nullable RetrieveResponseChannel channel,
             @JsonProperty("eventId") @Nullable String eventId,
-            @JsonProperty("clientSessionId") @Nullable String clientSessionId,
-            @JsonProperty("sessionId") @Nonnull String sessionId) {
+            @JsonProperty("sessionId") @Nonnull String sessionId,
+            @JsonProperty("clientSessionId") @Nullable String clientSessionId) {
         this.answer = answer;
         this.searchResults = Optional.ofNullable(searchResults)
             .orElseThrow(() -> new IllegalArgumentException("searchResults cannot be null"));
         this.channel = channel;
         this.eventId = eventId;
-        this.clientSessionId = clientSessionId;
         this.sessionId = Optional.ofNullable(sessionId)
             .orElseThrow(() -> new IllegalArgumentException("sessionId cannot be null"));
+        this.clientSessionId = clientSessionId;
     }
     
     public RetrieveResponse(
             @Nonnull List<SearchResult> searchResults,
             @Nonnull String sessionId) {
         this(null, searchResults, null,
-            null, null, sessionId);
+            null, sessionId, null);
     }
 
     /**
@@ -109,18 +109,18 @@ public class RetrieveResponse {
     }
 
     /**
-     * Session ID passed by the client for this specific API call or event.
-     */
-    public Optional<String> clientSessionId() {
-        return Optional.ofNullable(this.clientSessionId);
-    }
-
-    /**
      * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
      * tie events back to a session.
      */
     public String sessionId() {
         return this.sessionId;
+    }
+
+    /**
+     * Session ID passed by the client for this specific API call or event.
+     */
+    public Optional<String> clientSessionId() {
+        return Optional.ofNullable(this.clientSessionId);
     }
 
     public static Builder builder() {
@@ -163,20 +163,20 @@ public class RetrieveResponse {
 
 
     /**
-     * Session ID passed by the client for this specific API call or event.
-     */
-    public RetrieveResponse withClientSessionId(@Nullable String clientSessionId) {
-        this.clientSessionId = clientSessionId;
-        return this;
-    }
-
-
-    /**
      * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
      * tie events back to a session.
      */
     public RetrieveResponse withSessionId(@Nonnull String sessionId) {
         this.sessionId = Utils.checkNotNull(sessionId, "sessionId");
+        return this;
+    }
+
+
+    /**
+     * Session ID passed by the client for this specific API call or event.
+     */
+    public RetrieveResponse withClientSessionId(@Nullable String clientSessionId) {
+        this.clientSessionId = clientSessionId;
         return this;
     }
 
@@ -195,15 +195,15 @@ public class RetrieveResponse {
             Utils.enhancedDeepEquals(this.searchResults, other.searchResults) &&
             Utils.enhancedDeepEquals(this.channel, other.channel) &&
             Utils.enhancedDeepEquals(this.eventId, other.eventId) &&
-            Utils.enhancedDeepEquals(this.clientSessionId, other.clientSessionId) &&
-            Utils.enhancedDeepEquals(this.sessionId, other.sessionId);
+            Utils.enhancedDeepEquals(this.sessionId, other.sessionId) &&
+            Utils.enhancedDeepEquals(this.clientSessionId, other.clientSessionId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             answer, searchResults, channel,
-            eventId, clientSessionId, sessionId);
+            eventId, sessionId, clientSessionId);
     }
     
     @Override
@@ -213,8 +213,8 @@ public class RetrieveResponse {
                 "searchResults", searchResults,
                 "channel", channel,
                 "eventId", eventId,
-                "clientSessionId", clientSessionId,
-                "sessionId", sessionId);
+                "sessionId", sessionId,
+                "clientSessionId", clientSessionId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -228,9 +228,9 @@ public class RetrieveResponse {
 
         private String eventId;
 
-        private String clientSessionId;
-
         private String sessionId;
+
+        private String clientSessionId;
 
         private Builder() {
           // force use of static builder() method
@@ -267,14 +267,6 @@ public class RetrieveResponse {
         }
 
         /**
-         * Session ID passed by the client for this specific API call or event.
-         */
-        public Builder clientSessionId(@Nullable String clientSessionId) {
-            this.clientSessionId = clientSessionId;
-            return this;
-        }
-
-        /**
          * eGain Session ID that ties multiple API calls to the same user session. Will be used as part of to
          * tie events back to a session.
          */
@@ -283,10 +275,18 @@ public class RetrieveResponse {
             return this;
         }
 
+        /**
+         * Session ID passed by the client for this specific API call or event.
+         */
+        public Builder clientSessionId(@Nullable String clientSessionId) {
+            this.clientSessionId = clientSessionId;
+            return this;
+        }
+
         public RetrieveResponse build() {
             return new RetrieveResponse(
                 answer, searchResults, channel,
-                eventId, clientSessionId, sessionId);
+                eventId, sessionId, clientSessionId);
         }
 
     }

@@ -106,7 +106,7 @@ public class ExecutePrompt {
             String url = Utils.generateURL(
                     klass,
                     this.baseUrl,
-                    "/promptmanager/execute/prompt/{promptId}",
+                    "/prompt/{promptId}/execute",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "POST");
             Object convertedRequest = Utils.convertToShape(

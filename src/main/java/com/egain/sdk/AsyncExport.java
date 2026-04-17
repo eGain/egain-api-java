@@ -46,7 +46,7 @@ public class AsyncExport {
      * 
      * <p>## Overview
      * The Content Export API initiates a bulk export of the Knowledge Hub to a client-provided Amazon S3
-     * bucket.
+     * bucket or SFTP server path.
      * It returns a URL with a Job ID to enable tracking the status of this asynchronous operation.
      * Each export job can send multiple JSON files, depending on the total number of items to process.
      * More than one bulk export can take place, as needed, one per portal.
@@ -68,7 +68,7 @@ public class AsyncExport {
      * 
      * <p>## Overview
      * The Content Export API initiates a bulk export of the Knowledge Hub to a client-provided Amazon S3
-     * bucket.
+     * bucket or SFTP server path.
      * It returns a URL with a Job ID to enable tracking the status of this asynchronous operation.
      * Each export job can send multiple JSON files, depending on the total number of items to process.
      * More than one bulk export can take place, as needed, one per portal.
@@ -148,6 +148,7 @@ public class AsyncExport {
      * <p>## License
      * * This API requires a site license (SKU: EG-CL-RTKA-PT).
      * 
+     * @param acceptLanguage 
      * @param jobID **Example Usage:**
      *         ```bash
      *         GET /content/export/7A84B875-6F75-4C7B-B137-0632B62DB0BD/status
@@ -155,8 +156,8 @@ public class AsyncExport {
      *         
      * @return {@code CompletableFuture<ExportStatusResponse>} - The async response
      */
-    public CompletableFuture<ExportStatusResponse> exportStatus(@Nonnull String jobID) {
-        ExportStatusRequest request = new ExportStatusRequest(jobID);
+    public CompletableFuture<ExportStatusResponse> exportStatus(@Nonnull AcceptLanguage acceptLanguage, @Nonnull String jobID) {
+        ExportStatusRequest request = new ExportStatusRequest(acceptLanguage, jobID);
         AsyncRequestOperation<ExportStatusRequest, ExportStatusResponse> operation
               = new ExportStatus.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)

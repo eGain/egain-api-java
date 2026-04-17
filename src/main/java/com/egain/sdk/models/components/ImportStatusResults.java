@@ -24,8 +24,8 @@ public class ImportStatusResults {
      * Number of item succesfully processed by job.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("succesfull")
-    private Double succesfull;
+    @JsonProperty("successful")
+    private Double successful;
 
     /**
      * Number of warnings encountered during job.
@@ -43,10 +43,10 @@ public class ImportStatusResults {
 
     @JsonCreator
     public ImportStatusResults(
-            @JsonProperty("succesfull") @Nullable Double succesfull,
+            @JsonProperty("successful") @Nullable Double successful,
             @JsonProperty("warnings") @Nullable Double warnings,
             @JsonProperty("errors") @Nullable Double errors) {
-        this.succesfull = succesfull;
+        this.successful = successful;
         this.warnings = warnings;
         this.errors = errors;
     }
@@ -58,8 +58,8 @@ public class ImportStatusResults {
     /**
      * Number of item succesfully processed by job.
      */
-    public Optional<Double> succesfull() {
-        return Optional.ofNullable(this.succesfull);
+    public Optional<Double> successful() {
+        return Optional.ofNullable(this.successful);
     }
 
     /**
@@ -84,8 +84,8 @@ public class ImportStatusResults {
     /**
      * Number of item succesfully processed by job.
      */
-    public ImportStatusResults withSuccesfull(@Nullable Double succesfull) {
-        this.succesfull = succesfull;
+    public ImportStatusResults withSuccessful(@Nullable Double successful) {
+        this.successful = successful;
         return this;
     }
 
@@ -118,7 +118,7 @@ public class ImportStatusResults {
         }
         ImportStatusResults other = (ImportStatusResults) o;
         return 
-            Utils.enhancedDeepEquals(this.succesfull, other.succesfull) &&
+            Utils.enhancedDeepEquals(this.successful, other.successful) &&
             Utils.enhancedDeepEquals(this.warnings, other.warnings) &&
             Utils.enhancedDeepEquals(this.errors, other.errors);
     }
@@ -126,13 +126,13 @@ public class ImportStatusResults {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            succesfull, warnings, errors);
+            successful, warnings, errors);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ImportStatusResults.class,
-                "succesfull", succesfull,
+                "successful", successful,
                 "warnings", warnings,
                 "errors", errors);
     }
@@ -140,7 +140,7 @@ public class ImportStatusResults {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Double succesfull;
+        private Double successful;
 
         private Double warnings;
 
@@ -153,8 +153,8 @@ public class ImportStatusResults {
         /**
          * Number of item succesfully processed by job.
          */
-        public Builder succesfull(@Nullable Double succesfull) {
-            this.succesfull = succesfull;
+        public Builder successful(@Nullable Double successful) {
+            this.successful = successful;
             return this;
         }
 
@@ -176,7 +176,7 @@ public class ImportStatusResults {
 
         public ImportStatusResults build() {
             return new ImportStatusResults(
-                succesfull, warnings, errors);
+                successful, warnings, errors);
         }
 
     }

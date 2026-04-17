@@ -13,6 +13,7 @@ import com.egain.sdk.models.operations.AddAsReferenceRequest;
 import com.egain.sdk.models.operations.AddToReplyRequest;
 import com.egain.sdk.models.operations.ComplyArticleRequest;
 import com.egain.sdk.models.operations.GetAcknowledgedComplianceArticlesRequest;
+import com.egain.sdk.models.operations.GetAllArticleTypesRequest;
 import com.egain.sdk.models.operations.GetAnnouncementArticlesRequest;
 import com.egain.sdk.models.operations.GetArticleAttachmentByIdRequest;
 import com.egain.sdk.models.operations.GetArticleByIdRequest;
@@ -37,6 +38,8 @@ import com.egain.sdk.models.operations.async.ComplyArticleRequestBuilder;
 import com.egain.sdk.models.operations.async.ComplyArticleResponse;
 import com.egain.sdk.models.operations.async.GetAcknowledgedComplianceArticlesRequestBuilder;
 import com.egain.sdk.models.operations.async.GetAcknowledgedComplianceArticlesResponse;
+import com.egain.sdk.models.operations.async.GetAllArticleTypesRequestBuilder;
+import com.egain.sdk.models.operations.async.GetAllArticleTypesResponse;
 import com.egain.sdk.models.operations.async.GetAnnouncementArticlesRequestBuilder;
 import com.egain.sdk.models.operations.async.GetAnnouncementArticlesResponse;
 import com.egain.sdk.models.operations.async.GetArticleAttachmentByIdRequestBuilder;
@@ -73,6 +76,7 @@ import com.egain.sdk.operations.AddAsReference;
 import com.egain.sdk.operations.AddToReply;
 import com.egain.sdk.operations.ComplyArticle;
 import com.egain.sdk.operations.GetAcknowledgedComplianceArticles;
+import com.egain.sdk.operations.GetAllArticleTypes;
 import com.egain.sdk.operations.GetAnnouncementArticles;
 import com.egain.sdk.operations.GetArticleAttachmentById;
 import com.egain.sdk.operations.GetArticleById;
@@ -120,8 +124,9 @@ public class AsyncArticle {
      * Get Article by ID
      * 
      * <p>## Overview
-     * * The Get Article by ID API allows a user to retrieve an Article using its ID.
-     * * It requires a Portal ID, which a user can retrieve by calling the Get All Portals API.
+     * * The Get Article by ID API allows a user or client application to retrieve an Article using its ID.
+     * * It requires a Portal ID, which a user or client application can retrieve through the
+     * Administrative Console or by calling Get All Portals API.
      * * Additional Article attributes and contextual views can be specified in the query parameters.
      * 
      * <p>* This API returns structured authoring attributes of Issue, Environment, Cause and Confidence Level
@@ -159,8 +164,9 @@ public class AsyncArticle {
      * Get Article by ID
      * 
      * <p>## Overview
-     * * The Get Article by ID API allows a user to retrieve an Article using its ID.
-     * * It requires a Portal ID, which a user can retrieve by calling the Get All Portals API.
+     * * The Get Article by ID API allows a user or client application to retrieve an Article using its ID.
+     * * It requires a Portal ID, which a user or client application can retrieve through the
+     * Administrative Console or by calling Get All Portals API.
      * * Additional Article attributes and contextual views can be specified in the query parameters.
      * 
      * <p>* This API returns structured authoring attributes of Issue, Environment, Cause and Confidence Level
@@ -269,6 +275,39 @@ public class AsyncArticle {
                 language);
         AsyncRequestOperation<GetArticleEditionDetailsRequest, GetArticleEditionDetailsResponse> operation
               = new GetArticleEditionDetails.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Get All Article Types in a Department
+     * 
+     * <p>## Overview
+     * The Get All Article Types in a Department API retrieves a list of all Article Types configured for a
+     * specific department.
+     * 
+     * @return The async call builder
+     */
+    public GetAllArticleTypesRequestBuilder getAllArticleTypes() {
+        return new GetAllArticleTypesRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get All Article Types in a Department
+     * 
+     * <p>## Overview
+     * The Get All Article Types in a Department API retrieves a list of all Article Types configured for a
+     * specific department.
+     * 
+     * @param acceptLanguage 
+     * @param departmentID The ID of the department.
+     * @return {@code CompletableFuture<GetAllArticleTypesResponse>} - The async response
+     */
+    public CompletableFuture<GetAllArticleTypesResponse> getAllArticleTypes(@Nonnull AcceptLanguage acceptLanguage, @Nonnull String departmentID) {
+        GetAllArticleTypesRequest request = new GetAllArticleTypesRequest(acceptLanguage, departmentID);
+        AsyncRequestOperation<GetAllArticleTypesRequest, GetAllArticleTypesResponse> operation
+              = new GetAllArticleTypes.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }

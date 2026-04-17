@@ -23,35 +23,39 @@ public class DataDestination {
     private DestinationType destinationType;
 
     /**
-     * Path of the data destination. For S3 bucket, it can be root or a folder.
+     * Path of the data destination. For S3 bucket, it can be root or a folder. For SFTP, it can be target
+     * directory on the server.
+     * 
+     * <p>**Examples:**
+     * 
+     * <p>* **For S3:** `"s3://amzn-s3-demo-bucket/mydeptfolder"`
+     * * **For SFTP:** `"exports/mydeptfolder"`
      */
     @JsonProperty("path")
     private String path;
 
-    /**
-     * Region of the data destination
-     */
+
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("region")
-    private String region;
+    @JsonProperty("sftpDetails")
+    private SftpConfig sftpDetails;
 
 
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("credentials")
-    private Credentials credentials;
+    @JsonProperty("s3Details")
+    private S3Config s3Details;
 
     @JsonCreator
     public DataDestination(
             @JsonProperty("destinationType") @Nonnull DestinationType destinationType,
             @JsonProperty("path") @Nonnull String path,
-            @JsonProperty("region") @Nullable String region,
-            @JsonProperty("credentials") @Nullable Credentials credentials) {
+            @JsonProperty("sftpDetails") @Nullable SftpConfig sftpDetails,
+            @JsonProperty("s3Details") @Nullable S3Config s3Details) {
         this.destinationType = Optional.ofNullable(destinationType)
             .orElseThrow(() -> new IllegalArgumentException("destinationType cannot be null"));
         this.path = Optional.ofNullable(path)
             .orElseThrow(() -> new IllegalArgumentException("path cannot be null"));
-        this.region = region;
-        this.credentials = credentials;
+        this.sftpDetails = sftpDetails;
+        this.s3Details = s3Details;
     }
     
     public DataDestination(
@@ -69,21 +73,24 @@ public class DataDestination {
     }
 
     /**
-     * Path of the data destination. For S3 bucket, it can be root or a folder.
+     * Path of the data destination. For S3 bucket, it can be root or a folder. For SFTP, it can be target
+     * directory on the server.
+     * 
+     * <p>**Examples:**
+     * 
+     * <p>* **For S3:** `"s3://amzn-s3-demo-bucket/mydeptfolder"`
+     * * **For SFTP:** `"exports/mydeptfolder"`
      */
     public String path() {
         return this.path;
     }
 
-    /**
-     * Region of the data destination
-     */
-    public Optional<String> region() {
-        return Optional.ofNullable(this.region);
+    public Optional<SftpConfig> sftpDetails() {
+        return Optional.ofNullable(this.sftpDetails);
     }
 
-    public Optional<Credentials> credentials() {
-        return Optional.ofNullable(this.credentials);
+    public Optional<S3Config> s3Details() {
+        return Optional.ofNullable(this.s3Details);
     }
 
     public static Builder builder() {
@@ -101,7 +108,13 @@ public class DataDestination {
 
 
     /**
-     * Path of the data destination. For S3 bucket, it can be root or a folder.
+     * Path of the data destination. For S3 bucket, it can be root or a folder. For SFTP, it can be target
+     * directory on the server.
+     * 
+     * <p>**Examples:**
+     * 
+     * <p>* **For S3:** `"s3://amzn-s3-demo-bucket/mydeptfolder"`
+     * * **For SFTP:** `"exports/mydeptfolder"`
      */
     public DataDestination withPath(@Nonnull String path) {
         this.path = Utils.checkNotNull(path, "path");
@@ -109,17 +122,14 @@ public class DataDestination {
     }
 
 
-    /**
-     * Region of the data destination
-     */
-    public DataDestination withRegion(@Nullable String region) {
-        this.region = region;
+    public DataDestination withSftpDetails(@Nullable SftpConfig sftpDetails) {
+        this.sftpDetails = sftpDetails;
         return this;
     }
 
 
-    public DataDestination withCredentials(@Nullable Credentials credentials) {
-        this.credentials = credentials;
+    public DataDestination withS3Details(@Nullable S3Config s3Details) {
+        this.s3Details = s3Details;
         return this;
     }
 
@@ -136,15 +146,15 @@ public class DataDestination {
         return 
             Utils.enhancedDeepEquals(this.destinationType, other.destinationType) &&
             Utils.enhancedDeepEquals(this.path, other.path) &&
-            Utils.enhancedDeepEquals(this.region, other.region) &&
-            Utils.enhancedDeepEquals(this.credentials, other.credentials);
+            Utils.enhancedDeepEquals(this.sftpDetails, other.sftpDetails) &&
+            Utils.enhancedDeepEquals(this.s3Details, other.s3Details);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            destinationType, path, region,
-            credentials);
+            destinationType, path, sftpDetails,
+            s3Details);
     }
     
     @Override
@@ -152,8 +162,8 @@ public class DataDestination {
         return Utils.toString(DataDestination.class,
                 "destinationType", destinationType,
                 "path", path,
-                "region", region,
-                "credentials", credentials);
+                "sftpDetails", sftpDetails,
+                "s3Details", s3Details);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -163,9 +173,9 @@ public class DataDestination {
 
         private String path;
 
-        private String region;
+        private SftpConfig sftpDetails;
 
-        private Credentials credentials;
+        private S3Config s3Details;
 
         private Builder() {
           // force use of static builder() method
@@ -180,30 +190,33 @@ public class DataDestination {
         }
 
         /**
-         * Path of the data destination. For S3 bucket, it can be root or a folder.
+         * Path of the data destination. For S3 bucket, it can be root or a folder. For SFTP, it can be target
+         * directory on the server.
+         * 
+         * <p>**Examples:**
+         * 
+         * <p>* **For S3:** `"s3://amzn-s3-demo-bucket/mydeptfolder"`
+         * * **For SFTP:** `"exports/mydeptfolder"`
          */
         public Builder path(@Nonnull String path) {
             this.path = Utils.checkNotNull(path, "path");
             return this;
         }
 
-        /**
-         * Region of the data destination
-         */
-        public Builder region(@Nullable String region) {
-            this.region = region;
+        public Builder sftpDetails(@Nullable SftpConfig sftpDetails) {
+            this.sftpDetails = sftpDetails;
             return this;
         }
 
-        public Builder credentials(@Nullable Credentials credentials) {
-            this.credentials = credentials;
+        public Builder s3Details(@Nullable S3Config s3Details) {
+            this.s3Details = s3Details;
             return this;
         }
 
         public DataDestination build() {
             return new DataDestination(
-                destinationType, path, region,
-                credentials);
+                destinationType, path, sftpDetails,
+                s3Details);
         }
 
     }

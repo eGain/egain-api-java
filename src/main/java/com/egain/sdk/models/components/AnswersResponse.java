@@ -34,13 +34,6 @@ public class AnswersResponse {
     private AnswersResponseChannel channel;
 
     /**
-     * Unique ID for this specific API call or event.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("eventId")
-    private String eventId;
-
-    /**
      * Session ID passed by the client for this specific API call or event.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -54,23 +47,30 @@ public class AnswersResponse {
     @JsonProperty("sessionId")
     private String sessionId;
 
+    /**
+     * Unique ID for this specific API call or event.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("eventId")
+    private String eventId;
+
     @JsonCreator
     public AnswersResponse(
             @JsonProperty("answer") @Nonnull AnswersResponseAnswer answer,
             @JsonProperty("searchResults") @Nonnull List<SearchResult> searchResults,
             @JsonProperty("channel") @Nullable AnswersResponseChannel channel,
-            @JsonProperty("eventId") @Nullable String eventId,
             @JsonProperty("clientSessionId") @Nullable String clientSessionId,
-            @JsonProperty("sessionId") @Nonnull String sessionId) {
+            @JsonProperty("sessionId") @Nonnull String sessionId,
+            @JsonProperty("eventId") @Nullable String eventId) {
         this.answer = Optional.ofNullable(answer)
             .orElseThrow(() -> new IllegalArgumentException("answer cannot be null"));
         this.searchResults = Optional.ofNullable(searchResults)
             .orElseThrow(() -> new IllegalArgumentException("searchResults cannot be null"));
         this.channel = channel;
-        this.eventId = eventId;
         this.clientSessionId = clientSessionId;
         this.sessionId = Optional.ofNullable(sessionId)
             .orElseThrow(() -> new IllegalArgumentException("sessionId cannot be null"));
+        this.eventId = eventId;
     }
     
     public AnswersResponse(
@@ -78,7 +78,7 @@ public class AnswersResponse {
             @Nonnull List<SearchResult> searchResults,
             @Nonnull String sessionId) {
         this(answer, searchResults, null,
-            null, null, sessionId);
+            null, sessionId, null);
     }
 
     public AnswersResponseAnswer answer() {
@@ -98,13 +98,6 @@ public class AnswersResponse {
     }
 
     /**
-     * Unique ID for this specific API call or event.
-     */
-    public Optional<String> eventId() {
-        return Optional.ofNullable(this.eventId);
-    }
-
-    /**
      * Session ID passed by the client for this specific API call or event.
      */
     public Optional<String> clientSessionId() {
@@ -117,6 +110,13 @@ public class AnswersResponse {
      */
     public String sessionId() {
         return this.sessionId;
+    }
+
+    /**
+     * Unique ID for this specific API call or event.
+     */
+    public Optional<String> eventId() {
+        return Optional.ofNullable(this.eventId);
     }
 
     public static Builder builder() {
@@ -147,15 +147,6 @@ public class AnswersResponse {
 
 
     /**
-     * Unique ID for this specific API call or event.
-     */
-    public AnswersResponse withEventId(@Nullable String eventId) {
-        this.eventId = eventId;
-        return this;
-    }
-
-
-    /**
      * Session ID passed by the client for this specific API call or event.
      */
     public AnswersResponse withClientSessionId(@Nullable String clientSessionId) {
@@ -174,6 +165,15 @@ public class AnswersResponse {
     }
 
 
+    /**
+     * Unique ID for this specific API call or event.
+     */
+    public AnswersResponse withEventId(@Nullable String eventId) {
+        this.eventId = eventId;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -187,16 +187,16 @@ public class AnswersResponse {
             Utils.enhancedDeepEquals(this.answer, other.answer) &&
             Utils.enhancedDeepEquals(this.searchResults, other.searchResults) &&
             Utils.enhancedDeepEquals(this.channel, other.channel) &&
-            Utils.enhancedDeepEquals(this.eventId, other.eventId) &&
             Utils.enhancedDeepEquals(this.clientSessionId, other.clientSessionId) &&
-            Utils.enhancedDeepEquals(this.sessionId, other.sessionId);
+            Utils.enhancedDeepEquals(this.sessionId, other.sessionId) &&
+            Utils.enhancedDeepEquals(this.eventId, other.eventId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             answer, searchResults, channel,
-            eventId, clientSessionId, sessionId);
+            clientSessionId, sessionId, eventId);
     }
     
     @Override
@@ -205,9 +205,9 @@ public class AnswersResponse {
                 "answer", answer,
                 "searchResults", searchResults,
                 "channel", channel,
-                "eventId", eventId,
                 "clientSessionId", clientSessionId,
-                "sessionId", sessionId);
+                "sessionId", sessionId,
+                "eventId", eventId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -219,11 +219,11 @@ public class AnswersResponse {
 
         private AnswersResponseChannel channel;
 
-        private String eventId;
-
         private String clientSessionId;
 
         private String sessionId;
+
+        private String eventId;
 
         private Builder() {
           // force use of static builder() method
@@ -249,14 +249,6 @@ public class AnswersResponse {
         }
 
         /**
-         * Unique ID for this specific API call or event.
-         */
-        public Builder eventId(@Nullable String eventId) {
-            this.eventId = eventId;
-            return this;
-        }
-
-        /**
          * Session ID passed by the client for this specific API call or event.
          */
         public Builder clientSessionId(@Nullable String clientSessionId) {
@@ -273,10 +265,18 @@ public class AnswersResponse {
             return this;
         }
 
+        /**
+         * Unique ID for this specific API call or event.
+         */
+        public Builder eventId(@Nullable String eventId) {
+            this.eventId = eventId;
+            return this;
+        }
+
         public AnswersResponse build() {
             return new AnswersResponse(
                 answer, searchResults, channel,
-                eventId, clientSessionId, sessionId);
+                clientSessionId, sessionId, eventId);
         }
 
     }

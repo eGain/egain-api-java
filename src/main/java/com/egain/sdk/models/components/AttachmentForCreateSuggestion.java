@@ -21,8 +21,7 @@ import java.util.Optional;
 public class AttachmentForCreateSuggestion {
     /**
      * The alternate Id of the Attachment that was obtained after calling **[Generate signed URL to upload
-     * an
-     * attachment](https://apidev.egain.com/api-catalog/core-filemgr/api-bundled/operation/generatePreUploadURL/)**.
+     * an attachment](../../../../../v3/core/filemgr/api-bundled/storageservice/generatepreuploadurl)**.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("altId")
@@ -40,8 +39,7 @@ public class AttachmentForCreateSuggestion {
 
     /**
      * The alternate Id of the Attachment that was obtained after calling **[Generate signed URL to upload
-     * an
-     * attachment](https://apidev.egain.com/api-catalog/core-filemgr/api-bundled/operation/generatePreUploadURL/)**.
+     * an attachment](../../../../../v3/core/filemgr/api-bundled/storageservice/generatepreuploadurl)**.
      */
     public Optional<String> altId() {
         return Optional.ofNullable(this.altId);
@@ -54,8 +52,7 @@ public class AttachmentForCreateSuggestion {
 
     /**
      * The alternate Id of the Attachment that was obtained after calling **[Generate signed URL to upload
-     * an
-     * attachment](https://apidev.egain.com/api-catalog/core-filemgr/api-bundled/operation/generatePreUploadURL/)**.
+     * an attachment](../../../../../v3/core/filemgr/api-bundled/storageservice/generatepreuploadurl)**.
      */
     public AttachmentForCreateSuggestion withAltId(@Nullable String altId) {
         this.altId = altId;
@@ -99,8 +96,7 @@ public class AttachmentForCreateSuggestion {
 
         /**
          * The alternate Id of the Attachment that was obtained after calling **[Generate signed URL to upload
-         * an
-         * attachment](https://apidev.egain.com/api-catalog/core-filemgr/api-bundled/operation/generatePreUploadURL/)**.
+         * an attachment](../../../../../v3/core/filemgr/api-bundled/storageservice/generatepreuploadurl)**.
          */
         public Builder altId(@Nullable String altId) {
             this.altId = altId;

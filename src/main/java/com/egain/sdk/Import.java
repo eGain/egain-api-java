@@ -5,6 +5,9 @@ package com.egain.sdk;
 
 import static com.egain.sdk.operations.Operations.RequestOperation;
 
+import com.egain.sdk.models.components.FileObject;
+import com.egain.sdk.models.components.Hook;
+import com.egain.sdk.models.components.HookTypeParam;
 import com.egain.sdk.models.components.ImportContent;
 import com.egain.sdk.models.components.ValidateImportContent;
 import com.egain.sdk.models.operations.CancelImportRequest;
@@ -14,13 +17,32 @@ import com.egain.sdk.models.operations.CreateImportJobRequestBuilder;
 import com.egain.sdk.models.operations.CreateImportJobResponse;
 import com.egain.sdk.models.operations.CreateImportValidationJobRequestBuilder;
 import com.egain.sdk.models.operations.CreateImportValidationJobResponse;
+import com.egain.sdk.models.operations.CreateValidationHookRequestBuilder;
+import com.egain.sdk.models.operations.CreateValidationHookResponse;
+import com.egain.sdk.models.operations.CreateValidationHookVersionRequest;
+import com.egain.sdk.models.operations.CreateValidationHookVersionRequestBuilder;
+import com.egain.sdk.models.operations.CreateValidationHookVersionResponse;
 import com.egain.sdk.models.operations.GetImportStatusRequest;
 import com.egain.sdk.models.operations.GetImportStatusRequestBuilder;
 import com.egain.sdk.models.operations.GetImportStatusResponse;
+import com.egain.sdk.models.operations.GetValidationHookVersionRequest;
+import com.egain.sdk.models.operations.GetValidationHookVersionRequestBuilder;
+import com.egain.sdk.models.operations.GetValidationHookVersionResponse;
+import com.egain.sdk.models.operations.GetValidationHookVersionsRequest;
+import com.egain.sdk.models.operations.GetValidationHookVersionsRequestBuilder;
+import com.egain.sdk.models.operations.GetValidationHookVersionsResponse;
+import com.egain.sdk.models.operations.GetValidationHooksRequest;
+import com.egain.sdk.models.operations.GetValidationHooksRequestBuilder;
+import com.egain.sdk.models.operations.GetValidationHooksResponse;
 import com.egain.sdk.operations.CancelImport;
 import com.egain.sdk.operations.CreateImportJob;
 import com.egain.sdk.operations.CreateImportValidationJob;
+import com.egain.sdk.operations.CreateValidationHook;
+import com.egain.sdk.operations.CreateValidationHookVersion;
 import com.egain.sdk.operations.GetImportStatus;
+import com.egain.sdk.operations.GetValidationHookVersion;
+import com.egain.sdk.operations.GetValidationHookVersions;
+import com.egain.sdk.operations.GetValidationHooks;
 import com.egain.sdk.utils.Headers;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -84,6 +106,10 @@ public class Import {
      * - **Monitoring**: Regularly check job status and logs for any issues
      * - **Error Handling**: Review failed items and retry with corrections
      * 
+     * <p>## Job Timing Controls
+     * - **scheduleTime.stopDate**: Defines a specific date time to cease operations regardless of progress
+     * (e.g., "Stop exactly at 5:00 PM").
+     * 
      * @return The call builder
      */
     public CreateImportJobRequestBuilder createImportJob() {
@@ -127,6 +153,10 @@ public class Import {
      * jobs can only be scheduled for a maximum of 7 days from the current date and time.
      * - **Monitoring**: Regularly check job status and logs for any issues
      * - **Error Handling**: Review failed items and retry with corrections
+     * 
+     * <p>## Job Timing Controls
+     * - **scheduleTime.stopDate**: Defines a specific date time to cease operations regardless of progress
+     * (e.g., "Stop exactly at 5:00 PM").
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -174,6 +204,10 @@ public class Import {
      * - **Monitoring**: Regularly check job status and logs for any issues
      * - **Error Handling**: Review failed items and retry with corrections
      * 
+     * <p>## Job Timing Controls
+     * - **scheduleTime.stopDate**: Defines a specific date time to cease operations regardless of progress
+     * (e.g., "Stop exactly at 5:00 PM").
+     * 
      * @param request The request object containing all the parameters for the API call.
      * @param serverURL Overrides the server URL.
      * @return The response from the API call
@@ -182,6 +216,550 @@ public class Import {
     public CreateImportJobResponse createImportJob(@Nonnull ImportContent request, @Nullable String serverURL) {
         RequestOperation<ImportContent, CreateImportJobResponse> operation
               = new CreateImportJob.Sync(sdkConfiguration, serverURL, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get validation hooks
+     * 
+     * <p>Retrieve all validation hooks configured for the current environment. Only the current version of
+     * each hook is returned.
+     * 
+     * @return The call builder
+     */
+    public GetValidationHooksRequestBuilder getValidationHooks() {
+        return new GetValidationHooksRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get validation hooks
+     * 
+     * <p>Retrieve all validation hooks configured for the current environment. Only the current version of
+     * each hook is returned.
+     * 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetValidationHooksResponse getValidationHooksDirect() {
+        return getValidationHooks(null, null);
+    }
+
+    /**
+     * Get validation hooks
+     * 
+     * <p>Retrieve all validation hooks configured for the current environment. Only the current version of
+     * each hook is returned.
+     * 
+     * @param type 
+     * @param serverURL Overrides the server URL.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetValidationHooksResponse getValidationHooks(@Nullable HookTypeParam type, @Nullable String serverURL) {
+        GetValidationHooksRequest request = new GetValidationHooksRequest(type);
+        RequestOperation<GetValidationHooksRequest, GetValidationHooksResponse> operation
+              = new GetValidationHooks.Sync(sdkConfiguration, serverURL, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Create validation hook
+     * 
+     * <p># Create Validation Hook
+     * 
+     * <p>## Overview
+     * This API allows you to create custom JavaScript-based validation hooks that execute during the bulk
+     * content ingestion process. Validation hooks enable organizations to enforce specific business rules,
+     * verify metadata compliance, and perform complex data integrity checks that go beyond standard system
+     * validation.
+     * 
+     * <p>## Usage Requirements
+     * To ensure successful hook creation and execution, please adhere to the following:
+     * - **Content Encoding**: The `fileObject.file.content` property must be a **Base64 encoded** string
+     * of your JavaScript logic.
+     * - **File Naming**: The filename should use the `.js` extension.
+     * - **Logic Return**: Your script must return a `result` object containing a boolean `success`
+     * property.
+     * - **Size Limit**: The encoded content must not exceed 1.5MB.
+     * 
+     * <p>## Hook Types
+     * - **Pre-Validation Hooks (`import_pre_validation_hook`)**: These execute **before** the standard
+     * system validation. They are ideal for enforcing custom business rules, such as ensuring all articles
+     * contain specific metadata.
+     * - **Post-Validation Hooks (`import_post_validation_hook`)**: These execute **after** the standard
+     * system validation. They have access to the `validationResults` from the system check, allowing you
+     * to block an import based on the severity of errors found.
+     * 
+     * <p>## Execution Environment
+     * Hooks run in a secure, sandboxed JavaScript environment (ES5/ES6).
+     * - **Prohibited**: File system access (`fs`), network access (HTTP requests), and module loading
+     * (`require`).
+     * - **Supported**: Standard JavaScript logic, `console.log()` for debugging, and a specialized
+     * `helpers` utility library for safe data access.
+     * 
+     * <p>## Implementation Examples
+     * 
+     * <p>### Example: Pre-Validation Logic
+     * This example demonstrates checking that every article contains a specific metadata field.
+     * ```javascript
+     * // Initialize result
+     * var result = { success: true };
+     * 
+     * <p>// Verify data exists
+     * if (helpers.hasField(data, 'articles') &amp;&amp; helpers.isNotEmpty(data.articles)) {
+     * 
+     * <p>var invalidArticles = [];
+     * 
+     * <p>for (var i = 0; i &lt; data.articles.length; i++) {
+     * var article = data.articles[i];
+     * 
+     * <p>if (!helpers.hasField(article, 'name')) {
+     * invalidArticles.push({ index: i, issue: "Missing name" });
+     * continue;
+     * }
+     * 
+     * <p>// Custom Rule: Check if 'description' exists in metadata
+     * if (!helpers.hasField(article, 'metadata') ||
+     * !helpers.hasField(article.metadata, 'description') ||
+     * helpers.isEmpty(article.metadata.description)) {
+     * 
+     * <p>invalidArticles.push({
+     * name: article.name,
+     * issue: "Missing required description metadata"
+     * });
+     * }
+     * }
+     * 
+     * <p>if (invalidArticles.length &gt; 0) {
+     * result = {
+     * success: false,
+     * error: 'Articles failed custom metadata validation',
+     * details: { count: invalidArticles.length, errors: invalidArticles }
+     * };
+     * }
+     * }
+     * result;
+     * ```
+     * 
+     * <p>### Example: Post-Validation Logic
+     * This example checks the standard validation results. If there are standard errors, it logs them and
+     * fails the job explicitly.
+     * ```javascript
+     * var result = { success: true };
+     * 
+     * <p>// Check if standard validation found errors
+     * if (helpers.hasField(validationResults, 'errors') &amp;&amp; validationResults.errors.length &gt; 0)
+     * {
+     * 
+     * <p>var errorCount = validationResults.errors.length;
+     * console.log('Standard validation found ' + errorCount + ' errors.');
+     * 
+     * <p>var errorTypes = {};
+     * validationResults.errors.forEach(function(err) {
+     * var type = err.type || 'unknown';
+     * errorTypes[type] = (errorTypes[type] || 0) + 1;
+     * });
+     * 
+     * <p>result = {
+     * success: false,
+     * error: 'Standard validation failed with ' + errorCount + ' errors.',
+     * details: {
+     * summary: errorTypes,
+     * firstError: validationResults.errors[0].message
+     * }
+     * };
+     * }
+     * result;
+     * ```
+     * 
+     * <p>## Further Documentation
+     * For more detailed context on available objects (`data`, `metadata`, `helpers`) and best practices,
+     * refer to the [Validation Hook
+     * Guide](https://apidev.egain.com/developer-portal/guides/ingestion/validation-hook-guide/#example-pre-validation-logic).
+     * 
+     * @return The call builder
+     */
+    public CreateValidationHookRequestBuilder createValidationHook() {
+        return new CreateValidationHookRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create validation hook
+     * 
+     * <p># Create Validation Hook
+     * 
+     * <p>## Overview
+     * This API allows you to create custom JavaScript-based validation hooks that execute during the bulk
+     * content ingestion process. Validation hooks enable organizations to enforce specific business rules,
+     * verify metadata compliance, and perform complex data integrity checks that go beyond standard system
+     * validation.
+     * 
+     * <p>## Usage Requirements
+     * To ensure successful hook creation and execution, please adhere to the following:
+     * - **Content Encoding**: The `fileObject.file.content` property must be a **Base64 encoded** string
+     * of your JavaScript logic.
+     * - **File Naming**: The filename should use the `.js` extension.
+     * - **Logic Return**: Your script must return a `result` object containing a boolean `success`
+     * property.
+     * - **Size Limit**: The encoded content must not exceed 1.5MB.
+     * 
+     * <p>## Hook Types
+     * - **Pre-Validation Hooks (`import_pre_validation_hook`)**: These execute **before** the standard
+     * system validation. They are ideal for enforcing custom business rules, such as ensuring all articles
+     * contain specific metadata.
+     * - **Post-Validation Hooks (`import_post_validation_hook`)**: These execute **after** the standard
+     * system validation. They have access to the `validationResults` from the system check, allowing you
+     * to block an import based on the severity of errors found.
+     * 
+     * <p>## Execution Environment
+     * Hooks run in a secure, sandboxed JavaScript environment (ES5/ES6).
+     * - **Prohibited**: File system access (`fs`), network access (HTTP requests), and module loading
+     * (`require`).
+     * - **Supported**: Standard JavaScript logic, `console.log()` for debugging, and a specialized
+     * `helpers` utility library for safe data access.
+     * 
+     * <p>## Implementation Examples
+     * 
+     * <p>### Example: Pre-Validation Logic
+     * This example demonstrates checking that every article contains a specific metadata field.
+     * ```javascript
+     * // Initialize result
+     * var result = { success: true };
+     * 
+     * <p>// Verify data exists
+     * if (helpers.hasField(data, 'articles') &amp;&amp; helpers.isNotEmpty(data.articles)) {
+     * 
+     * <p>var invalidArticles = [];
+     * 
+     * <p>for (var i = 0; i &lt; data.articles.length; i++) {
+     * var article = data.articles[i];
+     * 
+     * <p>if (!helpers.hasField(article, 'name')) {
+     * invalidArticles.push({ index: i, issue: "Missing name" });
+     * continue;
+     * }
+     * 
+     * <p>// Custom Rule: Check if 'description' exists in metadata
+     * if (!helpers.hasField(article, 'metadata') ||
+     * !helpers.hasField(article.metadata, 'description') ||
+     * helpers.isEmpty(article.metadata.description)) {
+     * 
+     * <p>invalidArticles.push({
+     * name: article.name,
+     * issue: "Missing required description metadata"
+     * });
+     * }
+     * }
+     * 
+     * <p>if (invalidArticles.length &gt; 0) {
+     * result = {
+     * success: false,
+     * error: 'Articles failed custom metadata validation',
+     * details: { count: invalidArticles.length, errors: invalidArticles }
+     * };
+     * }
+     * }
+     * result;
+     * ```
+     * 
+     * <p>### Example: Post-Validation Logic
+     * This example checks the standard validation results. If there are standard errors, it logs them and
+     * fails the job explicitly.
+     * ```javascript
+     * var result = { success: true };
+     * 
+     * <p>// Check if standard validation found errors
+     * if (helpers.hasField(validationResults, 'errors') &amp;&amp; validationResults.errors.length &gt; 0)
+     * {
+     * 
+     * <p>var errorCount = validationResults.errors.length;
+     * console.log('Standard validation found ' + errorCount + ' errors.');
+     * 
+     * <p>var errorTypes = {};
+     * validationResults.errors.forEach(function(err) {
+     * var type = err.type || 'unknown';
+     * errorTypes[type] = (errorTypes[type] || 0) + 1;
+     * });
+     * 
+     * <p>result = {
+     * success: false,
+     * error: 'Standard validation failed with ' + errorCount + ' errors.',
+     * details: {
+     * summary: errorTypes,
+     * firstError: validationResults.errors[0].message
+     * }
+     * };
+     * }
+     * result;
+     * ```
+     * 
+     * <p>## Further Documentation
+     * For more detailed context on available objects (`data`, `metadata`, `helpers`) and best practices,
+     * refer to the [Validation Hook
+     * Guide](https://apidev.egain.com/developer-portal/guides/ingestion/validation-hook-guide/#example-pre-validation-logic).
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateValidationHookResponse createValidationHook(@Nonnull Hook request) {
+        return createValidationHook(request, null);
+    }
+
+    /**
+     * Create validation hook
+     * 
+     * <p># Create Validation Hook
+     * 
+     * <p>## Overview
+     * This API allows you to create custom JavaScript-based validation hooks that execute during the bulk
+     * content ingestion process. Validation hooks enable organizations to enforce specific business rules,
+     * verify metadata compliance, and perform complex data integrity checks that go beyond standard system
+     * validation.
+     * 
+     * <p>## Usage Requirements
+     * To ensure successful hook creation and execution, please adhere to the following:
+     * - **Content Encoding**: The `fileObject.file.content` property must be a **Base64 encoded** string
+     * of your JavaScript logic.
+     * - **File Naming**: The filename should use the `.js` extension.
+     * - **Logic Return**: Your script must return a `result` object containing a boolean `success`
+     * property.
+     * - **Size Limit**: The encoded content must not exceed 1.5MB.
+     * 
+     * <p>## Hook Types
+     * - **Pre-Validation Hooks (`import_pre_validation_hook`)**: These execute **before** the standard
+     * system validation. They are ideal for enforcing custom business rules, such as ensuring all articles
+     * contain specific metadata.
+     * - **Post-Validation Hooks (`import_post_validation_hook`)**: These execute **after** the standard
+     * system validation. They have access to the `validationResults` from the system check, allowing you
+     * to block an import based on the severity of errors found.
+     * 
+     * <p>## Execution Environment
+     * Hooks run in a secure, sandboxed JavaScript environment (ES5/ES6).
+     * - **Prohibited**: File system access (`fs`), network access (HTTP requests), and module loading
+     * (`require`).
+     * - **Supported**: Standard JavaScript logic, `console.log()` for debugging, and a specialized
+     * `helpers` utility library for safe data access.
+     * 
+     * <p>## Implementation Examples
+     * 
+     * <p>### Example: Pre-Validation Logic
+     * This example demonstrates checking that every article contains a specific metadata field.
+     * ```javascript
+     * // Initialize result
+     * var result = { success: true };
+     * 
+     * <p>// Verify data exists
+     * if (helpers.hasField(data, 'articles') &amp;&amp; helpers.isNotEmpty(data.articles)) {
+     * 
+     * <p>var invalidArticles = [];
+     * 
+     * <p>for (var i = 0; i &lt; data.articles.length; i++) {
+     * var article = data.articles[i];
+     * 
+     * <p>if (!helpers.hasField(article, 'name')) {
+     * invalidArticles.push({ index: i, issue: "Missing name" });
+     * continue;
+     * }
+     * 
+     * <p>// Custom Rule: Check if 'description' exists in metadata
+     * if (!helpers.hasField(article, 'metadata') ||
+     * !helpers.hasField(article.metadata, 'description') ||
+     * helpers.isEmpty(article.metadata.description)) {
+     * 
+     * <p>invalidArticles.push({
+     * name: article.name,
+     * issue: "Missing required description metadata"
+     * });
+     * }
+     * }
+     * 
+     * <p>if (invalidArticles.length &gt; 0) {
+     * result = {
+     * success: false,
+     * error: 'Articles failed custom metadata validation',
+     * details: { count: invalidArticles.length, errors: invalidArticles }
+     * };
+     * }
+     * }
+     * result;
+     * ```
+     * 
+     * <p>### Example: Post-Validation Logic
+     * This example checks the standard validation results. If there are standard errors, it logs them and
+     * fails the job explicitly.
+     * ```javascript
+     * var result = { success: true };
+     * 
+     * <p>// Check if standard validation found errors
+     * if (helpers.hasField(validationResults, 'errors') &amp;&amp; validationResults.errors.length &gt; 0)
+     * {
+     * 
+     * <p>var errorCount = validationResults.errors.length;
+     * console.log('Standard validation found ' + errorCount + ' errors.');
+     * 
+     * <p>var errorTypes = {};
+     * validationResults.errors.forEach(function(err) {
+     * var type = err.type || 'unknown';
+     * errorTypes[type] = (errorTypes[type] || 0) + 1;
+     * });
+     * 
+     * <p>result = {
+     * success: false,
+     * error: 'Standard validation failed with ' + errorCount + ' errors.',
+     * details: {
+     * summary: errorTypes,
+     * firstError: validationResults.errors[0].message
+     * }
+     * };
+     * }
+     * result;
+     * ```
+     * 
+     * <p>## Further Documentation
+     * For more detailed context on available objects (`data`, `metadata`, `helpers`) and best practices,
+     * refer to the [Validation Hook
+     * Guide](https://apidev.egain.com/developer-portal/guides/ingestion/validation-hook-guide/#example-pre-validation-logic).
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param serverURL Overrides the server URL.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateValidationHookResponse createValidationHook(@Nonnull Hook request, @Nullable String serverURL) {
+        RequestOperation<Hook, CreateValidationHookResponse> operation
+              = new CreateValidationHook.Sync(sdkConfiguration, serverURL, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get all versions for a validation hook
+     * 
+     * <p>Retrieve a history of all versions uploaded for a specific validation hook.
+     * 
+     * @return The call builder
+     */
+    public GetValidationHookVersionsRequestBuilder getValidationHookVersions() {
+        return new GetValidationHookVersionsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get all versions for a validation hook
+     * 
+     * <p>Retrieve a history of all versions uploaded for a specific validation hook.
+     * 
+     * @param hookID Integer ID of the Hook resource.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetValidationHookVersionsResponse getValidationHookVersions(long hookID) {
+        return getValidationHookVersions(hookID, null);
+    }
+
+    /**
+     * Get all versions for a validation hook
+     * 
+     * <p>Retrieve a history of all versions uploaded for a specific validation hook.
+     * 
+     * @param hookID Integer ID of the Hook resource.
+     * @param serverURL Overrides the server URL.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetValidationHookVersionsResponse getValidationHookVersions(long hookID, @Nullable String serverURL) {
+        GetValidationHookVersionsRequest request = new GetValidationHookVersionsRequest(hookID);
+        RequestOperation<GetValidationHookVersionsRequest, GetValidationHookVersionsResponse> operation
+              = new GetValidationHookVersions.Sync(sdkConfiguration, serverURL, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Update validation hook version
+     * 
+     * <p>Upload a new version of the JavaScript logic for an existing hook.
+     * 
+     * @return The call builder
+     */
+    public CreateValidationHookVersionRequestBuilder createValidationHookVersion() {
+        return new CreateValidationHookVersionRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Update validation hook version
+     * 
+     * <p>Upload a new version of the JavaScript logic for an existing hook.
+     * 
+     * @param hookID Integer ID of the Hook resource.
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateValidationHookVersionResponse createValidationHookVersion(long hookID, @Nonnull FileObject body) {
+        return createValidationHookVersion(hookID, body, null);
+    }
+
+    /**
+     * Update validation hook version
+     * 
+     * <p>Upload a new version of the JavaScript logic for an existing hook.
+     * 
+     * @param hookID Integer ID of the Hook resource.
+     * @param body 
+     * @param serverURL Overrides the server URL.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public CreateValidationHookVersionResponse createValidationHookVersion(
+            long hookID, @Nonnull FileObject body,
+            @Nullable String serverURL) {
+        CreateValidationHookVersionRequest request = new CreateValidationHookVersionRequest(hookID, body);
+        RequestOperation<CreateValidationHookVersionRequest, CreateValidationHookVersionResponse> operation
+              = new CreateValidationHookVersion.Sync(sdkConfiguration, serverURL, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get validation hook version details
+     * 
+     * <p>Get details and content URL for a specific version of a hook.
+     * 
+     * @return The call builder
+     */
+    public GetValidationHookVersionRequestBuilder getValidationHookVersion() {
+        return new GetValidationHookVersionRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get validation hook version details
+     * 
+     * <p>Get details and content URL for a specific version of a hook.
+     * 
+     * @param hookID Integer ID of the Hook resource.
+     * @param versionID The sequential version number of the hook (e.g., 1, 2, 3).
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetValidationHookVersionResponse getValidationHookVersion(long hookID, long versionID) {
+        return getValidationHookVersion(hookID, versionID, null);
+    }
+
+    /**
+     * Get validation hook version details
+     * 
+     * <p>Get details and content URL for a specific version of a hook.
+     * 
+     * @param hookID Integer ID of the Hook resource.
+     * @param versionID The sequential version number of the hook (e.g., 1, 2, 3).
+     * @param serverURL Overrides the server URL.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetValidationHookVersionResponse getValidationHookVersion(
+            long hookID, long versionID,
+            @Nullable String serverURL) {
+        GetValidationHookVersionRequest request = new GetValidationHookVersionRequest(hookID, versionID);
+        RequestOperation<GetValidationHookVersionRequest, GetValidationHookVersionResponse> operation
+              = new GetValidationHookVersion.Sync(sdkConfiguration, serverURL, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

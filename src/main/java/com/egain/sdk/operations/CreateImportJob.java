@@ -196,16 +196,16 @@ public class CreateImportJob {
                 // no content
                 return res;
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "406")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    throw WSErrorCommon.from(response);
+                    throw SchemasWSErrorCommon.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "406", "412")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "412")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    throw SchemasWSErrorCommon.from(response);
+                    throw WSErrorCommon.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
@@ -289,17 +289,17 @@ public class CreateImportJob {
                 // no content
                 return CompletableFuture.completedFuture(res);
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "406")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return WSErrorCommon.fromAsync(response)
+                    return SchemasWSErrorCommon.fromAsync(response)
                             .thenCompose(CompletableFuture::failedFuture);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "406", "412")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "412")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return SchemasWSErrorCommon.fromAsync(response)
+                    return WSErrorCommon.fromAsync(response)
                             .thenCompose(CompletableFuture::failedFuture);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);

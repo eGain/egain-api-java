@@ -8,3 +8,4 @@ Type of data destination
 | Name           | Value          |
 | -------------- | -------------- |
 | `AWSS3_BUCKET` | AWS S3 bucket  |
+| `SFTP_SERVER`  | SFTP server    |

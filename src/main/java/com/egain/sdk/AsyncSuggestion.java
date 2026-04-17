@@ -8,8 +8,10 @@ import static com.egain.sdk.operations.Operations.AsyncRequestOperation;
 import com.egain.sdk.models.components.AcceptLanguage;
 import com.egain.sdk.models.components.ArticleResultAdditionalAttributes;
 import com.egain.sdk.models.components.AttachmentAdditionalAttributes;
+import com.egain.sdk.models.components.CreateComment;
 import com.egain.sdk.models.components.CreateSuggestion;
 import com.egain.sdk.models.components.ModifySuggestion;
+import com.egain.sdk.models.operations.AddSuggestionCommentRequest;
 import com.egain.sdk.models.operations.DeleteSuggestionRequest;
 import com.egain.sdk.models.operations.GetRelatedArticlesForSuggestionRequest;
 import com.egain.sdk.models.operations.GetSuggestionAttachmentByIdRequest;
@@ -19,6 +21,8 @@ import com.egain.sdk.models.operations.GetSuggestionRequest;
 import com.egain.sdk.models.operations.MakeSuggestionRequest;
 import com.egain.sdk.models.operations.ModifySuggestionsRequest;
 import com.egain.sdk.models.operations.SearchSuggestionRequest;
+import com.egain.sdk.models.operations.async.AddSuggestionCommentRequestBuilder;
+import com.egain.sdk.models.operations.async.AddSuggestionCommentResponse;
 import com.egain.sdk.models.operations.async.DeleteSuggestionRequestBuilder;
 import com.egain.sdk.models.operations.async.DeleteSuggestionResponse;
 import com.egain.sdk.models.operations.async.GetRelatedArticlesForSuggestionRequestBuilder;
@@ -37,6 +41,7 @@ import com.egain.sdk.models.operations.async.ModifySuggestionsRequestBuilder;
 import com.egain.sdk.models.operations.async.ModifySuggestionsResponse;
 import com.egain.sdk.models.operations.async.SearchSuggestionRequestBuilder;
 import com.egain.sdk.models.operations.async.SearchSuggestionResponse;
+import com.egain.sdk.operations.AddSuggestionComment;
 import com.egain.sdk.operations.DeleteSuggestion;
 import com.egain.sdk.operations.GetRelatedArticlesForSuggestion;
 import com.egain.sdk.operations.GetSuggestion;
@@ -469,6 +474,59 @@ public class AsyncSuggestion {
         GetSuggestionCommentsRequest request = new GetSuggestionCommentsRequest(acceptLanguage, portalID, suggestionID);
         AsyncRequestOperation<GetSuggestionCommentsRequest, GetSuggestionCommentsResponse> operation
               = new GetSuggestionComments.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Add a Suggestion Comment
+     * 
+     * <p>## Overview
+     * The Add Suggestion Comment API allows authenticated users and agents to add a new comment to a
+     * Suggestion.
+     * 
+     * <p>## Prerequisites
+     * * Enable the setting "My Suggestions" for the portal specified in the URL.
+     * * If the user is a customer, enable the setting "Allow Customer Access" for the portal.
+     * * The Suggestion specified in the URL must belong to the user, or the user must have appropriate
+     * administrative permissions to comment on it.
+     * * The Suggestion must be in **Suggested** or **Pending** status, otherwise no comments can be added.
+     * 
+     * @return The async call builder
+     */
+    public AddSuggestionCommentRequestBuilder addSuggestionComment() {
+        return new AddSuggestionCommentRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Add a Suggestion Comment
+     * 
+     * <p>## Overview
+     * The Add Suggestion Comment API allows authenticated users and agents to add a new comment to a
+     * Suggestion.
+     * 
+     * <p>## Prerequisites
+     * * Enable the setting "My Suggestions" for the portal specified in the URL.
+     * * If the user is a customer, enable the setting "Allow Customer Access" for the portal.
+     * * The Suggestion specified in the URL must belong to the user, or the user must have appropriate
+     * administrative permissions to comment on it.
+     * * The Suggestion must be in **Suggested** or **Pending** status, otherwise no comments can be added.
+     * 
+     * @param acceptLanguage 
+     * @param portalID The ID of the portal being accessed.<br><br>A portal ID is composed of a 2-4 letter prefix, followed by a dash and 4-15 digits.
+     * @param suggestionID The ID of the Suggestion.<br><br>A Suggestion ID is composed of a 2-4 letter prefix, followed by a dash and 4-15 digits.
+     * @param body This schema contains the definition for comment creation.
+     * @return {@code CompletableFuture<AddSuggestionCommentResponse>} - The async response
+     */
+    public CompletableFuture<AddSuggestionCommentResponse> addSuggestionComment(
+            @Nonnull AcceptLanguage acceptLanguage, @Nonnull String portalID,
+            @Nonnull String suggestionID, @Nonnull CreateComment body) {
+        AddSuggestionCommentRequest request = new AddSuggestionCommentRequest(
+                acceptLanguage, portalID, suggestionID,
+                body);
+        AsyncRequestOperation<AddSuggestionCommentRequest, AddSuggestionCommentResponse> operation
+              = new AddSuggestionComment.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }

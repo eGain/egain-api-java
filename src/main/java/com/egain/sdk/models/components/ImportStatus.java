@@ -50,6 +50,13 @@ public class ImportStatus {
     private OffsetDateTime startTime;
 
     /**
+     * The specific date and time when the job must stop processing, regardless of completion status.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("scheduledStopTime")
+    private OffsetDateTime scheduledStopTime;
+
+    /**
      * Estimated completion time of job.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -105,6 +112,7 @@ public class ImportStatus {
             @JsonProperty("progress") @Nullable ImportStatusProgress progress,
             @JsonProperty("logFileLocation") @Nullable String logFileLocation,
             @JsonProperty("startTime") @Nullable OffsetDateTime startTime,
+            @JsonProperty("scheduledStopTime") @Nullable OffsetDateTime scheduledStopTime,
             @JsonProperty("estimatedCompletion") @Nullable OffsetDateTime estimatedCompletion,
             @JsonProperty("currentOperation") @Nullable String currentOperation,
             @JsonProperty("completionTime") @Nullable OffsetDateTime completionTime,
@@ -119,6 +127,7 @@ public class ImportStatus {
         this.progress = progress;
         this.logFileLocation = logFileLocation;
         this.startTime = startTime;
+        this.scheduledStopTime = scheduledStopTime;
         this.estimatedCompletion = estimatedCompletion;
         this.currentOperation = currentOperation;
         this.completionTime = completionTime;
@@ -134,7 +143,8 @@ public class ImportStatus {
         this(status, jobType, null,
             null, null, null,
             null, null, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     /**
@@ -167,6 +177,13 @@ public class ImportStatus {
      */
     public Optional<OffsetDateTime> startTime() {
         return Optional.ofNullable(this.startTime);
+    }
+
+    /**
+     * The specific date and time when the job must stop processing, regardless of completion status.
+     */
+    public Optional<OffsetDateTime> scheduledStopTime() {
+        return Optional.ofNullable(this.scheduledStopTime);
     }
 
     /**
@@ -266,6 +283,15 @@ public class ImportStatus {
 
 
     /**
+     * The specific date and time when the job must stop processing, regardless of completion status.
+     */
+    public ImportStatus withScheduledStopTime(@Nullable OffsetDateTime scheduledStopTime) {
+        this.scheduledStopTime = scheduledStopTime;
+        return this;
+    }
+
+
+    /**
      * Estimated completion time of job.
      */
     public ImportStatus withEstimatedCompletion(@Nullable OffsetDateTime estimatedCompletion) {
@@ -343,6 +369,7 @@ public class ImportStatus {
             Utils.enhancedDeepEquals(this.progress, other.progress) &&
             Utils.enhancedDeepEquals(this.logFileLocation, other.logFileLocation) &&
             Utils.enhancedDeepEquals(this.startTime, other.startTime) &&
+            Utils.enhancedDeepEquals(this.scheduledStopTime, other.scheduledStopTime) &&
             Utils.enhancedDeepEquals(this.estimatedCompletion, other.estimatedCompletion) &&
             Utils.enhancedDeepEquals(this.currentOperation, other.currentOperation) &&
             Utils.enhancedDeepEquals(this.completionTime, other.completionTime) &&
@@ -356,9 +383,10 @@ public class ImportStatus {
     public int hashCode() {
         return Utils.enhancedHash(
             status, jobType, progress,
-            logFileLocation, startTime, estimatedCompletion,
-            currentOperation, completionTime, failureTime,
-            results, error, retryable);
+            logFileLocation, startTime, scheduledStopTime,
+            estimatedCompletion, currentOperation, completionTime,
+            failureTime, results, error,
+            retryable);
     }
     
     @Override
@@ -369,6 +397,7 @@ public class ImportStatus {
                 "progress", progress,
                 "logFileLocation", logFileLocation,
                 "startTime", startTime,
+                "scheduledStopTime", scheduledStopTime,
                 "estimatedCompletion", estimatedCompletion,
                 "currentOperation", currentOperation,
                 "completionTime", completionTime,
@@ -390,6 +419,8 @@ public class ImportStatus {
         private String logFileLocation;
 
         private OffsetDateTime startTime;
+
+        private OffsetDateTime scheduledStopTime;
 
         private OffsetDateTime estimatedCompletion;
 
@@ -443,6 +474,14 @@ public class ImportStatus {
          */
         public Builder startTime(@Nullable OffsetDateTime startTime) {
             this.startTime = startTime;
+            return this;
+        }
+
+        /**
+         * The specific date and time when the job must stop processing, regardless of completion status.
+         */
+        public Builder scheduledStopTime(@Nullable OffsetDateTime scheduledStopTime) {
+            this.scheduledStopTime = scheduledStopTime;
             return this;
         }
 
@@ -505,9 +544,10 @@ public class ImportStatus {
         public ImportStatus build() {
             return new ImportStatus(
                 status, jobType, progress,
-                logFileLocation, startTime, estimatedCompletion,
-                currentOperation, completionTime, failureTime,
-                results, error, retryable);
+                logFileLocation, startTime, scheduledStopTime,
+                estimatedCompletion, currentOperation, completionTime,
+                failureTime, results, error,
+                retryable);
         }
 
     }

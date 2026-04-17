@@ -13,6 +13,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
  * BookmarkStatus
@@ -31,7 +32,7 @@ public class BookmarkStatus {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("bookmarkID")
-    private Long bookmarkID;
+    private JsonNullable<Long> bookmarkID;
 
     /**
      * This schema contains one or more FolderSummary instances.
@@ -43,10 +44,11 @@ public class BookmarkStatus {
     @JsonCreator
     public BookmarkStatus(
             @JsonProperty("isBookmarked") boolean isBookmarked,
-            @JsonProperty("bookmarkID") @Nullable Long bookmarkID,
+            @JsonProperty("bookmarkID") @Nullable JsonNullable<Long> bookmarkID,
             @JsonProperty("folderBreadcrumb") @Nullable FolderBreadcrumb folderBreadcrumb) {
         this.isBookmarked = isBookmarked;
-        this.bookmarkID = bookmarkID;
+        this.bookmarkID = Optional.ofNullable(bookmarkID)
+            .orElse(JsonNullable.undefined());
         this.folderBreadcrumb = folderBreadcrumb;
     }
     
@@ -65,8 +67,8 @@ public class BookmarkStatus {
     /**
      * The ID of the Bookmark, if Article is bookmarked.
      */
-    public Optional<Long> bookmarkID() {
-        return Optional.ofNullable(this.bookmarkID);
+    public JsonNullable<Long> bookmarkID() {
+        return this.bookmarkID;
     }
 
     /**
@@ -94,7 +96,7 @@ public class BookmarkStatus {
      * The ID of the Bookmark, if Article is bookmarked.
      */
     public BookmarkStatus withBookmarkID(@Nullable Long bookmarkID) {
-        this.bookmarkID = bookmarkID;
+        this.bookmarkID = JsonNullable.of(bookmarkID);
         return this;
     }
 
@@ -142,7 +144,7 @@ public class BookmarkStatus {
 
         private boolean isBookmarked;
 
-        private Long bookmarkID;
+        private JsonNullable<Long> bookmarkID;
 
         private FolderBreadcrumb folderBreadcrumb;
 
@@ -162,7 +164,7 @@ public class BookmarkStatus {
          * The ID of the Bookmark, if Article is bookmarked.
          */
         public Builder bookmarkID(@Nullable Long bookmarkID) {
-            this.bookmarkID = bookmarkID;
+            this.bookmarkID = JsonNullable.of(bookmarkID);
             return this;
         }
 

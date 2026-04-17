@@ -70,7 +70,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.egain.sdk:egain-api:0.2.0'
+implementation 'com.egain.sdk:egain-api:0.3.0'
 ```
 
 Maven:
@@ -78,7 +78,7 @@ Maven:
 <dependency>
     <groupId>com.egain.sdk</groupId>
     <artifactId>egain-api</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
@@ -328,6 +328,11 @@ public class Application {
 #### [content().import_()](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md)
 
 * [createImportJob](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#createimportjob) - Create Import Job
+* [getValidationHooks](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#getvalidationhooks) - Get validation hooks
+* [createValidationHook](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#createvalidationhook) - Create validation hook
+* [getValidationHookVersions](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#getvalidationhookversions) - Get all versions for a validation hook
+* [createValidationHookVersion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#createvalidationhookversion) - Update validation hook version
+* [getValidationHookVersion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#getvalidationhookversion) - Get validation hook version details
 * [getImportStatus](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#getimportstatus) - Get Job Status
 * [createImportValidationJob](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#createimportvalidationjob) - Create Validation Job
 * [cancelImport](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/import/README.md#cancelimport) - Cancel Job
@@ -337,6 +342,7 @@ public class Application {
 * [getArticleById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticlebyid) - Get Article by ID
 * [getArticleByIdWithEditions](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticlebyidwitheditions) - Get Article By ID with Editions
 * [getArticleEditionDetails](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticleeditiondetails) - Get Article Edition Details
+* [getAllArticleTypes](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getallarticletypes) - Get All Article Types in a Department
 * [addToReply](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#addtoreply) - Add Article to Reply
 * [addAsReference](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#addasreference) - Add as Reference
 * [getArticlesInTopic](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/article/README.md#getarticlesintopic) - Get Articles in Topic
@@ -424,6 +430,7 @@ public class Application {
 * [deleteSuggestion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#deletesuggestion) - Delete a Suggestion
 * [getRelatedArticlesForSuggestion](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getrelatedarticlesforsuggestion) - Get Related Articles for Suggestion
 * [getSuggestionComments](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getsuggestioncomments) - Get Suggestion Comments
+* [addSuggestionComment](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#addsuggestioncomment) - Add a Suggestion Comment
 * [getSuggestionAttachments](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getsuggestionattachments) - Get Suggestion Attachments
 * [getSuggestionAttachmentById](https://github.com/eGain/egain-api-java/blob/master/docs/sdks/suggestion/README.md#getsuggestionattachmentbyid) - Get Suggestion Attachment by ID
 
@@ -561,8 +568,8 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`EgainException`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/EgainException.java)**:
-* [`com.egain.sdk.models.errors.SchemasWSErrorCommon`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/com.egain.sdk.models.errors.SchemasWSErrorCommon.java): Not acceptable. Applicable to 4 of 76 methods.*
-* [`com.egain.sdk.models.errors.BadRequestException`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/com.egain.sdk.models.errors.BadRequestException.java): Bad Request. Status code `400`. Applicable to 1 of 76 methods.*
+* [`com.egain.sdk.models.errors.SchemasWSErrorCommon`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/com.egain.sdk.models.errors.SchemasWSErrorCommon.java): Not acceptable. Status code `406`. Applicable to 4 of 83 methods.*
+* [`com.egain.sdk.models.errors.BadRequestException`](https://github.com/eGain/egain-api-java/blob/master/src/main/java/models/errors/com.egain.sdk.models.errors.BadRequestException.java): Bad Request. Status code `400`. Applicable to 1 of 83 methods.*
 
 
 </details>

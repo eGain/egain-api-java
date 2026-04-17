@@ -32,8 +32,7 @@ public class GHSearchRequest {
     private List<StartQuestionAndAnswer> questions;
 
     /**
-     * The ID of the guided help profile.<br>
-     * 1 will always be the **system profile**.
+     * The ID of the guided help profile. 1 will always be the **system profile**.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("profileId")
@@ -109,8 +108,7 @@ public class GHSearchRequest {
     }
 
     /**
-     * The ID of the guided help profile.<br>
-     * 1 will always be the **system profile**.
+     * The ID of the guided help profile. 1 will always be the **system profile**.
      */
     public Optional<String> profileId() {
         return Optional.ofNullable(this.profileId);
@@ -169,8 +167,7 @@ public class GHSearchRequest {
 
 
     /**
-     * The ID of the guided help profile.<br>
-     * 1 will always be the **system profile**.
+     * The ID of the guided help profile. 1 will always be the **system profile**.
      */
     public GHSearchRequest withProfileId(@Nullable String profileId) {
         this.profileId = profileId;
@@ -292,8 +289,7 @@ public class GHSearchRequest {
         }
 
         /**
-         * The ID of the guided help profile.<br>
-         * 1 will always be the **system profile**.
+         * The ID of the guided help profile. 1 will always be the **system profile**.
          */
         public Builder profileId(@Nullable String profileId) {
             this.profileId = profileId;

@@ -49,7 +49,6 @@ public enum MandatoryLanguageQueryParameter {
     UK_UA("uk-UA"),
     BGBG("bg-BG"),
     SL_SI("sl-SI"),
-    SR_RS("sr-RS"),
     XXXX("xx-XX");
 
     @JsonValue

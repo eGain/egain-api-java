@@ -21,6 +21,9 @@ import com.egain.sdk.models.operations.ComplyArticleResponse;
 import com.egain.sdk.models.operations.GetAcknowledgedComplianceArticlesRequest;
 import com.egain.sdk.models.operations.GetAcknowledgedComplianceArticlesRequestBuilder;
 import com.egain.sdk.models.operations.GetAcknowledgedComplianceArticlesResponse;
+import com.egain.sdk.models.operations.GetAllArticleTypesRequest;
+import com.egain.sdk.models.operations.GetAllArticleTypesRequestBuilder;
+import com.egain.sdk.models.operations.GetAllArticleTypesResponse;
 import com.egain.sdk.models.operations.GetAnnouncementArticlesRequest;
 import com.egain.sdk.models.operations.GetAnnouncementArticlesRequestBuilder;
 import com.egain.sdk.models.operations.GetAnnouncementArticlesResponse;
@@ -73,6 +76,7 @@ import com.egain.sdk.operations.AddAsReference;
 import com.egain.sdk.operations.AddToReply;
 import com.egain.sdk.operations.ComplyArticle;
 import com.egain.sdk.operations.GetAcknowledgedComplianceArticles;
+import com.egain.sdk.operations.GetAllArticleTypes;
 import com.egain.sdk.operations.GetAnnouncementArticles;
 import com.egain.sdk.operations.GetArticleAttachmentById;
 import com.egain.sdk.operations.GetArticleById;
@@ -118,8 +122,9 @@ public class Article {
      * Get Article by ID
      * 
      * <p>## Overview
-     * * The Get Article by ID API allows a user to retrieve an Article using its ID.
-     * * It requires a Portal ID, which a user can retrieve by calling the Get All Portals API.
+     * * The Get Article by ID API allows a user or client application to retrieve an Article using its ID.
+     * * It requires a Portal ID, which a user or client application can retrieve through the
+     * Administrative Console or by calling Get All Portals API.
      * * Additional Article attributes and contextual views can be specified in the query parameters.
      * 
      * <p>* This API returns structured authoring attributes of Issue, Environment, Cause and Confidence Level
@@ -157,8 +162,9 @@ public class Article {
      * Get Article by ID
      * 
      * <p>## Overview
-     * * The Get Article by ID API allows a user to retrieve an Article using its ID.
-     * * It requires a Portal ID, which a user can retrieve by calling the Get All Portals API.
+     * * The Get Article by ID API allows a user or client application to retrieve an Article using its ID.
+     * * It requires a Portal ID, which a user or client application can retrieve through the
+     * Administrative Console or by calling Get All Portals API.
      * * Additional Article attributes and contextual views can be specified in the query parameters.
      * 
      * <p>* This API returns structured authoring attributes of Issue, Environment, Cause and Confidence Level
@@ -266,6 +272,38 @@ public class Article {
                 language);
         RequestOperation<GetArticleEditionDetailsRequest, GetArticleEditionDetailsResponse> operation
               = new GetArticleEditionDetails.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get All Article Types in a Department
+     * 
+     * <p>## Overview
+     * The Get All Article Types in a Department API retrieves a list of all Article Types configured for a
+     * specific department.
+     * 
+     * @return The call builder
+     */
+    public GetAllArticleTypesRequestBuilder getAllArticleTypes() {
+        return new GetAllArticleTypesRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get All Article Types in a Department
+     * 
+     * <p>## Overview
+     * The Get All Article Types in a Department API retrieves a list of all Article Types configured for a
+     * specific department.
+     * 
+     * @param acceptLanguage 
+     * @param departmentID The ID of the department.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetAllArticleTypesResponse getAllArticleTypes(@Nonnull AcceptLanguage acceptLanguage, @Nonnull String departmentID) {
+        GetAllArticleTypesRequest request = new GetAllArticleTypesRequest(acceptLanguage, departmentID);
+        RequestOperation<GetAllArticleTypesRequest, GetAllArticleTypesResponse> operation
+              = new GetAllArticleTypes.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

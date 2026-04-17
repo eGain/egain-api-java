@@ -11,7 +11,8 @@ import java.util.Optional;
 /**
  * ArticleCategories
  * 
- * <p>Category of articles to return. All includes browsable and searchable.
+ * <p>Category of articles to return. If all is selected, it includes both browsable and searchable
+ * articles.
  */
 public enum ArticleCategories {
     SEARCHABLE("searchable"),

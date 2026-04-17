@@ -8,24 +8,14 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * TypeName
- * 
- * <p>Indicates the article category name.
- */
-public enum TypeName {
-    GENERAL("General"),
-    GUIDED_HELP("Guided Help"),
-    DATA_LINK("Data Link"),
-    TOPIC_HOME("Topic Home"),
-    SUGGESTION("Suggestion"),
-    VIRTUAL_ASSISTANT_ACTION("Virtual Assistant Action"),
-    RICH_MESSAGE("Rich Message");
+public enum HookTypeParam {
+    IMPORT_PRE_VALIDATION_HOOK("import_pre_validation_hook"),
+    IMPORT_POST_VALIDATION_HOOK("import_post_validation_hook");
 
     @JsonValue
     private final String value;
 
-    TypeName(String value) {
+    HookTypeParam(String value) {
         this.value = value;
     }
     
@@ -33,8 +23,8 @@ public enum TypeName {
         return value;
     }
     
-    public static Optional<TypeName> fromValue(String value) {
-        for (TypeName o: TypeName.values()) {
+    public static Optional<HookTypeParam> fromValue(String value) {
+        for (HookTypeParam o: HookTypeParam.values()) {
             if (Objects.deepEquals(o.value, value)) {
                 return Optional.of(o);
             }

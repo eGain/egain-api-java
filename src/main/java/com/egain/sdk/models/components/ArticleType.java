@@ -29,14 +29,15 @@ public class ArticleType {
     private Long articleCategoryId;
 
     /**
-     * Indicates the article category name.
+     * Indicates the article type name.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("typeName")
-    private TypeName typeName;
+    private String typeName;
 
     /**
-     * Indicates whether to use Structured Authoring for the Article Type.
+     * Indicates whether structured authoring is enabled for this article type, requiring content to be
+     * created using predefined fields
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("useStructuredAuthoring")
@@ -52,7 +53,7 @@ public class ArticleType {
     @JsonCreator
     public ArticleType(
             @JsonProperty("articleCategoryId") @Nullable Long articleCategoryId,
-            @JsonProperty("typeName") @Nullable TypeName typeName,
+            @JsonProperty("typeName") @Nullable String typeName,
             @JsonProperty("useStructuredAuthoring") @Nullable Boolean useStructuredAuthoring,
             @JsonProperty("articleTypeId") @Nullable String articleTypeId) {
         this.articleCategoryId = articleCategoryId;
@@ -74,14 +75,15 @@ public class ArticleType {
     }
 
     /**
-     * Indicates the article category name.
+     * Indicates the article type name.
      */
-    public Optional<TypeName> typeName() {
+    public Optional<String> typeName() {
         return Optional.ofNullable(this.typeName);
     }
 
     /**
-     * Indicates whether to use Structured Authoring for the Article Type.
+     * Indicates whether structured authoring is enabled for this article type, requiring content to be
+     * created using predefined fields
      */
     public Optional<Boolean> useStructuredAuthoring() {
         return Optional.ofNullable(this.useStructuredAuthoring);
@@ -109,16 +111,17 @@ public class ArticleType {
 
 
     /**
-     * Indicates the article category name.
+     * Indicates the article type name.
      */
-    public ArticleType withTypeName(@Nullable TypeName typeName) {
+    public ArticleType withTypeName(@Nullable String typeName) {
         this.typeName = typeName;
         return this;
     }
 
 
     /**
-     * Indicates whether to use Structured Authoring for the Article Type.
+     * Indicates whether structured authoring is enabled for this article type, requiring content to be
+     * created using predefined fields
      */
     public ArticleType withUseStructuredAuthoring(@Nullable Boolean useStructuredAuthoring) {
         this.useStructuredAuthoring = useStructuredAuthoring;
@@ -172,7 +175,7 @@ public class ArticleType {
 
         private Long articleCategoryId;
 
-        private TypeName typeName;
+        private String typeName;
 
         private Boolean useStructuredAuthoring;
 
@@ -191,15 +194,16 @@ public class ArticleType {
         }
 
         /**
-         * Indicates the article category name.
+         * Indicates the article type name.
          */
-        public Builder typeName(@Nullable TypeName typeName) {
+        public Builder typeName(@Nullable String typeName) {
             this.typeName = typeName;
             return this;
         }
 
         /**
-         * Indicates whether to use Structured Authoring for the Article Type.
+         * Indicates whether structured authoring is enabled for this article type, requiring content to be
+         * created using predefined fields
          */
         public Builder useStructuredAuthoring(@Nullable Boolean useStructuredAuthoring) {
             this.useStructuredAuthoring = useStructuredAuthoring;

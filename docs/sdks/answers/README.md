@@ -53,9 +53,9 @@ public class Application {
                     .channel(AnswersRequestChannel.builder()
                         .name("Eight Bank Website")
                         .build())
-                    .eventId("6154589f-b43f-4471-b2c7-92c6c888a664")
-                    .clientSessionId("6154589f-b43f-4471-b2c7-92c6c888a643")
-                    .sessionId("6154589f-b43f-4471-b2c7-92c6c888a689")
+                    .eventId("6154589f-b43f-4471-b2c7-92c6c888a643")
+                    .clientSessionId("6154589f-b43f-4471-b2c7-92c6c888a678")
+                    .sessionId("6154589f-b43f-4471-b2c7-92c6c888a651")
                     .build())
                 .build();
 

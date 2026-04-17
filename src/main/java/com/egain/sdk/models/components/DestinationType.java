@@ -14,7 +14,8 @@ import java.util.Optional;
  * <p>Type of data destination
  */
 public enum DestinationType {
-    AWSS3_BUCKET("AWS S3 bucket");
+    AWSS3_BUCKET("AWS S3 bucket"),
+    SFTP_SERVER("SFTP server");
 
     @JsonValue
     private final String value;

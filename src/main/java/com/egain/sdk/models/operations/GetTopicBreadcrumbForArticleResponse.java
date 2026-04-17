@@ -3,7 +3,7 @@
  */
 package com.egain.sdk.models.operations;
 
-import com.egain.sdk.models.components.TopicBreadcrumb;
+import com.egain.sdk.models.components.TopicBreadcrumbsList;
 import com.egain.sdk.utils.Response;
 import com.egain.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -35,20 +35,20 @@ public class GetTopicBreadcrumbForArticleResponse implements Response {
     /**
      * Success
      */
-    private TopicBreadcrumb topicBreadcrumb;
+    private TopicBreadcrumbsList topicBreadcrumbsList;
 
     @JsonCreator
     public GetTopicBreadcrumbForArticleResponse(
             @Nonnull String contentType,
             int statusCode,
             @Nonnull HttpResponse<InputStream> rawResponse,
-            @Nullable TopicBreadcrumb topicBreadcrumb) {
+            @Nullable TopicBreadcrumbsList topicBreadcrumbsList) {
         this.contentType = Optional.ofNullable(contentType)
             .orElseThrow(() -> new IllegalArgumentException("contentType cannot be null"));
         this.statusCode = statusCode;
         this.rawResponse = Optional.ofNullable(rawResponse)
             .orElseThrow(() -> new IllegalArgumentException("rawResponse cannot be null"));
-        this.topicBreadcrumb = topicBreadcrumb;
+        this.topicBreadcrumbsList = topicBreadcrumbsList;
     }
     
     public GetTopicBreadcrumbForArticleResponse(
@@ -83,8 +83,8 @@ public class GetTopicBreadcrumbForArticleResponse implements Response {
     /**
      * Success
      */
-    public Optional<TopicBreadcrumb> topicBreadcrumb() {
-        return Optional.ofNullable(this.topicBreadcrumb);
+    public Optional<TopicBreadcrumbsList> topicBreadcrumbsList() {
+        return Optional.ofNullable(this.topicBreadcrumbsList);
     }
 
     public static Builder builder() {
@@ -122,8 +122,8 @@ public class GetTopicBreadcrumbForArticleResponse implements Response {
     /**
      * Success
      */
-    public GetTopicBreadcrumbForArticleResponse withTopicBreadcrumb(@Nullable TopicBreadcrumb topicBreadcrumb) {
-        this.topicBreadcrumb = topicBreadcrumb;
+    public GetTopicBreadcrumbForArticleResponse withTopicBreadcrumbsList(@Nullable TopicBreadcrumbsList topicBreadcrumbsList) {
+        this.topicBreadcrumbsList = topicBreadcrumbsList;
         return this;
     }
 
@@ -141,14 +141,14 @@ public class GetTopicBreadcrumbForArticleResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.topicBreadcrumb, other.topicBreadcrumb);
+            Utils.enhancedDeepEquals(this.topicBreadcrumbsList, other.topicBreadcrumbsList);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            topicBreadcrumb);
+            topicBreadcrumbsList);
     }
     
     @Override
@@ -157,7 +157,7 @@ public class GetTopicBreadcrumbForArticleResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "topicBreadcrumb", topicBreadcrumb);
+                "topicBreadcrumbsList", topicBreadcrumbsList);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -169,7 +169,7 @@ public class GetTopicBreadcrumbForArticleResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private TopicBreadcrumb topicBreadcrumb;
+        private TopicBreadcrumbsList topicBreadcrumbsList;
 
         private Builder() {
           // force use of static builder() method
@@ -202,15 +202,15 @@ public class GetTopicBreadcrumbForArticleResponse implements Response {
         /**
          * Success
          */
-        public Builder topicBreadcrumb(@Nullable TopicBreadcrumb topicBreadcrumb) {
-            this.topicBreadcrumb = topicBreadcrumb;
+        public Builder topicBreadcrumbsList(@Nullable TopicBreadcrumbsList topicBreadcrumbsList) {
+            this.topicBreadcrumbsList = topicBreadcrumbsList;
             return this;
         }
 
         public GetTopicBreadcrumbForArticleResponse build() {
             return new GetTopicBreadcrumbForArticleResponse(
                 contentType, statusCode, rawResponse,
-                topicBreadcrumb);
+                topicBreadcrumbsList);
         }
 
     }

@@ -8,6 +8,7 @@
 * [getArticleById](#getarticlebyid) - Get Article by ID
 * [getArticleByIdWithEditions](#getarticlebyidwitheditions) - Get Article By ID with Editions
 * [getArticleEditionDetails](#getarticleeditiondetails) - Get Article Edition Details
+* [getAllArticleTypes](#getallarticletypes) - Get All Article Types in a Department
 * [addToReply](#addtoreply) - Add Article to Reply
 * [addAsReference](#addasreference) - Add as Reference
 * [getArticlesInTopic](#getarticlesintopic) - Get Articles in Topic
@@ -29,8 +30,8 @@
 ## getArticleById
 
 ## Overview
-  * The Get Article by ID API allows a user to retrieve an Article using its ID.
-    * It requires a Portal ID, which a user can retrieve by calling the Get All Portals API.
+  * The Get Article by ID API allows a user or client application to retrieve an Article using its ID.
+    * It requires a Portal ID, which a user or client application can retrieve through the Administrative Console or by calling Get All Portals API.
     * Additional Article attributes and contextual views can be specified in the query parameters.
 
   * This API returns structured authoring attributes of Issue, Environment, Cause and Confidence Level when the following conditions are met:
@@ -230,6 +231,63 @@ public class Application {
 ### Response
 
 **[GetArticleEditionDetailsResponse](../../models/operations/GetArticleEditionDetailsResponse.md)**
+
+### Errors
+
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/WSErrorCommon | 400, 401, 403, 404, 406     | application/json            |
+| models/errors/WSErrorCommon | 500                         | application/json            |
+| models/errors/APIException  | 4XX, 5XX                    | \*/\*                       |
+
+## getAllArticleTypes
+
+## Overview
+The Get All Article Types in a Department API retrieves a list of all Article Types configured for a specific department.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="getAllArticleTypes" method="get" path="/articletypes" -->
+```java
+package hello.world;
+
+import com.egain.sdk.Egain;
+import com.egain.sdk.models.components.AcceptLanguage;
+import com.egain.sdk.models.errors.WSErrorCommon;
+import com.egain.sdk.models.operations.GetAllArticleTypesResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws WSErrorCommon, Exception {
+
+        Egain sdk = Egain.builder()
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
+            .build();
+
+        GetAllArticleTypesResponse res = sdk.portal().article().getAllArticleTypes()
+                .acceptLanguage(AcceptLanguage.EN_US)
+                .departmentID("999")
+                .call();
+
+        if (res.articleTypes().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     | Example                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `acceptLanguage`                                                                                                                | [AcceptLanguage](../../models/components/AcceptLanguage.md)                                                                     | :heavy_check_mark:                                                                                                              | The Language locale accepted by the client (used for locale specific fields in resource representation and in error responses). | en-US                                                                                                                           |
+| `departmentID`                                                                                                                  | *String*                                                                                                                        | :heavy_check_mark:                                                                                                              | The ID of the department.                                                                                                       | 999                                                                                                                             |
+
+### Response
+
+**[GetAllArticleTypesResponse](../../models/operations/GetAllArticleTypesResponse.md)**
 
 ### Errors
 

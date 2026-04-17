@@ -41,8 +41,7 @@ public enum SuggestionCode {
     UK_UA("uk-UA"),
     BGBG("bg-BG"),
     SKSK("sk-SK"),
-    SL_SI("sl-SI"),
-    SR_RS("sr-RS");
+    SL_SI("sl-SI");
 
     @JsonValue
     private final String value;

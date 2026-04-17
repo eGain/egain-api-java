@@ -9,7 +9,7 @@ import static com.egain.sdk.operations.Operations.AsyncRequestOperation;
 
 import com.egain.sdk.SDKConfiguration;
 import com.egain.sdk.SecuritySource;
-import com.egain.sdk.models.components.TopicBreadcrumb;
+import com.egain.sdk.models.components.TopicBreadcrumbsList;
 import com.egain.sdk.models.errors.APIException;
 import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.GetTopicBreadcrumbForArticleRequest;
@@ -162,7 +162,7 @@ public class GetTopicBreadcrumbForArticle {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withTopicBreadcrumb(Utils.unmarshal(response, new TypeReference<TopicBreadcrumb>() {}));
+                    return res.withTopicBreadcrumbsList(Utils.unmarshal(response, new TypeReference<TopicBreadcrumbsList>() {}));
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
@@ -246,8 +246,8 @@ public class GetTopicBreadcrumbForArticle {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return Utils.unmarshalAsync(response, new TypeReference<TopicBreadcrumb>() {})
-                            .thenApply(res::withTopicBreadcrumb);
+                    return Utils.unmarshalAsync(response, new TypeReference<TopicBreadcrumbsList>() {})
+                            .thenApply(res::withTopicBreadcrumbsList);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }

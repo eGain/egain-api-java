@@ -5,8 +5,11 @@ package com.egain.sdk.models.components;
 
 import com.egain.sdk.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
 import java.time.OffsetDateTime;
@@ -14,19 +17,45 @@ import java.util.Optional;
 
 
 public class ScheduleTime {
-
+    /**
+     * The scheduled start time for the import job.
+     */
     @JsonProperty("date")
     private OffsetDateTime date;
 
+    /**
+     * The specific date and time when the job must stop processing, regardless of completion status.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("stopDate")
+    private OffsetDateTime stopDate;
+
     @JsonCreator
     public ScheduleTime(
-            @JsonProperty("date") @Nonnull OffsetDateTime date) {
+            @JsonProperty("date") @Nonnull OffsetDateTime date,
+            @JsonProperty("stopDate") @Nullable OffsetDateTime stopDate) {
         this.date = Optional.ofNullable(date)
             .orElseThrow(() -> new IllegalArgumentException("date cannot be null"));
+        this.stopDate = stopDate;
+    }
+    
+    public ScheduleTime(
+            @Nonnull OffsetDateTime date) {
+        this(date, null);
     }
 
+    /**
+     * The scheduled start time for the import job.
+     */
     public OffsetDateTime date() {
         return this.date;
+    }
+
+    /**
+     * The specific date and time when the job must stop processing, regardless of completion status.
+     */
+    public Optional<OffsetDateTime> stopDate() {
+        return Optional.ofNullable(this.stopDate);
     }
 
     public static Builder builder() {
@@ -34,8 +63,20 @@ public class ScheduleTime {
     }
 
 
+    /**
+     * The scheduled start time for the import job.
+     */
     public ScheduleTime withDate(@Nonnull OffsetDateTime date) {
         this.date = Utils.checkNotNull(date, "date");
+        return this;
+    }
+
+
+    /**
+     * The specific date and time when the job must stop processing, regardless of completion status.
+     */
+    public ScheduleTime withStopDate(@Nullable OffsetDateTime stopDate) {
+        this.stopDate = stopDate;
         return this;
     }
 
@@ -50,19 +91,21 @@ public class ScheduleTime {
         }
         ScheduleTime other = (ScheduleTime) o;
         return 
-            Utils.enhancedDeepEquals(this.date, other.date);
+            Utils.enhancedDeepEquals(this.date, other.date) &&
+            Utils.enhancedDeepEquals(this.stopDate, other.stopDate);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            date);
+            date, stopDate);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ScheduleTime.class,
-                "date", date);
+                "date", date,
+                "stopDate", stopDate);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -70,18 +113,31 @@ public class ScheduleTime {
 
         private OffsetDateTime date;
 
+        private OffsetDateTime stopDate;
+
         private Builder() {
           // force use of static builder() method
         }
 
+        /**
+         * The scheduled start time for the import job.
+         */
         public Builder date(@Nonnull OffsetDateTime date) {
             this.date = Utils.checkNotNull(date, "date");
             return this;
         }
 
+        /**
+         * The specific date and time when the job must stop processing, regardless of completion status.
+         */
+        public Builder stopDate(@Nullable OffsetDateTime stopDate) {
+            this.stopDate = stopDate;
+            return this;
+        }
+
         public ScheduleTime build() {
             return new ScheduleTime(
-                date);
+                date, stopDate);
         }
 
     }

@@ -644,11 +644,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                  | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/WSErrorCommon | 400, 401, 403, 404, 406     | application/json            |
-| models/errors/WSErrorCommon | 500                         | application/json            |
-| models/errors/APIException  | 4XX, 5XX                    | \*/\*                       |
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/WSErrorCommon  | 400, 401, 403, 404, 406, 412 | application/json             |
+| models/errors/WSErrorCommon  | 500                          | application/json             |
+| models/errors/APIException   | 4XX, 5XX                     | \*/\*                        |
 
 ## rejectGHSolution
 
@@ -711,11 +711,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                  | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| models/errors/WSErrorCommon | 400, 401, 403, 404, 406     | application/json            |
-| models/errors/WSErrorCommon | 500                         | application/json            |
-| models/errors/APIException  | 4XX, 5XX                    | \*/\*                       |
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| models/errors/WSErrorCommon  | 400, 401, 403, 404, 406, 412 | application/json             |
+| models/errors/WSErrorCommon  | 500                          | application/json             |
+| models/errors/APIException   | 4XX, 5XX                     | \*/\*                        |
 
 ## createQuickpick
 

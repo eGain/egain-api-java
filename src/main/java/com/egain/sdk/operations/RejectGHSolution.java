@@ -143,7 +143,7 @@ public class RejectGHSolution {
             HttpResponse<InputStream> httpRes;
             try {
                 httpRes = client.send(r);
-                if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "403", "404", "406", "415", "4XX", "500", "5XX")) {
+                if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "403", "404", "406", "412", "415", "4XX", "500", "5XX")) {
                     httpRes = onError(httpRes, null);
                 } else {
                     httpRes = onSuccess(httpRes);
@@ -175,7 +175,7 @@ public class RejectGHSolution {
                 // no content
                 return res;
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "406")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "406", "412")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     throw WSErrorCommon.from(response);
                 } else {
@@ -227,7 +227,7 @@ public class RejectGHSolution {
                         if (err != null) {
                             return onError(null, err);
                         }
-                        if (Utils.statusCodeMatches(resp.statusCode(), "400", "401", "403", "404", "406", "415", "4XX", "500", "5XX")) {
+                        if (Utils.statusCodeMatches(resp.statusCode(), "400", "401", "403", "404", "406", "412", "415", "4XX", "500", "5XX")) {
                             return onError(resp, null);
                         }
                         return CompletableFuture.completedFuture(resp);
@@ -256,7 +256,7 @@ public class RejectGHSolution {
                 // no content
                 return CompletableFuture.completedFuture(res);
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "406")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "400", "401", "403", "404", "406", "412")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     return WSErrorCommon.fromAsync(response)
                             .thenCompose(CompletableFuture::failedFuture);

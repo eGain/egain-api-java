@@ -6,6 +6,7 @@ package com.egain.sdk.models.operations;
 import static com.egain.sdk.operations.Operations.RequestOperation;
 
 import com.egain.sdk.SDKConfiguration;
+import com.egain.sdk.models.components.AcceptLanguage;
 import com.egain.sdk.operations.ExportStatus;
 import com.egain.sdk.utils.Headers;
 import com.egain.sdk.utils.Utils;
@@ -22,6 +23,12 @@ public class ExportStatusRequestBuilder {
     public ExportStatusRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
         this.pojoBuilder = ExportStatusRequest.builder();
+    }
+
+    public ExportStatusRequestBuilder acceptLanguage(@Nonnull AcceptLanguage acceptLanguage) {
+        this.pojoBuilder.acceptLanguage(acceptLanguage);
+        this._setterCalled = true;
+        return this;
     }
 
     public ExportStatusRequestBuilder jobID(@Nonnull String jobID) {

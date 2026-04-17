@@ -12,6 +12,7 @@
 * [deleteSuggestion](#deletesuggestion) - Delete a Suggestion
 * [getRelatedArticlesForSuggestion](#getrelatedarticlesforsuggestion) - Get Related Articles for Suggestion
 * [getSuggestionComments](#getsuggestioncomments) - Get Suggestion Comments
+* [addSuggestionComment](#addsuggestioncomment) - Add a Suggestion Comment
 * [getSuggestionAttachments](#getsuggestionattachments) - Get Suggestion Attachments
 * [getSuggestionAttachmentById](#getsuggestionattachmentbyid) - Get Suggestion Attachment by ID
 
@@ -479,6 +480,74 @@ public class Application {
 ### Response
 
 **[GetSuggestionCommentsResponse](../../models/operations/GetSuggestionCommentsResponse.md)**
+
+### Errors
+
+| Error Type                  | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| models/errors/WSErrorCommon | 400, 401, 403, 404, 406     | application/json            |
+| models/errors/WSErrorCommon | 500                         | application/json            |
+| models/errors/APIException  | 4XX, 5XX                    | \*/\*                       |
+
+## addSuggestionComment
+
+## Overview
+  The Add Suggestion Comment API allows authenticated users and agents to add a new comment to a Suggestion.
+
+## Prerequisites
+  * Enable the setting "My Suggestions" for the portal specified in the URL.
+  * If the user is a customer, enable the setting "Allow Customer Access" for the portal.
+  * The Suggestion specified in the URL must belong to the user, or the user must have appropriate administrative permissions to comment on it.
+  * The Suggestion must be in **Suggested** or **Pending** status, otherwise no comments can be added.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="addSuggestionComment" method="post" path="/portals/{portalID}/suggestions/{suggestionID}/comments" -->
+```java
+package hello.world;
+
+import com.egain.sdk.Egain;
+import com.egain.sdk.models.components.AcceptLanguage;
+import com.egain.sdk.models.components.CreateComment;
+import com.egain.sdk.models.errors.WSErrorCommon;
+import com.egain.sdk.models.operations.AddSuggestionCommentResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws WSErrorCommon, Exception {
+
+        Egain sdk = Egain.builder()
+                .accessToken(System.getenv().getOrDefault("ACCESS_TOKEN", ""))
+            .build();
+
+        AddSuggestionCommentResponse res = sdk.portal().suggestion().addSuggestionComment()
+                .acceptLanguage(AcceptLanguage.EN_US)
+                .portalID("PROD-1000")
+                .suggestionID("PROD-11829")
+                .body(CreateComment.builder()
+                    .content("I have uploaded the requested documents regarding the new phone numbers. Please review.")
+                    .build())
+                .call();
+
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     | Example                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `acceptLanguage`                                                                                                                | [AcceptLanguage](../../models/components/AcceptLanguage.md)                                                                     | :heavy_check_mark:                                                                                                              | The Language locale accepted by the client (used for locale specific fields in resource representation and in error responses). | en-US                                                                                                                           |
+| `portalID`                                                                                                                      | *String*                                                                                                                        | :heavy_check_mark:                                                                                                              | The ID of the portal being accessed.<br><br>A portal ID is composed of a 2-4 letter prefix, followed by a dash and 4-15 digits. | PROD-1000                                                                                                                       |
+| `suggestionID`                                                                                                                  | *String*                                                                                                                        | :heavy_check_mark:                                                                                                              | The ID of the Suggestion.<br><br>A Suggestion ID is composed of a 2-4 letter prefix, followed by a dash and 4-15 digits.        | PROD-11829                                                                                                                      |
+| `body`                                                                                                                          | [CreateComment](../../models/components/CreateComment.md)                                                                       | :heavy_check_mark:                                                                                                              | N/A                                                                                                                             |                                                                                                                                 |
+
+### Response
+
+**[AddSuggestionCommentResponse](../../models/operations/AddSuggestionCommentResponse.md)**
 
 ### Errors
 

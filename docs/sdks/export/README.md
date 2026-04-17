@@ -11,7 +11,7 @@
 ## exportContent
 
 ## Overview
-   The Content Export API initiates a bulk export of the Knowledge Hub to a client-provided Amazon S3 bucket.
+   The Content Export API initiates a bulk export of the Knowledge Hub to a client-provided Amazon S3 bucket or SFTP server path.
    It returns a URL with a Job ID to enable tracking the status of this asynchronous operation.  
    Each export job can send multiple JSON files, depending on the total number of items to process. 
    More than one bulk export can take place, as needed, one per portal.
@@ -20,7 +20,7 @@
   * Only a client application can invoke this API.  
   
 ## License
-  * This API requires a site license (SKU: EG-CL-RTKA-PT).  
+  * This API requires a site license (SKU: EG-CL-RTKA-PT).            
 
 
 ### Example Usage
@@ -54,12 +54,12 @@ public class Application {
                     .resourceTypes(List.of(
                         ResourceType.ARTICLES))
                     .dataDestination(DataDestination.builder()
-                        .destinationType(DestinationType.AWSS3_BUCKET)
-                        .path("s3://amzn-s3-demo-bucket/mydeptfolder")
-                        .region("us-west-2")
-                        .credentials(Credentials.builder()
-                            .accessKey("s3-access-key")
-                            .secretKey("s3-access-secret")
+                        .destinationType(DestinationType.SFTP_SERVER)
+                        .path("exports/mydeptfolder")
+                        .sftpDetails(SftpConfig.builder()
+                            .username("rtka-user")
+                            .host("sftp.yourcompany.com")
+                            .password("xyz1234")
                             .build())
                         .build())
                     .build())
@@ -85,7 +85,7 @@ public class Application {
 
 | Error Type                  | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
-| models/errors/WSErrorCommon | 400, 401                    | application/json            |
+| models/errors/WSErrorCommon | 400, 401, 403, 404, 406     | application/json            |
 | models/errors/WSErrorCommon | 500                         | application/json            |
 | models/errors/APIException  | 4XX, 5XX                    | \*/\*                       |
 
@@ -110,7 +110,7 @@ public class Application {
   * Only a client application can invoke this API.  
 
 ## License
-  * This API requires a site license (SKU: EG-CL-RTKA-PT).           
+  * This API requires a site license (SKU: EG-CL-RTKA-PT).         
 
 
 ### Example Usage
@@ -120,6 +120,7 @@ public class Application {
 package hello.world;
 
 import com.egain.sdk.Egain;
+import com.egain.sdk.models.components.AcceptLanguage;
 import com.egain.sdk.models.errors.WSErrorCommon;
 import com.egain.sdk.models.operations.ExportStatusResponse;
 import java.lang.Exception;
@@ -133,6 +134,7 @@ public class Application {
             .build();
 
         ExportStatusResponse res = sdk.portal().export().exportStatus()
+                .acceptLanguage(AcceptLanguage.EN_US)
                 .jobID("7A84B875-6F75-4C7B-B137-0632B62DB0BD")
                 .call();
 
@@ -145,9 +147,10 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     | Example                                                                                         |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `jobID`                                                                                         | *String*                                                                                        | :heavy_check_mark:                                                                              | **Example Usage:**<br/>```bash<br/>GET /content/export/7A84B875-6F75-4C7B-B137-0632B62DB0BD/status<br/>```<br/> | 7A84B875-6F75-4C7B-B137-0632B62DB0BD                                                            |
+| Parameter                                                                                                                       | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     | Example                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `acceptLanguage`                                                                                                                | [AcceptLanguage](../../models/components/AcceptLanguage.md)                                                                     | :heavy_check_mark:                                                                                                              | The Language locale accepted by the client (used for locale specific fields in resource representation and in error responses). | en-US                                                                                                                           |
+| `jobID`                                                                                                                         | *String*                                                                                                                        | :heavy_check_mark:                                                                                                              | **Example Usage:**<br/>```bash<br/>GET /content/export/7A84B875-6F75-4C7B-B137-0632B62DB0BD/status<br/>```<br/>                 | 7A84B875-6F75-4C7B-B137-0632B62DB0BD                                                                                            |
 
 ### Response
 

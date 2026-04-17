@@ -44,7 +44,7 @@ public class Application {
                 .language(MandatoryLanguageQueryParameter.EN_US)
                 .call();
 
-        if (res.topicBreadcrumb().isPresent()) {
+        if (res.topicBreadcrumbsList().isPresent()) {
             // handle response
         }
     }

@@ -13,7 +13,7 @@ Execute a published and active prompt template from the AI console.
 
 ### Example Usage
 
-<!-- UsageSnippet language="java" operationID="executePrompt" method="post" path="/promptmanager/execute/prompt/{promptId}" -->
+<!-- UsageSnippet language="java" operationID="executePrompt" method="post" path="/prompt/{promptId}/execute" -->
 ```java
 package hello.world;
 
